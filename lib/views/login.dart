@@ -147,7 +147,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                   Text(
                     'Đăng nhập',
                     style: TextStyle(
-                        fontFamily: 'Montserrat',
+                        fontFamily: 'Raleway',
                         fontSize: 35,
                         letterSpacing: 0.0,
                         fontWeight: FontWeight.w500,
@@ -175,7 +175,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                           isDense: true,
                           labelText: 'Email',
                           labelStyle: TextStyle(
-                              fontFamily: 'Montserrat',
+                              fontFamily: 'Raleway',
                               fontSize: 15,
                               letterSpacing: 0.0,
                               color: textSecondary),
@@ -188,7 +188,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: Color(0xFF65C6A3),
+                              color: primaryColor,
                               width: 1,
                             ),
                             borderRadius: BorderRadius.circular(12),
@@ -211,7 +211,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                           fillColor: Color(0xFFFEFEFE),
                         ),
                         style: TextStyle(
-                            fontFamily: 'Montserrat',
+                            fontFamily: 'Raleway',
                             fontSize: 17,
                             letterSpacing: 0.0,
                             color: textPrimary),
@@ -234,7 +234,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                           isDense: true,
                           labelText: 'Mật khẩu',
                           labelStyle: TextStyle(
-                              fontFamily: 'Montserrat',
+                              fontFamily: 'Raleway',
                               fontSize: 15,
                               letterSpacing: 0.0,
                               color: textSecondary),
@@ -247,7 +247,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: Color(0xFF65C6A3),
+                              color: primaryColor,
                               width: 1,
                             ),
                             borderRadius: BorderRadius.circular(12),
@@ -278,13 +278,13 @@ class _LoginWidgetState extends State<LoginWidget> {
                               _model.passwordVisibility
                                   ? Icons.visibility_outlined
                                   : Icons.visibility_off_outlined,
-                              color: Color(0xFF65C6A3),
+                              color: primaryColor,
                               size: 20,
                             ),
                           ),
                         ),
                         style: TextStyle(
-                            fontFamily: 'Montserrat',
+                            fontFamily: 'Raleway',
                             fontSize: 17,
                             letterSpacing: 0.0,
                             color: textPrimary),
@@ -305,7 +305,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                           child: Text(
                             'Quên mật khẩu?',
                             style: TextStyle(
-                                fontFamily: 'Montserrat',
+                                fontFamily: 'Raleway',
                                 fontSize: 13,
                                 fontWeight: FontWeight.w500,
                                 fontStyle: FontStyle.italic,
@@ -330,9 +330,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                         height: 40,
                         padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
                         iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                        color: Color(0xFF69CAA7),
+                        color: primaryColor,
                         textStyle: TextStyle(
-                            fontFamily: 'Montserrat',
+                            fontFamily: 'Raleway',
                             fontSize: 17,
                             letterSpacing: 0.0,
                             color: Colors.white),
@@ -359,7 +359,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                         color: backgroundColor,
 
                         textStyle: TextStyle(
-                            fontFamily: 'Montserrat',
+                            fontFamily: 'Raleway',
                             fontSize: 17,
                             letterSpacing: 0.0,
                             color: Colors.blue),
@@ -367,7 +367,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                         borderRadius: BorderRadius.circular(12),
                         borderSide: BorderSide(
                           color: Colors.blue,
-                          width: 2
+                          width: 1.5
                         ),
                       ),
                     ),
@@ -383,7 +383,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                           child: Text(
                             'Chưa có tài khoản?',
                             style: TextStyle(
-                              fontFamily: 'Montserrat',
+                              fontFamily: 'Raleway',
                               fontSize: 14,
                               letterSpacing: 0.0,
                               color: textPrimary,
@@ -400,10 +400,10 @@ class _LoginWidgetState extends State<LoginWidget> {
                               child: Text(
                                 ' Đăng ký tại đây!',
                                 style: TextStyle(
-                                  fontFamily: 'Montserrat',
+                                  fontFamily: 'Raleway',
                                   fontSize: 14,
                                   letterSpacing: 0.0,
-                                  color: primaryColor,
+                                  color: secondaryColor,
                                   fontWeight: FontWeight.w400,
                                 ),
                               ),

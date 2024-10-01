@@ -46,7 +46,10 @@ class _ExpenseDetailWidgetState extends State<ExpenseDetailWidget> {
     _model = createModel(context, () => ExpenseDetailModel());
     //_navbar = createModel(context, (_) => CustomNavbar(indexCurrent: 1));
     _viewModel = Provider.of<ExpenseDetailViewModel>(context, listen: false);
+
     listPercent = _viewModel.calByTagItemPercent();
+
+
   }
 
   @override
@@ -107,34 +110,34 @@ class _ExpenseDetailWidgetState extends State<ExpenseDetailWidget> {
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                      MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Column(
-                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisSize: MainAxisSize.min,
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.center,
+                                          CrossAxisAlignment.start,
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
                                       children: [
                                         Text(
-                                          'Tổng chi tiêuu',
+                                          'Tổng chi tiêu',
                                           style: TextStyle(
-                                            fontFamily: 'Montserrat',
+                                            fontFamily: 'Nunito',
                                             fontSize: 17,
                                             letterSpacing: 0.0,
                                             color: backgroundColor,
-                                            fontWeight: FontWeight.w400,
+                                            fontWeight: FontWeight.w300,
                                           ),
                                         ),
                                         Text(
                                           '\$${_viewModel.getTotal()}',
                                           style: TextStyle(
-                                            fontFamily: 'Montserrat',
-                                            fontSize: 27,
+                                            fontFamily: 'Nunito',
+                                            fontSize: 37,
                                             letterSpacing: 0.0,
                                             color: backgroundColor,
-                                            fontWeight: FontWeight.w600,
+                                            fontWeight: FontWeight.w500,
                                           ),
                                         ),
                                       ],
@@ -142,6 +145,7 @@ class _ExpenseDetailWidgetState extends State<ExpenseDetailWidget> {
                                   ],
                                 ),
                               ),
+
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     25, 0, 25, 0),
@@ -188,26 +192,7 @@ class _ExpenseDetailWidgetState extends State<ExpenseDetailWidget> {
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     0, 10, 5, 0),
-                                            child: Container(
-                                              height: 70,
-                                              decoration: BoxDecoration(
-                                                color: backgroundColor,
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                    blurRadius: 15,
-                                                    color: Color(0x33000000),
-                                                    offset: Offset(
-                                                      0,
-                                                      0,
-                                                    ),
-                                                    spreadRadius: 5,
-                                                  )
-                                                ],
-                                                borderRadius:
-                                                    BorderRadius.circular(28),
-                                              ),
-                                              child: Text('herhe'),
-                                            ),
+                                            child: TagItemsWidget(tagId: 2, percent: listPercent[2]),
                                           ),
                                         ),
                                         Expanded(
@@ -216,26 +201,7 @@ class _ExpenseDetailWidgetState extends State<ExpenseDetailWidget> {
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     5, 10, 0, 0),
-                                            child: Container(
-                                              height: 70,
-                                              decoration: BoxDecoration(
-                                                color: backgroundColor,
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                    blurRadius: 15,
-                                                    color: Color(0x33000000),
-                                                    offset: Offset(
-                                                      0,
-                                                      0,
-                                                    ),
-                                                    spreadRadius: 5,
-                                                  )
-                                                ],
-                                                borderRadius:
-                                                    BorderRadius.circular(28),
-                                              ),
-                                              child: Text('herhe'),
-                                            ),
+                                            child: TagItemsWidget(tagId: 3, percent: listPercent[3]),
                                           ),
                                         )
                                       ],
@@ -280,10 +246,10 @@ class _ExpenseDetailWidgetState extends State<ExpenseDetailWidget> {
                                               Text(
                                                 'Danh sách chi tiêu',
                                                 style: TextStyle(
-                                                  fontFamily: 'Montserrat',
+                                                  fontFamily: 'Nunito',
                                                   fontSize: 17,
                                                   letterSpacing: 0.0,
-                                                  color: textSecondary,
+                                                  color: textPrimary,
                                                   fontWeight: FontWeight.w400,
                                                 ),
                                               ),
@@ -295,6 +261,7 @@ class _ExpenseDetailWidgetState extends State<ExpenseDetailWidget> {
                                                 icon: Icon(
                                                   Icons.edit,
                                                   size: 15,
+                                                  color: secondaryColor,
                                                 ),
                                                 options: FFButtonOptions(
                                                   height: 36,
@@ -305,19 +272,19 @@ class _ExpenseDetailWidgetState extends State<ExpenseDetailWidget> {
                                                           .fromSTEB(0, 0, 0, 0),
                                                   color: backgroundColor,
                                                   textStyle: TextStyle(
-                                                    fontFamily: 'Montserrat',
+                                                    fontFamily: 'Nunito',
                                                     fontSize: 15,
                                                     letterSpacing: 0.0,
-                                                    color: textSecondary,
+                                                    color: secondaryColor,
                                                     fontWeight: FontWeight.w400,
                                                   ),
                                                   elevation: 0,
                                                   borderSide: BorderSide(
-                                                    color: alternateColor,
+                                                    color: secondaryColor,
                                                     width: 2,
                                                   ),
                                                   borderRadius:
-                                                      BorderRadius.circular(10),
+                                                      BorderRadius.circular(8),
                                                   hoverColor: alternateColor,
                                                   hoverBorderSide: BorderSide(
                                                     color: alternateColor,

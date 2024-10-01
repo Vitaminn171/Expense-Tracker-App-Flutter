@@ -28,10 +28,10 @@ class _CustomNavbarState extends State<CustomNavbar>{
   });
 
   TextStyle textStyle = TextStyle(
-    fontFamily: 'Montserrat',
+    fontFamily: 'Nunito',
     fontSize: 14,
     letterSpacing: 0.0,
-    color: textSecondary,
+    color: textPrimary,
     fontWeight: FontWeight.w400,
   );
 
@@ -50,22 +50,22 @@ class _CustomNavbarState extends State<CustomNavbar>{
         index: indexCurrent,
         items: [
           CurvedNavigationBarItem(
-            child: Icon(Icons.home_rounded, color: textSecondary),
+            child: Icon(Icons.home_rounded, color: textPrimary),
             label: 'Home',
             labelStyle: textStyle,
           ),
           CurvedNavigationBarItem(
-            child: Icon(Icons.savings_rounded, color: textSecondary),
+            child: Icon(Icons.savings_rounded, color: textPrimary),
             label: 'Tiết kiệm',
             labelStyle: textStyle,
           ),
           CurvedNavigationBarItem(
-            child: Icon(Icons.outbox_rounded, color: textSecondary),
+            child: Icon(Icons.outbox_rounded, color: textPrimary),
             label: 'Chi tiêu',
             labelStyle: textStyle,
           ),
           CurvedNavigationBarItem(
-            child: Icon(Icons.attach_money_rounded, color: textSecondary),
+            child: Icon(Icons.attach_money_rounded, color: textPrimary),
             label: 'Thu nhập',
             labelStyle: textStyle,
           ),

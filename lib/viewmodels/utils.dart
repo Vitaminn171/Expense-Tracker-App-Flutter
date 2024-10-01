@@ -1,10 +1,13 @@
 
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crypto/crypto.dart';
 import 'package:expenseapp/models/colors.dart';
 import 'package:expenseapp/models/tag.dart';
 import 'package:expenseapp/models/transaction.dart';
+import 'package:expenseapp/providers/expense_provider.dart';
+import 'package:expenseapp/providers/revenues_provider.dart';
 import 'package:expenseapp/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -13,21 +16,26 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../models/user.dart';
 
 class Utils {
+  static DateTime now = DateTime.now();
 
   static String emailRegex = r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?$";
 
   static final tagExpense = [
-    TagItem(id: 0, name: 'Ăn uống', icon: Icon(Icons.fastfood_rounded, color: textSecondary,size: 34,)),
-    TagItem(id: 1, name: 'Mua sắm', icon: Icon(Icons.shopping_bag_rounded, color: textSecondary,size: 34,)),
-    TagItem(id: 2, name: 'Hóa đơn', icon: Icon(Icons.receipt_long_rounded, color: textSecondary,size: 34,)),
-    TagItem(id: 3, name: 'Khác', icon: Icon(Icons.category_rounded, color: textSecondary,size: 34,)),
+    TagItem(id: 0, name: 'Ăn uống', icon: Icons.fastfood_rounded, color: tag0),
+    TagItem(id: 1, name: 'Mua sắm', icon: Icons.shopping_bag_rounded, color: tag1),
+    TagItem(id: 2, name: 'Hóa đơn', icon: Icons.receipt_long_rounded, color: tag2),
+    TagItem(id: 3, name: 'Khác', icon: Icons.category_rounded, color: tag3),
   ];
 
   static final tagRevenue = [
-    TagItem(id: 0, name: 'Lương tháng', icon: Icon(Icons.attach_money_rounded, color: textSecondary,size: 34,)),
-    TagItem(id: 1, name: 'Thưởng', icon: Icon(Icons.paid_rounded, color: textSecondary,size: 34,)),
-    TagItem(id: 2, name: 'Khác', icon: Icon(Icons.category_rounded, color: textSecondary,size: 34,)),
+    TagItem(id: 0, name: 'Lương tháng', icon: Icons.attach_money_rounded, color: tag0),
+    TagItem(id: 1, name: 'Thưởng', icon: Icons.paid_rounded, color: tag1),
+    TagItem(id: 2, name: 'Khác', icon: Icons.category_rounded, color: tag3),
   ];
+
+  static String getMonth(){
+    return now.month.toString();
+  }
 
 
   static bool isValidEmail(String email) {
@@ -64,6 +72,11 @@ class Utils {
     return formattedDate;
   }
 
+  static String formatDate(DateTime date){
+    final formattedDate = DateFormat('dd/MM/yyyy').format(date);
+    return formattedDate;
+  }
+
   static List<TransactionDetails> getDetails(List<dynamic> list){
     List<TransactionDetails> details = [];
     for(final item in list){
@@ -73,10 +86,19 @@ class Utils {
     return details;
   }
 
-  static Future<void> logout(UserProvider userProvider) async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.clear();
-    userProvider.googleSignIn.signOut();
+  static Future<bool> logout(UserProvider userProvider, ExpenseProvider expenseProvider, RevenueProvider revenueProvider) async {
+    try{
+      final prefs = await SharedPreferences.getInstance();
+      prefs.clear();
+      userProvider.logout();
+      expenseProvider.logout();
+      revenueProvider.logout();
+      return true;
+    }catch (e){
+      print(e.toString());
+      return false;
+    }
+
   }
   
   static String getTagName(int tagId, List<TagItem> list){
@@ -88,14 +110,31 @@ class Utils {
     return '';
   }
 
-  static Icon getTagIcon(int tagId, List<TagItem> list){
+  static IconData getTagIcon(int tagId, List<TagItem> list){
     for(TagItem item in list){
       if(tagId == item.id){
         return item.icon;
       }
     }
-    return Icon(Icons.add);
+    return Icons.add;
   }
+
+  static TagItem getTag(int tagId, List<TagItem> list){
+    for(TagItem item in list){
+      if(tagId == item.id){
+        return item;
+      }
+    }
+    return TagItem(id: 0, name: '', icon: Icons.abc, color: Colors.white);
+  }
+
+  static String formatTimeStamptoDate(Timestamp sec) {
+    DateTime date = sec.toDate();
+    final formattedDate = DateFormat('dd/MM/yyyy').format(date);
+    return formattedDate;
+  }
+
+
 
 
 

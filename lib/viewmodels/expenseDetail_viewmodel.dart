@@ -62,8 +62,6 @@ class ExpenseDetailViewModel extends ChangeNotifier {
         print(listPercent[i]);
       }
 
-      expenseProvider.setTagItemPercent(listPercent);
-
     }
     return listPercent;
   }

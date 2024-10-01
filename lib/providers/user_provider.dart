@@ -6,7 +6,7 @@ class UserProvider extends ChangeNotifier {
   User? _user;
   User? get user => _user;
 
-  void setUser(User newUser) {
+  void setUser(User? newUser) {
     _user = newUser;
     notifyListeners();
   }
@@ -18,5 +18,11 @@ class UserProvider extends ChangeNotifier {
     ],);
 
   GoogleSignIn get googleSignIn => _googleSignIn;
+
+
+  void logout(){
+    _user = null;
+    _googleSignIn.signOut();
+  }
 
 }

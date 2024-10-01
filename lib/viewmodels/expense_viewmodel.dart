@@ -76,6 +76,7 @@ class ExpenseListViewModel extends ChangeNotifier {
 
       return Future.value(expenseProvider.expensesList);
     }
+    expenseProvider.setExpensesList(Future.value([]));
     return Future.value([]);
   }
 

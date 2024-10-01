@@ -1,5 +1,6 @@
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
+import 'package:expenseapp/models/tag.dart';
 import 'package:expenseapp/providers/user_provider.dart';
 import 'package:expenseapp/viewmodels/utils.dart';
 import 'package:flutter/cupertino.dart';
@@ -21,10 +22,12 @@ class TagItemsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TagItem tagItem = Utils.getTag(tagId, Utils.tagExpense);
     return Container(
       height: 70,
       decoration: BoxDecoration(
         color: Color(0x6EF4F4F4),
+        //: backgroundColor,
         boxShadow: [
           BoxShadow(
             blurRadius: 15,
@@ -42,7 +45,7 @@ class TagItemsWidget extends StatelessWidget {
       child: Padding(
         padding:
         EdgeInsetsDirectional.fromSTEB(
-            14, 10, 0, 10),
+            8, 8, 0, 8),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
 
@@ -50,16 +53,23 @@ class TagItemsWidget extends StatelessWidget {
           children: [
             Card(
               elevation: 0,
-              color: primaryColor,
+              color: tagItem.color,
               shape:
               RoundedRectangleBorder(
                 borderRadius:
                 BorderRadius.circular(
-                    14),
+                    20),
               ),
-              child: Utils.getTagIcon(tagId, Utils.tagExpense),
+              child: Padding(
+                padding: EdgeInsetsDirectional.all(8),
+                child: Icon(tagItem.icon, color: backgroundColor, size: 30,),
+              )
             ),
-            Column(
+        Padding(
+          padding:
+          EdgeInsetsDirectional.fromSTEB(
+              5, 0, 0, 0),
+          child: Column(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -67,7 +77,7 @@ class TagItemsWidget extends StatelessWidget {
                 Text('${Utils.getTagName(tagId, Utils.tagExpense)}',
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
-                    fontFamily: 'Montserrat',
+                    fontFamily: 'Nunito',
                     fontSize: 14,
                     letterSpacing: 0.0,
                     color: textPrimary,
@@ -75,14 +85,14 @@ class TagItemsWidget extends StatelessWidget {
                   ),),
                 Text('$percent%',
                   style: TextStyle(
-                    fontFamily: 'Montserrat',
+                    fontFamily: 'Nunito',
                     fontSize: 20,
                     letterSpacing: 0.0,
                     color: textPrimary,
-                    fontWeight: FontWeight.w600,),
+                    fontWeight: FontWeight.w500,),
                 )
               ],
-            )
+            ))
           ],
         ),
       ),

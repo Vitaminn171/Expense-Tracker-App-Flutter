@@ -23,7 +23,7 @@ class ExpenseDetailItems extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
+    TagItem tagItem = Utils.getTag(tag, Utils.tagExpense);
     return // Generated code for this Row Widget...
       Row(
         mainAxisSize: MainAxisSize.max,
@@ -39,7 +39,7 @@ class ExpenseDetailItems extends StatelessWidget {
                 children: [
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
-                    child: Utils.getTagIcon(tag, Utils.tagExpense)
+                    child: Icon(tagItem.icon, color: tagItem.color, size: 30,)
                   ),
                   Expanded(
                     child: Column(
@@ -50,10 +50,10 @@ class ExpenseDetailItems extends StatelessWidget {
                         Text(
                           name,
                           style:  TextStyle(
-                            fontFamily: 'Montserrat',
+                            fontFamily: 'Nunito',
                             fontSize: 17,
                             letterSpacing: 0.0,
-                            color: textSecondary,
+                            color: textPrimary,
                             fontWeight:
                             FontWeight.w600,
                           ),
@@ -61,9 +61,9 @@ class ExpenseDetailItems extends StatelessWidget {
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
                           child: Text(
-                            Utils.getTagName(tag,Utils.tagExpense),
+                            tagItem.name,
                             style:  TextStyle(
-                              fontFamily: 'Montserrat',
+                              fontFamily: 'Nunito',
                               fontSize: 13,
                               letterSpacing: 0.0,
                               color: textSecondary,
@@ -82,10 +82,10 @@ class ExpenseDetailItems extends StatelessWidget {
           Text(
             '\$${Utils.formatCurrency(total)}',
             style:  TextStyle(
-              fontFamily: 'Montserrat',
+              fontFamily: 'Nunito',
               fontSize: 17,
               letterSpacing: 0.0,
-              color: textSecondary,
+              color: textPrimary,
               fontWeight:
               FontWeight.w600,
             ),

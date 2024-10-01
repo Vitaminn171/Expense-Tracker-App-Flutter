@@ -51,7 +51,7 @@ class UserWidget extends StatelessWidget {
                     Text(
                       title!,
                       style: TextStyle(
-                        fontFamily: 'Montserrat',
+                        fontFamily: 'Nunito',
                         fontSize: 21,
                         letterSpacing: 0.0,
                         color: backgroundColor,
@@ -118,21 +118,21 @@ class UserWidget extends StatelessWidget {
                     Text(
                       userProvider.user?.name.toString() ?? 'Loading...',
                       style: TextStyle(
-                        fontFamily: 'Montserrat',
+                        fontFamily: 'Nunito',
                         fontSize: 17,
                         letterSpacing: 0.0,
                         color: backgroundColor,
-                        fontWeight: FontWeight.w400,
+                        fontWeight: FontWeight.w300,
                       ),
                     ),
                     Text(
                       userProvider.user?.email.toString() ?? 'Loading...',
                       style: TextStyle(
-                        fontFamily: 'Montserrat',
+                        fontFamily: 'Nunito',
                         fontSize: 14,
                         letterSpacing: 0.0,
                         color: backgroundColor,
-                        fontWeight: FontWeight.w400,
+                        fontWeight: FontWeight.w300,
                       ),
                     ),
                   ],

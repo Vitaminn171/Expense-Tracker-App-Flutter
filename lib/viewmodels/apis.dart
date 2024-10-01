@@ -40,4 +40,11 @@ class Api {
     final query = walletsCollection.where('email', isEqualTo: email);
     return await query.get();
   }
+
+  static Future<QuerySnapshot<Map<String, dynamic>>> getExpenseDetails(String email, DateTime date) async {
+    final query = expensesCollection.where('email', isEqualTo: email)
+        .where('date', isGreaterThanOrEqualTo: Timestamp.fromDate(date))
+        .where('date', isLessThanOrEqualTo: Timestamp.fromDate(date.add(const Duration(days: 1))));
+    return await query.get();
+  }
 }

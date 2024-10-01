@@ -1,13 +1,16 @@
 import 'package:flutter/cupertino.dart';
 
 class TagItem{
-  final int id;
-  final String name;
-  final Icon icon;
+    int id;
+   String name;
+   IconData icon;
+   Color color;
 
   TagItem({
    required this.id,
    required this.name,
-    required this.icon
+    required this.icon,
+    required this.color
+
 });
 }

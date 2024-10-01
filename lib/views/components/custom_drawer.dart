@@ -13,10 +13,18 @@ class CustomDrawer extends StatelessWidget {
   final int? index;
 
 
-  const CustomDrawer({
+  CustomDrawer({
     super.key,
     this.index
   });
+
+  TextStyle style = TextStyle(
+  fontFamily: 'Nunito',
+  fontSize: 17,
+  letterSpacing: 0.0,
+  color: textSecondary,
+  fontWeight: FontWeight.w400,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -25,10 +33,12 @@ class CustomDrawer extends StatelessWidget {
     final selectedColor = Color(0x66E4E4E4);
 
     return Drawer(
-        backgroundColor: const Color(0xCCE4E4E4),
+        width: 260,
+        //backgroundColor: const Color(0xCCE4E4E4),
+        backgroundColor: backgroundColor,
         child: ClipRRect(
           child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
+            filter: ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0),
             child: Padding(
               padding: EdgeInsetsDirectional.fromSTEB(30, 0, 25, 30),
               child: Column(
@@ -77,7 +87,7 @@ class CustomDrawer extends StatelessWidget {
                                 userProvider.user?.name.toString() ??
                                     'Loading...',
                                 style: TextStyle(
-                                  fontFamily: 'Montserrat',
+                                  fontFamily: 'Nunito',
                                   fontSize: 21,
                                   letterSpacing: 0.0,
                                   color: textSecondary,
@@ -88,7 +98,7 @@ class CustomDrawer extends StatelessWidget {
                                 userProvider.user?.email.toString() ??
                                     'Loading...',
                                 style: TextStyle(
-                                  fontFamily: 'Montserrat',
+                                  fontFamily: 'Nunito',
                                   fontSize: 16,
                                   letterSpacing: 0.0,
                                   color: textSecondary,
@@ -103,47 +113,7 @@ class CustomDrawer extends StatelessWidget {
                   ),
 
 
-                    InkWell(
-                      onTap: () {
 
-                      },
-                      child: Card(
-                        elevation: 0,
-                        shape:
-                        RoundedRectangleBorder(
-                          borderRadius:
-                          BorderRadius
-                              .circular(
-                              15),
-                        ),
-                        color: index != null ? (index == 0 ? selectedColor : cardColor) : cardColor,
-                        child: Padding(
-                          padding: EdgeInsetsDirectional.all(10),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(0, 0, 5, 0),
-                                child:
-                                Icon(
-                                  Icons.home_rounded,
-                                  color: textSecondary,
-                                ),),
-                              Text(
-                                'Trang chuv',
-                                style: TextStyle(
-                                  fontFamily: 'Montserrat',
-                                  fontSize: 17,
-                                  letterSpacing: 0.0,
-                                  color: textSecondary,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
                   InkWell(
                     onTap: () {
 
@@ -159,26 +129,20 @@ class CustomDrawer extends StatelessWidget {
                       ),
                       color: index != null ? (index == 1 ? selectedColor : cardColor) : cardColor,
                       child: Padding(
-                        padding: EdgeInsetsDirectional.all(10),
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 10, 10, 10),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(0, 0, 5, 0),
+                              padding: EdgeInsetsDirectional.fromSTEB(0, 0, 15, 0),
                               child:
                               Icon(
                                 Icons.account_circle,
                                 color: textSecondary,
                               ),),
                             Text(
-                              'Thong tin ca nhan',
-                              style: TextStyle(
-                                fontFamily: 'Montserrat',
-                                fontSize: 17,
-                                letterSpacing: 0.0,
-                                color: textSecondary,
-                                fontWeight: FontWeight.w500,
-                              ),
+                              'Tài khoản',
+                              style: style
                             ),
                           ],
                         ),
@@ -200,26 +164,20 @@ class CustomDrawer extends StatelessWidget {
                       ),
                       color: index != null ? (index == 2 ? selectedColor : cardColor) : cardColor,
                       child: Padding(
-                        padding: EdgeInsetsDirectional.all(10),
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 10, 10, 10),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(0, 0, 5, 0),
+                              padding: EdgeInsetsDirectional.fromSTEB(0, 0, 15, 0),
                               child:
                               Icon(
                                 Icons.settings_rounded,
                                 color: textSecondary,
                               ),),
                             Text(
-                              'Cai dat',
-                              style: TextStyle(
-                                fontFamily: 'Montserrat',
-                                fontSize: 17,
-                                letterSpacing: 0.0,
-                                color: textSecondary,
-                                fontWeight: FontWeight.w500,
-                              ),
+                              'Cài đặt',
+                              style: style
                             ),
                           ],
                         ),
@@ -241,26 +199,20 @@ class CustomDrawer extends StatelessWidget {
                       ),
                       color: cardColor,
                       child: Padding(
-                        padding: EdgeInsetsDirectional.all(10),
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 10, 10, 10),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(0, 0, 5, 0),
+                              padding: EdgeInsetsDirectional.fromSTEB(0, 0, 15, 0),
                               child:
                               Icon(
                                 Icons.logout_rounded,
                                 color: textSecondary,
                               ),),
                             Text(
-                              'Dang xuat',
-                              style: TextStyle(
-                                fontFamily: 'Montserrat',
-                                fontSize: 17,
-                                letterSpacing: 0.0,
-                                color: textSecondary,
-                                fontWeight: FontWeight.w500,
-                              ),
+                              'Đăng xuất',
+                              style: style
                             ),
                           ],
                         ),

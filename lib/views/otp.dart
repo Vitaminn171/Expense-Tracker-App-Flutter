@@ -55,7 +55,9 @@ class _RegisterOTPWidgetState extends State<RegisterOTPWidget> {
     if((await _model.checkPin()) == false){
       toastification.show(
         context: context,
-        title: Text(_model.errorMessage),
+        title: Text(_model.errorMessage,style: TextStyle(
+            fontFamily: 'Raleway'
+        ),),
         type: ToastificationType.error,
         style: ToastificationStyle.flat,
         autoCloseDuration: const Duration(seconds: 4),
@@ -64,7 +66,9 @@ class _RegisterOTPWidgetState extends State<RegisterOTPWidget> {
     }else{
       toastification.show(
         context: context,
-        title: Text('Tạo tài khoản thành công!'),
+        title: Text('Tạo tài khoản thành công!',style: TextStyle(
+            fontFamily: 'Raleway'
+        ),),
         type: ToastificationType.success,
         style: ToastificationStyle.flat,
         autoCloseDuration: const Duration(seconds: 3),
@@ -88,7 +92,7 @@ class _RegisterOTPWidgetState extends State<RegisterOTPWidget> {
                   Text(
                     'Xác thực OTP',
                     style: TextStyle(
-                        fontFamily: 'Montserrat',
+                        fontFamily: 'Raleway',
                         fontSize: 35,
                         letterSpacing: 0.0,
                         fontWeight: FontWeight.w500,
@@ -105,7 +109,7 @@ class _RegisterOTPWidgetState extends State<RegisterOTPWidget> {
                         Text(
                           'Nhập mã xác thực',
                           style: TextStyle(
-                              fontFamily: 'Montserrat',
+                              fontFamily: 'Raleway',
                               fontSize: 15,
                               letterSpacing: 0.0,
                               fontWeight: FontWeight.w600,
@@ -119,7 +123,7 @@ class _RegisterOTPWidgetState extends State<RegisterOTPWidget> {
                             Text(
                               'Còn lại ',
                               style: TextStyle(
-                                  fontFamily: 'Montserrat',
+                                  fontFamily: 'Raleway',
                                   fontSize: 15,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.normal,
@@ -132,7 +136,7 @@ class _RegisterOTPWidgetState extends State<RegisterOTPWidget> {
                               build: (BuildContext context, double time) =>
                                   Text("${time.toInt() ~/ 60}:${time.toInt() % 60}s",
                                     style: TextStyle(
-                                      fontFamily: 'Montserrat',
+                                      fontFamily: 'Raleway',
                                       fontSize: 15,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.normal,
@@ -143,7 +147,9 @@ class _RegisterOTPWidgetState extends State<RegisterOTPWidget> {
                               onFinished: () {
                                 toastification.show(
                                   context: context,
-                                  title: Text('Mã OTP đã hết hiệu lực! Vui lòng nhấn gửi lại.'),
+                                  title: Text('Mã OTP đã hết hiệu lực! Vui lòng nhấn gửi lại.', style: TextStyle(
+                                    fontFamily: 'Raleway'
+                                  ),),
                                   type: ToastificationType.error,
                                   style: ToastificationStyle.flat,
                                   autoCloseDuration: const Duration(seconds: 4),
@@ -163,7 +169,7 @@ class _RegisterOTPWidgetState extends State<RegisterOTPWidget> {
                       appContext: context,
                       length: 6,
                       textStyle:TextStyle(
-                          fontFamily: 'Montserrat',
+                          fontFamily: 'Raleway',
                           fontSize: 17,
                           letterSpacing: 0.0,
                           fontWeight: FontWeight.normal,
@@ -220,7 +226,7 @@ class _RegisterOTPWidgetState extends State<RegisterOTPWidget> {
                             EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                             color: alternateColor,
                             textStyle: TextStyle(
-                                fontFamily: 'Montserrat',
+                                fontFamily: 'Raleway',
                                 fontSize: 17,
                                 letterSpacing: 0.0,
                                 fontWeight: FontWeight.normal,
@@ -248,7 +254,7 @@ class _RegisterOTPWidgetState extends State<RegisterOTPWidget> {
                             EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                             color: Color(0xFF69CAA7),
                             textStyle: TextStyle(
-                                fontFamily: 'Montserrat',
+                                fontFamily: 'Raleway',
                                 fontSize: 17,
                                 letterSpacing: 0.0,
                                 fontWeight: FontWeight.normal,

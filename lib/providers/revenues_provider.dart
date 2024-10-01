@@ -16,8 +16,13 @@ class RevenueProvider extends ChangeNotifier{
   num? _totalRevenue;
   num? get totalRevenue => _totalRevenue;
 
-  void setTotalRevenue(int newTotal) {
+  void setTotalRevenue(int? newTotal) {
     _totalRevenue = newTotal;
     notifyListeners();
+  }
+
+  void logout(){
+    _revenuesList = null;
+    _totalRevenue = 0;
   }
 }

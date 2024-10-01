@@ -93,7 +93,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                   Text(
                     'Đăng ký',
                     style: TextStyle(
-                        fontFamily: 'Montserrat',
+                        fontFamily: 'Raleway',
                         fontSize: 35,
                         letterSpacing: 0.0,
                         fontWeight: FontWeight.w500,
@@ -114,7 +114,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                           isDense: true,
                           labelText: 'Họ Tên',
                           labelStyle: TextStyle(
-                              fontFamily: 'Montserrat',
+                              fontFamily: 'Raleway',
                               fontSize: 15,
                               letterSpacing: 0.0,
                               fontWeight: FontWeight.w400,
@@ -153,7 +153,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                           fillColor: Color(0xFFFEFEFE),
                         ),
                         style: TextStyle(
-                            fontFamily: 'Montserrat',
+                            fontFamily: 'Raleway',
                             fontSize: 17,
                             letterSpacing: 0.0,
                             fontWeight: FontWeight.w400,
@@ -179,7 +179,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                           labelText: 'Email',
                           labelStyle:
                           TextStyle(
-                              fontFamily: 'Montserrat',
+                              fontFamily: 'Raleway',
                               fontSize: 15,
                               letterSpacing: 0.0,
                               color: textSecondary
@@ -216,7 +216,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                           fillColor: Color(0xFFFEFEFE),
                         ),
                         style: TextStyle(
-                            fontFamily: 'Montserrat',
+                            fontFamily: 'Raleway',
                             fontSize: 17,
                             letterSpacing: 0.0,
                             color: textPrimary
@@ -241,7 +241,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                           labelText: 'Mật khẩu',
                           labelStyle:
                           TextStyle(
-                              fontFamily: 'Montserrat',
+                              fontFamily: 'Raleway',
                               fontSize: 15,
                               letterSpacing: 0.0,
                               color: textSecondary
@@ -292,7 +292,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                           ),
                         ),
                         style: TextStyle(
-                            fontFamily: 'Montserrat',
+                            fontFamily: 'Raleway',
                             fontSize: 17,
                             letterSpacing: 0.0,
                             color: textPrimary
@@ -320,7 +320,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                         iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                         color: Color(0xFF69CAA7),
                         textStyle: TextStyle(
-                            fontFamily: 'Montserrat',
+                            fontFamily: 'Raleway',
                             fontSize: 17,
                             letterSpacing: 0.0,
                             color: Colors.white
@@ -342,7 +342,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                           child: Text(
                             'Đã có tài khoản?',
                             style: TextStyle(
-                              fontFamily: 'Montserrat',
+                              fontFamily: 'Raleway',
                               fontSize: 14,
                               letterSpacing: 0.0,
                               color: textSecondary,
@@ -360,7 +360,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                             child:  Text(
                             ' Đăng nhập tại đây!',
                             style: TextStyle(
-                              fontFamily: 'Montserrat',
+                              fontFamily: 'Raleway',
                               fontSize: 14,
                               letterSpacing: 0.0,
                               color: primaryColor,

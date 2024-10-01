@@ -2,6 +2,7 @@ import 'package:expenseapp/providers/expense_provider.dart';
 import 'package:expenseapp/providers/revenues_provider.dart';
 import 'package:expenseapp/providers/user_provider.dart';
 import 'package:expenseapp/viewmodels/expense_viewmodel.dart';
+import 'package:expenseapp/views/add_expense.dart';
 import 'package:expenseapp/views/expense.dart';
 import 'package:expenseapp/views/expenseDetail.dart';
 import 'package:expenseapp/views/home.dart';
@@ -45,11 +46,13 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (context) => HomeViewModel(context.read<UserProvider>(),context.read<ExpenseProvider>(),context.read<RevenueProvider>())),
         ChangeNotifierProvider(create: (context) => ExpenseListViewModel(context.read<UserProvider>(),context.read<ExpenseProvider>())),
         ChangeNotifierProvider(create: (context) => ExpenseDetailViewModel(context.read<UserProvider>(),context.read<ExpenseProvider>())),
+        ChangeNotifierProvider(create: (context) => AddExpenseViewModel(context.read<UserProvider>(),context.read<ExpenseProvider>())),
       ],
       child: Directionality(
           textDirection: TextDirection
               .ltr, // Or TextDirection.rtl for right-to-left languages
           child: MaterialApp(
+
             initialRoute: initRoute,
             routes: {
               '/Login': (context) => const LoginWidget(),
@@ -58,7 +61,7 @@ Future<void> main() async {
               '/Home': (_) => const HomeWidget(),
               // '/HomeExtend': (context) => const LoginWidget(),
               // '/AddRevenue': (context) => const LoginWidget(),
-              // '/AddExpense': (context) => const LoginWidget(),
+              '/AddExpense': (context) => const AddExpenseWidget(),
               // '/AddSaving': (context) => const LoginWidget(),
               // '/RevenueList': (context) => const LoginWidget(),
               '/ExpenseList': (context) => const ExpenseListWidget(),

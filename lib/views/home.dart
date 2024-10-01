@@ -12,6 +12,7 @@ import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
 import 'package:expenseapp/providers/user_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:toastification/toastification.dart';
 
 import '../models/user.dart';
 import 'components/navbar.dart';
@@ -55,6 +56,43 @@ class _HomeWidgetState extends State<HomeWidget> {
   //   _model = createModel(context, () => HomeViewModel(context.watch<UserProvider>()));
   //   super.didChangeDependencies();
   // }
+  Future<void> showLoadingDialog(BuildContext context) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // Prevent dismissing by tapping outside
+      builder: (BuildContext context) => Center(
+        child: CircularProgressIndicator(
+          color: primaryColor,
+        ),
+      ),
+    );
+  }
+
+  Future<void> _performLoadingTask() async {
+    showLoadingDialog(context);
+
+    if ((await Utils.logout(_viewModel.userProvider, _viewModel.expenseProvider,
+            _viewModel.revenueProvider)) ==
+        false) {
+      toastification.show(
+        context: context,
+        title: Text('Dang xuat that bai'),
+        type: ToastificationType.error,
+        style: ToastificationStyle.flat,
+        autoCloseDuration: const Duration(seconds: 4),
+      );
+      Navigator.pop(context);
+    } else {
+      toastification.show(
+        context: context,
+        title: Text('Đăng xuat thành công!'),
+        type: ToastificationType.success,
+        style: ToastificationStyle.flat,
+        autoCloseDuration: const Duration(seconds: 3),
+      );
+      Navigator.popAndPushNamed(context, '/Login');
+    }
+  }
 
   @override
   void dispose() {
@@ -103,9 +141,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                       if (snapshot.data == null) {
                                         return Center(
                                             child: CircularProgressIndicator(
-                                              color: primaryColor,
-                                            )
-                                        );
+                                          color: primaryColor,
+                                        ));
                                       } else {
                                         return Column(
                                           mainAxisSize: MainAxisSize.max,
@@ -141,7 +178,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                           'Tiền mặt',
                                                           style: TextStyle(
                                                             fontFamily:
-                                                                'Montserrat',
+                                                                'Nunito',
                                                             fontSize: 17,
                                                             letterSpacing: 0.0,
                                                             color:
@@ -152,9 +189,9 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                               Shadow(
                                                                 offset:
                                                                     const Offset(
-                                                                        2.0,
-                                                                        2.0),
-                                                                blurRadius: 2.0,
+                                                                        1.0,
+                                                                        1.0),
+                                                                blurRadius: 5.0,
                                                                 color:
                                                                     textSecondary,
                                                               ),
@@ -165,20 +202,20 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                           '\$${Utils.formatCurrency(snapshot.data!.totalCash)}',
                                                           style: TextStyle(
                                                             fontFamily:
-                                                                'Montserrat',
+                                                                'Nunito',
                                                             fontSize: 40,
                                                             letterSpacing: 0.0,
                                                             color:
                                                                 backgroundColor,
                                                             fontWeight:
-                                                                FontWeight.w500,
+                                                                FontWeight.w400,
                                                             shadows: <Shadow>[
                                                               Shadow(
                                                                 offset:
                                                                     const Offset(
-                                                                        2.0,
-                                                                        2.0),
-                                                                blurRadius: 2.0,
+                                                                        1.0,
+                                                                        1.0),
+                                                                blurRadius: 5.0,
                                                                 color:
                                                                     textSecondary,
                                                               ),
@@ -247,8 +284,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                       Text(
                                                         'Chi tiêu',
                                                         style: TextStyle(
-                                                          fontFamily:
-                                                              'Montserrat',
+                                                          fontFamily: 'Nunito',
                                                           fontSize: 14,
                                                           letterSpacing: 0.0,
                                                           color:
@@ -259,8 +295,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                             Shadow(
                                                               offset:
                                                                   const Offset(
-                                                                      2.0, 2.0),
-                                                              blurRadius: 2.0,
+                                                                      1.0, 1.0),
+                                                              blurRadius: 5.0,
                                                               color:
                                                                   textSecondary,
                                                             ),
@@ -308,8 +344,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                       Text(
                                                         'Thu nhập',
                                                         style: TextStyle(
-                                                          fontFamily:
-                                                              'Montserrat',
+                                                          fontFamily: 'Nunito',
                                                           fontSize: 14,
                                                           letterSpacing: 0.0,
                                                           color:
@@ -320,8 +355,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                             Shadow(
                                                               offset:
                                                                   const Offset(
-                                                                      2.0, 2.0),
-                                                              blurRadius: 2.0,
+                                                                      1.0, 1.0),
+                                                              blurRadius: 5.0,
                                                               color:
                                                                   textSecondary,
                                                             ),
@@ -369,8 +404,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                       Text(
                                                         'Tiết kiệm',
                                                         style: TextStyle(
-                                                          fontFamily:
-                                                              'Montserrat',
+                                                          fontFamily: 'Nunito',
                                                           fontSize: 14,
                                                           letterSpacing: 0.0,
                                                           color:
@@ -381,8 +415,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                             Shadow(
                                                               offset:
                                                                   const Offset(
-                                                                      2.0, 2.0),
-                                                              blurRadius: 2.0,
+                                                                      1.0, 1.0),
+                                                              blurRadius: 5.0,
                                                               color:
                                                                   textSecondary,
                                                             ),
@@ -402,36 +436,132 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                         CrossAxisAlignment
                                                             .center,
                                                     children: [
-                                                      Card(
-                                                        clipBehavior: Clip
-                                                            .antiAliasWithSaveLayer,
-                                                        color:
-                                                            Color(0x6EF4F4F4),
-                                                        elevation: 10,
-                                                        shape:
-                                                            RoundedRectangleBorder(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(23),
-                                                        ),
-                                                        child: Padding(
-                                                          padding:
-                                                              EdgeInsets.all(
-                                                                  12),
-                                                          child: Icon(
-                                                            Icons
-                                                                .add_rounded,
-                                                            color:
-                                                                backgroundColor,
-                                                            size: 45,
+                                                      InkWell(
+                                                        onTap: (() {
+                                                          showDialog<void>(
+                                                              context: context,
+                                                              barrierDismissible:
+                                                                  true, // Prevent dismissing by tapping outside
+                                                              builder: (BuildContext
+                                                                      context) =>
+                                                                  Center(
+                                                                      child:
+                                                                          Padding(
+                                                                    padding: EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            60,
+                                                                            0,
+                                                                        60,
+                                                                            0),
+                                                                    child: Card(
+                                                                      elevation:
+                                                                          20,
+                                                                      color:
+                                                                          backgroundColor,
+                                                                      shape:
+                                                                          RoundedRectangleBorder(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(18),
+                                                                      ),
+                                                                      child:
+                                                                          Padding(
+                                                                        padding:
+                                                                            EdgeInsetsDirectional.all(25),
+                                                                        child:
+                                                                            Column(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.min,
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.center,
+                                                                          crossAxisAlignment:
+                                                                              CrossAxisAlignment.stretch,
+                                                                          children: [
+                                                                            Padding(
+                                                                              padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                                                                              child: FFButtonWidget(
+                                                                                onPressed: () async {
+                                                                                  Navigator.popAndPushNamed(context, '/AddExpense');
+                                                                                },
+                                                                                text: 'Thêm chi tiêu',
+                                                                                options: FFButtonOptions(
+                                                                                  height: 40,
+                                                                                  padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
+                                                                                  iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                                                                                  color: backgroundColor,
+                                                                                  textStyle: TextStyle(
+                                                                                    fontFamily: 'Nunito',
+                                                                                    color: textPrimary,
+                                                                                    fontSize: 17,
+                                                                                    letterSpacing: 0.0,
+                                                                                  ),
+                                                                                  elevation: 0,
+                                                                                  borderSide: BorderSide(
+                                                                                    color: alternateColor,
+                                                                                  ),
+                                                                                  borderRadius: BorderRadius.circular(28),
+                                                                                ),
+                                                                              ),
+                                                                            ),
+                                                                            Padding(
+                                                                              padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                                                                              child: FFButtonWidget(
+                                                                                onPressed: () async {},
+                                                                                text: 'Thêm thu nhập',
+                                                                                options: FFButtonOptions(
+                                                                                  height: 40,
+                                                                                  padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
+                                                                                  iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                                                                                  color: backgroundColor,
+                                                                                  textStyle: TextStyle(
+                                                                                    fontFamily: 'Nunito',
+                                                                                    color: textPrimary,
+                                                                                    fontSize: 17,
+                                                                                    letterSpacing: 0.0,
+                                                                                  ),
+                                                                                  elevation: 0,
+                                                                                  borderSide: BorderSide(
+                                                                                    color: alternateColor,
+                                                                                  ),
+                                                                                  borderRadius: BorderRadius.circular(28),
+                                                                                ),
+                                                                              ),
+                                                                            )
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  )));
+                                                        }),
+                                                        child: Card(
+                                                          clipBehavior: Clip
+                                                              .antiAliasWithSaveLayer,
+                                                          color:
+                                                              Color(0x6EF4F4F4),
+                                                          elevation: 10,
+                                                          shape:
+                                                              RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        23),
+                                                          ),
+                                                          child: Padding(
+                                                            padding:
+                                                                EdgeInsets.all(
+                                                                    12),
+                                                            child: Icon(
+                                                              Icons.add_rounded,
+                                                              color:
+                                                                  backgroundColor,
+                                                              size: 45,
+                                                            ),
                                                           ),
                                                         ),
                                                       ),
                                                       Text(
                                                         'Thêm mới',
                                                         style: TextStyle(
-                                                          fontFamily:
-                                                              'Montserrat',
+                                                          fontFamily: 'Nunito',
                                                           fontSize: 14,
                                                           letterSpacing: 0.0,
                                                           color:
@@ -442,8 +572,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                             Shadow(
                                                               offset:
                                                                   const Offset(
-                                                                      2.0, 2.0),
-                                                              blurRadius: 2.0,
+                                                                      1.0, 1.0),
+                                                              blurRadius: 5.0,
                                                               color:
                                                                   textSecondary,
                                                             ),
@@ -464,7 +594,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                         ),
                         Container(
                           width: double.infinity,
-                          height: 270,
+                          height: 280,
                           decoration: BoxDecoration(
                             color: backgroundColor,
                             boxShadow: [
@@ -487,7 +617,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                           ),
                           child: Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 15, 0, 15),
+                                EdgeInsetsDirectional.fromSTEB(0, 25, 0, 15),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -498,10 +628,10 @@ class _HomeWidgetState extends State<HomeWidget> {
                                   child: Text(
                                     'Tổng quan',
                                     style: TextStyle(
-                                      fontFamily: 'Montserrat',
+                                      fontFamily: 'Nunito',
                                       fontSize: 23,
                                       letterSpacing: 0.0,
-                                      color: textSecondary,
+                                      color: textPrimary,
                                       fontWeight: FontWeight.w600,
                                     ),
                                   ),
@@ -553,20 +683,21 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                               Icons
                                                                   .trending_down,
                                                               color:
-                                                                  textSecondary,
+                                                                  textPrimary,
                                                               size: 32,
                                                             ),
                                                           ),
                                                           Text(
-                                                            'Chi tiêu tháng 9',
+                                                            'Chi tiêu tháng ${Utils.getMonth()}',
                                                             style: TextStyle(
                                                               fontFamily:
-                                                                  'Montserrat',
+                                                                  'Nunito',
                                                               fontSize: 17,
                                                               letterSpacing:
                                                                   0.0,
                                                               color:
                                                                   textSecondary,
+                                                              // fontStyle: FontStyle.italic,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w400,
@@ -584,15 +715,15 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                               '\$${data['totalExpense']}',
                                                               style: TextStyle(
                                                                 fontFamily:
-                                                                    'Montserrat',
+                                                                    'Nunito',
                                                                 fontSize: 25,
                                                                 letterSpacing:
                                                                     0.0,
                                                                 color:
-                                                                    textSecondary,
+                                                                    textPrimary,
                                                                 fontWeight:
                                                                     FontWeight
-                                                                        .w400,
+                                                                        .w600,
                                                               ),
                                                             ),
                                                           ),
@@ -637,15 +768,15 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                               Icons
                                                                   .attach_money_rounded,
                                                               color:
-                                                                  textSecondary,
+                                                                  textPrimary,
                                                               size: 32,
                                                             ),
                                                           ),
                                                           Text(
-                                                            'Thu nhập tháng 9',
+                                                            'Thu nhập tháng ${Utils.getMonth()}',
                                                             style: TextStyle(
                                                               fontFamily:
-                                                                  'Montserrat',
+                                                                  'Nunito',
                                                               fontSize: 17,
                                                               letterSpacing:
                                                                   0.0,
@@ -668,15 +799,15 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                               '\$${data['totalRevenue']}',
                                                               style: TextStyle(
                                                                 fontFamily:
-                                                                    'Montserrat',
+                                                                    'Nunito',
                                                                 fontSize: 25,
                                                                 letterSpacing:
                                                                     0.0,
                                                                 color:
-                                                                    textSecondary,
+                                                                    textPrimary,
                                                                 fontWeight:
                                                                     FontWeight
-                                                                        .w400,
+                                                                        .w600,
                                                               ),
                                                             ),
                                                           ),
@@ -721,7 +852,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                               Icons
                                                                   .attach_money_rounded,
                                                               color:
-                                                                  textSecondary,
+                                                                  textPrimary,
                                                               size: 32,
                                                             ),
                                                           ),
@@ -729,7 +860,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                             'Thu nhập tháng 9',
                                                             style: TextStyle(
                                                               fontFamily:
-                                                                  'Montserrat',
+                                                                  'Nunito',
                                                               fontSize: 17,
                                                               letterSpacing:
                                                                   0.0,
@@ -752,15 +883,15 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                               '\$567,402',
                                                               style: TextStyle(
                                                                 fontFamily:
-                                                                    'Montserrat',
+                                                                    'Nunito',
                                                                 fontSize: 25,
                                                                 letterSpacing:
                                                                     0.0,
                                                                 color:
-                                                                    textSecondary,
+                                                                    textPrimary,
                                                                 fontWeight:
                                                                     FontWeight
-                                                                        .w400,
+                                                                        .w600,
                                                               ),
                                                             ),
                                                           ),
@@ -807,10 +938,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                 child: FFButtonWidget(
                   onPressed: () async {
                     FocusManager.instance.primaryFocus?.unfocus();
-                    setState(() {
-                      Utils.logout(_viewModel.userProvider);
-                      Navigator.popAndPushNamed(context, '/Login');
-                    });
+                    _performLoadingTask();
+                    //Navigator.popAndPushNamed(context, '/Login');
                   },
                   text: 'Logout',
                   options: FFButtonOptions(
@@ -819,7 +948,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                     iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                     color: Color(0xFF69CAA7),
                     textStyle: TextStyle(
-                        fontFamily: 'Montserrat',
+                        fontFamily: 'Nunito',
                         fontSize: 17,
                         letterSpacing: 0.0,
                         color: Colors.white),

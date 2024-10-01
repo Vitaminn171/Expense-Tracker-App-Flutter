@@ -28,6 +28,10 @@ class HomeViewModel extends ChangeNotifier {
 
   HomeViewModel(this.userProvider, this.expenseProvider, this.revenueProvider);
 
+  String _errorMessage = '';
+  String get errorMessage => _errorMessage;
+
+
   Future<int> getCash(String email) async {
     final queryWalletsnapshot = await Api.getWalletData(email);
     final dataWallet = queryWalletsnapshot.docs.single.data();
@@ -100,11 +104,12 @@ class HomeViewModel extends ChangeNotifier {
               totalExpense += data['total'];
               print('Document data: ${expenses.date}');
             }
-            expenseProvider.setExpensesList(Future.value(list));
-            expenseProvider.setTotalExpenseCurrentMonth(totalExpense.toInt());
-            expenseProvider
-                .setTotalExpenseRange(Future.value(totalExpense.toInt()));
+
           }
+          expenseProvider.setExpensesList(Future.value(list));
+          expenseProvider.setTotalExpenseCurrentMonth(totalExpense.toInt());
+          expenseProvider
+              .setTotalExpenseRange(Future.value(totalExpense.toInt()));
 
           if (querysnapshotRev.size > 0) {
             //final data = querySnapshot.docs.single.data();

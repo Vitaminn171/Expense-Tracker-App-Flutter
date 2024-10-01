@@ -53,4 +53,30 @@ class ExpenseProvider extends ChangeNotifier{
     notifyListeners();
   }
 
+  Future<List<TransactionDetails>>? _listDetails;
+  Future<List<TransactionDetails>>? get listDetails => _listDetails;
+
+  void setListTransactionsDetail(List<TransactionDetails>? newList){
+    _listDetails = Future.value(newList);
+    notifyListeners();
+  }
+
+  Transactions? _expenseEdit;
+  Transactions? get expenseEdit => _expenseEdit;
+
+  void setExpenseEdit(Transactions? newExpense) {
+    _expenseEdit = newExpense;
+    notifyListeners();
+  }
+
+
+  void logout(){
+    _expensesList = null;
+    _totalExpenseCurrentMonth = 0;
+    _totalExpenseRange = Future.value(0);
+    _expense = null;
+    _dateTimeRangeExpense = null;
+    _tagItemPercent = null;
+  }
+
 }
