@@ -110,7 +110,7 @@ class AddExpenseViewModel extends ChangeNotifier {
 
     return Future.value();
   }
-
+//https://pub.dev/packages/slide_popup_dialog_null_safety
   //TODO 1: check when navigate -> show dialog https://pub.dev/packages/simple_alert_dialog
   //TODO 2: add details data to firebase
 
