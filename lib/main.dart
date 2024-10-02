@@ -18,6 +18,8 @@ import 'firebase_options.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:email_otp/email_otp.dart';
 
+import 'models/colors.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final FlutterLocalization localization = FlutterLocalization.instance;
@@ -52,7 +54,11 @@ Future<void> main() async {
           textDirection: TextDirection
               .ltr, // Or TextDirection.rtl for right-to-left languages
           child: MaterialApp(
-
+            theme: ThemeData(
+              bottomSheetTheme: BottomSheetThemeData(
+                dragHandleColor: alternate2Color, // --> This will change the color of the drag handle
+              ),
+            ),
             initialRoute: initRoute,
             routes: {
               '/Login': (context) => const LoginWidget(),

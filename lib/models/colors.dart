@@ -5,6 +5,7 @@ final secondaryColor = Color(0xFF689374);
 final tertiaryColor = Color(0xFFF4F4F4);
 final alternateColor = Color(0xFFD6D6D6);
 final alternate1Color = Color(0xFFEDEDED);
+final alternate2Color = Color(0xFFA8A8A8);
 
 final textPrimary = Color(0xFF444444);
 final textSecondary = Color(0xFF57636C);

@@ -1,17 +1,13 @@
 import 'package:expenseapp/viewmodels/utils.dart';
+import 'package:expenseapp/views/components/add_button.dart';
 import 'package:expenseapp/views/components/background_widget.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'package:expenseapp/models/colors.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import 'package:expenseapp/viewmodels/home_viewmodel.dart';
-import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
-import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
-import 'package:expenseapp/providers/user_provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:toastification/toastification.dart';
 
 import '../models/user.dart';
@@ -71,9 +67,7 @@ class _HomeWidgetState extends State<HomeWidget> {
   Future<void> _performLoadingTask() async {
     showLoadingDialog(context);
 
-    if ((await Utils.logout(_viewModel.userProvider, _viewModel.expenseProvider,
-            _viewModel.revenueProvider)) ==
-        false) {
+    if ((await Utils.logout(_viewModel.userProvider, _viewModel.expenseProvider, _viewModel.revenueProvider)) == false) {
       toastification.show(
         context: context,
         title: Text('Dang xuat that bai'),
@@ -113,8 +107,7 @@ class _HomeWidgetState extends State<HomeWidget> {
             indexCurrent: 0,
           ),
           appBar: PreferredSize(
-            preferredSize:
-                Size.fromHeight(MediaQuery.sizeOf(context).height * 0.91),
+            preferredSize: Size.fromHeight(MediaQuery.sizeOf(context).height * 0.91),
             child: AppBar(
               backgroundColor: Color(0xFF69CAA7),
               automaticallyImplyLeading: false,
@@ -133,8 +126,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                           child: Align(
                             alignment: AlignmentDirectional(0, -1),
                             child: Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 60, 0, 0),
+                                padding: EdgeInsetsDirectional.fromSTEB(0, 60, 0, 0),
                                 child: FutureBuilder<User>(
                                     future: _viewModel.getStoredUser(),
                                     builder: (context, snapshot) {
@@ -146,54 +138,35 @@ class _HomeWidgetState extends State<HomeWidget> {
                                       } else {
                                         return Column(
                                           mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.stretch,
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment: CrossAxisAlignment.stretch,
                                           children: [
                                             Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(25, 0, 25, 0),
-                                                child: UserWidget(
-                                                    scaffoldKey: scaffoldKey)),
+                                                padding: EdgeInsetsDirectional.fromSTEB(25, 0, 25, 0), child: UserWidget(scaffoldKey: scaffoldKey)),
                                             Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(25, 0, 25, 0),
+                                              padding: EdgeInsetsDirectional.fromSTEB(25, 0, 25, 0),
                                               child: Row(
                                                 mainAxisSize: MainAxisSize.max,
                                                 children: [
                                                   Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(
-                                                                10, 0, 0, 0),
+                                                    padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                                                     child: Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.min,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
+                                                      mainAxisSize: MainAxisSize.min,
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
                                                       children: [
                                                         Text(
                                                           'Tiền mặt',
                                                           style: TextStyle(
-                                                            fontFamily:
-                                                                'Nunito',
+                                                            fontFamily: 'Nunito',
                                                             fontSize: 17,
                                                             letterSpacing: 0.0,
-                                                            color:
-                                                                backgroundColor,
-                                                            fontWeight:
-                                                                FontWeight.w300,
+                                                            color: backgroundColor,
+                                                            fontWeight: FontWeight.w300,
                                                             shadows: <Shadow>[
                                                               Shadow(
-                                                                offset:
-                                                                    const Offset(
-                                                                        1.0,
-                                                                        1.0),
+                                                                offset: const Offset(1.0, 1.0),
                                                                 blurRadius: 5.0,
-                                                                color:
-                                                                    textSecondary,
+                                                                color: textSecondary,
                                                               ),
                                                             ],
                                                           ),
@@ -201,23 +174,16 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                         Text(
                                                           '\$${Utils.formatCurrency(snapshot.data!.totalCash)}',
                                                           style: TextStyle(
-                                                            fontFamily:
-                                                                'Nunito',
+                                                            fontFamily: 'Nunito',
                                                             fontSize: 40,
                                                             letterSpacing: 0.0,
-                                                            color:
-                                                                backgroundColor,
-                                                            fontWeight:
-                                                                FontWeight.w400,
+                                                            color: backgroundColor,
+                                                            fontWeight: FontWeight.w400,
                                                             shadows: <Shadow>[
                                                               Shadow(
-                                                                offset:
-                                                                    const Offset(
-                                                                        1.0,
-                                                                        1.0),
+                                                                offset: const Offset(1.0, 1.0),
                                                                 blurRadius: 5.0,
-                                                                color:
-                                                                    textSecondary,
+                                                                color: textSecondary,
                                                               ),
                                                             ],
                                                           ),
@@ -229,53 +195,32 @@ class _HomeWidgetState extends State<HomeWidget> {
                                               ),
                                             ),
                                             Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(25, 0, 25, 25),
+                                              padding: EdgeInsetsDirectional.fromSTEB(25, 0, 25, 25),
                                               child: Row(
                                                 mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
                                                   Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.min,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
+                                                    mainAxisSize: MainAxisSize.min,
+                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    crossAxisAlignment: CrossAxisAlignment.center,
                                                     children: [
                                                       InkWell(
                                                         onTap: (() {
-                                                          Navigator
-                                                              .popAndPushNamed(
-                                                                  context,
-                                                                  '/ExpenseList');
+                                                          Navigator.popAndPushNamed(context, '/ExpenseList');
                                                         }),
                                                         child: Card(
-                                                          clipBehavior: Clip
-                                                              .antiAliasWithSaveLayer,
-                                                          color:
-                                                              Color(0x6EF4F4F4),
+                                                          clipBehavior: Clip.antiAliasWithSaveLayer,
+                                                          color: Color(0x6EF4F4F4),
                                                           elevation: 10,
-                                                          shape:
-                                                              RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        23),
+                                                          shape: RoundedRectangleBorder(
+                                                            borderRadius: BorderRadius.circular(23),
                                                           ),
                                                           child: Padding(
-                                                            padding:
-                                                                EdgeInsets.all(
-                                                                    12),
+                                                            padding: EdgeInsets.all(12),
                                                             child: Icon(
-                                                              Icons
-                                                                  .outbox_rounded,
-                                                              color:
-                                                                  backgroundColor,
+                                                              Icons.outbox_rounded,
+                                                              color: backgroundColor,
                                                               size: 45,
                                                             ),
                                                           ),
@@ -287,56 +232,36 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                           fontFamily: 'Nunito',
                                                           fontSize: 14,
                                                           letterSpacing: 0.0,
-                                                          color:
-                                                              backgroundColor,
-                                                          fontWeight:
-                                                              FontWeight.w400,
+                                                          color: backgroundColor,
+                                                          fontWeight: FontWeight.w400,
                                                           shadows: <Shadow>[
                                                             Shadow(
-                                                              offset:
-                                                                  const Offset(
-                                                                      1.0, 1.0),
+                                                              offset: const Offset(1.0, 1.0),
                                                               blurRadius: 5.0,
-                                                              color:
-                                                                  textSecondary,
+                                                              color: textSecondary,
                                                             ),
                                                           ],
                                                         ),
                                                       ),
-                                                    ].divide(
-                                                        SizedBox(height: 5)),
+                                                    ].divide(SizedBox(height: 5)),
                                                   ),
                                                   Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.min,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
+                                                    mainAxisSize: MainAxisSize.min,
+                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    crossAxisAlignment: CrossAxisAlignment.center,
                                                     children: [
                                                       Card(
-                                                        clipBehavior: Clip
-                                                            .antiAliasWithSaveLayer,
-                                                        color:
-                                                            Color(0x6EF4F4F4),
+                                                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                                                        color: Color(0x6EF4F4F4),
                                                         elevation: 10,
-                                                        shape:
-                                                            RoundedRectangleBorder(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(23),
+                                                        shape: RoundedRectangleBorder(
+                                                          borderRadius: BorderRadius.circular(23),
                                                         ),
                                                         child: Padding(
-                                                          padding:
-                                                              EdgeInsets.all(
-                                                                  12),
+                                                          padding: EdgeInsets.all(12),
                                                           child: Icon(
-                                                            Icons
-                                                                .attach_money_rounded,
-                                                            color:
-                                                                backgroundColor,
+                                                            Icons.attach_money_rounded,
+                                                            color: backgroundColor,
                                                             size: 45,
                                                           ),
                                                         ),
@@ -347,56 +272,36 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                           fontFamily: 'Nunito',
                                                           fontSize: 14,
                                                           letterSpacing: 0.0,
-                                                          color:
-                                                              backgroundColor,
-                                                          fontWeight:
-                                                              FontWeight.w400,
+                                                          color: backgroundColor,
+                                                          fontWeight: FontWeight.w400,
                                                           shadows: <Shadow>[
                                                             Shadow(
-                                                              offset:
-                                                                  const Offset(
-                                                                      1.0, 1.0),
+                                                              offset: const Offset(1.0, 1.0),
                                                               blurRadius: 5.0,
-                                                              color:
-                                                                  textSecondary,
+                                                              color: textSecondary,
                                                             ),
                                                           ],
                                                         ),
                                                       ),
-                                                    ].divide(
-                                                        SizedBox(height: 5)),
+                                                    ].divide(SizedBox(height: 5)),
                                                   ),
                                                   Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.min,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
+                                                    mainAxisSize: MainAxisSize.min,
+                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    crossAxisAlignment: CrossAxisAlignment.center,
                                                     children: [
                                                       Card(
-                                                        clipBehavior: Clip
-                                                            .antiAliasWithSaveLayer,
-                                                        color:
-                                                            Color(0x6EF4F4F4),
+                                                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                                                        color: Color(0x6EF4F4F4),
                                                         elevation: 10,
-                                                        shape:
-                                                            RoundedRectangleBorder(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(23),
+                                                        shape: RoundedRectangleBorder(
+                                                          borderRadius: BorderRadius.circular(23),
                                                         ),
                                                         child: Padding(
-                                                          padding:
-                                                              EdgeInsets.all(
-                                                                  12),
+                                                          padding: EdgeInsets.all(12),
                                                           child: Icon(
-                                                            Icons
-                                                                .savings_rounded,
-                                                            color:
-                                                                backgroundColor,
+                                                            Icons.savings_rounded,
+                                                            color: backgroundColor,
                                                             size: 45,
                                                           ),
                                                         ),
@@ -407,152 +312,133 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                           fontFamily: 'Nunito',
                                                           fontSize: 14,
                                                           letterSpacing: 0.0,
-                                                          color:
-                                                              backgroundColor,
-                                                          fontWeight:
-                                                              FontWeight.w400,
+                                                          color: backgroundColor,
+                                                          fontWeight: FontWeight.w400,
                                                           shadows: <Shadow>[
                                                             Shadow(
-                                                              offset:
-                                                                  const Offset(
-                                                                      1.0, 1.0),
+                                                              offset: const Offset(1.0, 1.0),
                                                               blurRadius: 5.0,
-                                                              color:
-                                                                  textSecondary,
+                                                              color: textSecondary,
                                                             ),
                                                           ],
                                                         ),
                                                       ),
-                                                    ].divide(
-                                                        SizedBox(height: 5)),
+                                                    ].divide(SizedBox(height: 5)),
                                                   ),
                                                   Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.min,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
+                                                    mainAxisSize: MainAxisSize.min,
+                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    crossAxisAlignment: CrossAxisAlignment.center,
                                                     children: [
                                                       InkWell(
                                                         onTap: (() {
-                                                          showDialog<void>(
-                                                              context: context,
-                                                              barrierDismissible:
-                                                                  true, // Prevent dismissing by tapping outside
-                                                              builder: (BuildContext
-                                                                      context) =>
-                                                                  Center(
-                                                                      child:
-                                                                          Padding(
-                                                                    padding: EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            60,
-                                                                            0,
-                                                                        60,
-                                                                            0),
-                                                                    child: Card(
-                                                                      elevation:
-                                                                          20,
-                                                                      color:
-                                                                          backgroundColor,
-                                                                      shape:
-                                                                          RoundedRectangleBorder(
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(18),
-                                                                      ),
-                                                                      child:
-                                                                          Padding(
-                                                                        padding:
-                                                                            EdgeInsetsDirectional.all(25),
-                                                                        child:
-                                                                            Column(
-                                                                          mainAxisSize:
-                                                                              MainAxisSize.min,
-                                                                          mainAxisAlignment:
-                                                                              MainAxisAlignment.center,
-                                                                          crossAxisAlignment:
-                                                                              CrossAxisAlignment.stretch,
-                                                                          children: [
-                                                                            Padding(
-                                                                              padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                                                                              child: FFButtonWidget(
-                                                                                onPressed: () async {
-                                                                                  Navigator.popAndPushNamed(context, '/AddExpense');
-                                                                                },
-                                                                                text: 'Thêm chi tiêu',
-                                                                                options: FFButtonOptions(
-                                                                                  height: 40,
-                                                                                  padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
-                                                                                  iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                                                                                  color: backgroundColor,
-                                                                                  textStyle: TextStyle(
-                                                                                    fontFamily: 'Nunito',
-                                                                                    color: textPrimary,
-                                                                                    fontSize: 17,
-                                                                                    letterSpacing: 0.0,
-                                                                                  ),
-                                                                                  elevation: 0,
-                                                                                  borderSide: BorderSide(
-                                                                                    color: alternateColor,
-                                                                                  ),
-                                                                                  borderRadius: BorderRadius.circular(28),
-                                                                                ),
-                                                                              ),
-                                                                            ),
-                                                                            Padding(
-                                                                              padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
-                                                                              child: FFButtonWidget(
-                                                                                onPressed: () async {},
-                                                                                text: 'Thêm thu nhập',
-                                                                                options: FFButtonOptions(
-                                                                                  height: 40,
-                                                                                  padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
-                                                                                  iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                                                                                  color: backgroundColor,
-                                                                                  textStyle: TextStyle(
-                                                                                    fontFamily: 'Nunito',
-                                                                                    color: textPrimary,
-                                                                                    fontSize: 17,
-                                                                                    letterSpacing: 0.0,
-                                                                                  ),
-                                                                                  elevation: 0,
-                                                                                  borderSide: BorderSide(
-                                                                                    color: alternateColor,
-                                                                                  ),
-                                                                                  borderRadius: BorderRadius.circular(28),
-                                                                                ),
-                                                                              ),
-                                                                            )
-                                                                          ],
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                  )));
+                                                          _showDialogAdd();
+                                                          // showDialog<void>(
+                                                          //     context: context,
+                                                          //     barrierDismissible:
+                                                          //         true, // Prevent dismissing by tapping outside
+                                                          //     builder: (BuildContext
+                                                          //             context) =>
+                                                          //         Center(
+                                                          //             child:
+                                                          //                 Padding(
+                                                          //           padding: EdgeInsetsDirectional
+                                                          //               .fromSTEB(
+                                                          //                   60,
+                                                          //                   0,
+                                                          //               60,
+                                                          //                   0),
+                                                          //           child: Card(
+                                                          //             elevation:
+                                                          //                 30,
+                                                          //             color:
+                                                          //                 backgroundColor,
+                                                          //             shape:
+                                                          //                 RoundedRectangleBorder(
+                                                          //               borderRadius:
+                                                          //                   BorderRadius.circular(18),
+                                                          //             ),
+                                                          //             child:
+                                                          //                 Padding(
+                                                          //               padding:
+                                                          //                   EdgeInsetsDirectional.all(25),
+                                                          //               child:
+                                                          //                   Column(
+                                                          //                 mainAxisSize:
+                                                          //                     MainAxisSize.min,
+                                                          //                 mainAxisAlignment:
+                                                          //                     MainAxisAlignment.center,
+                                                          //                 crossAxisAlignment:
+                                                          //                     CrossAxisAlignment.stretch,
+                                                          //                 children: [
+                                                          //                   Padding(
+                                                          //                     padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                                                          //                     child: FFButtonWidget(
+                                                          //                       onPressed: () async {
+                                                          //                         Navigator.popAndPushNamed(context, '/AddExpense');
+                                                          //                       },
+                                                          //                       text: 'Thêm chi tiêu',
+                                                          //                       options: FFButtonOptions(
+                                                          //                         height: 40,
+                                                          //                         padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
+                                                          //                         iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                                                          //                         color: backgroundColor,
+                                                          //                         textStyle: TextStyle(
+                                                          //                           fontFamily: 'Nunito',
+                                                          //                           color: textPrimary,
+                                                          //                           fontSize: 17,
+                                                          //                           letterSpacing: 0.0,
+                                                          //                         ),
+                                                          //                         elevation: 0,
+                                                          //                         borderSide: BorderSide(
+                                                          //                           color: alternateColor,
+                                                          //                         ),
+                                                          //                         borderRadius: BorderRadius.circular(28),
+                                                          //                       ),
+                                                          //                     ),
+                                                          //                   ),
+                                                          //                   Padding(
+                                                          //                     padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                                                          //                     child: FFButtonWidget(
+                                                          //                       onPressed: () async {},
+                                                          //                       text: 'Thêm thu nhập',
+                                                          //                       options: FFButtonOptions(
+                                                          //                         height: 40,
+                                                          //                         padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
+                                                          //                         iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                                                          //                         color: backgroundColor,
+                                                          //                         textStyle: TextStyle(
+                                                          //                           fontFamily: 'Nunito',
+                                                          //                           color: textPrimary,
+                                                          //                           fontSize: 17,
+                                                          //                           letterSpacing: 0.0,
+                                                          //                         ),
+                                                          //                         elevation: 0,
+                                                          //                         borderSide: BorderSide(
+                                                          //                           color: alternateColor,
+                                                          //                         ),
+                                                          //                         borderRadius: BorderRadius.circular(28),
+                                                          //                       ),
+                                                          //                     ),
+                                                          //                   )
+                                                          //                 ],
+                                                          //               ),
+                                                          //             ),
+                                                          //           ),
+                                                          //         )));
                                                         }),
                                                         child: Card(
-                                                          clipBehavior: Clip
-                                                              .antiAliasWithSaveLayer,
-                                                          color:
-                                                              Color(0x6EF4F4F4),
+                                                          clipBehavior: Clip.antiAliasWithSaveLayer,
+                                                          color: Color(0x6EF4F4F4),
                                                           elevation: 10,
-                                                          shape:
-                                                              RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        23),
+                                                          shape: RoundedRectangleBorder(
+                                                            borderRadius: BorderRadius.circular(23),
                                                           ),
                                                           child: Padding(
-                                                            padding:
-                                                                EdgeInsets.all(
-                                                                    12),
+                                                            padding: EdgeInsets.all(12),
                                                             child: Icon(
                                                               Icons.add_rounded,
-                                                              color:
-                                                                  backgroundColor,
+                                                              color: backgroundColor,
                                                               size: 45,
                                                             ),
                                                           ),
@@ -564,24 +450,18 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                           fontFamily: 'Nunito',
                                                           fontSize: 14,
                                                           letterSpacing: 0.0,
-                                                          color:
-                                                              backgroundColor,
-                                                          fontWeight:
-                                                              FontWeight.w400,
+                                                          color: backgroundColor,
+                                                          fontWeight: FontWeight.w400,
                                                           shadows: <Shadow>[
                                                             Shadow(
-                                                              offset:
-                                                                  const Offset(
-                                                                      1.0, 1.0),
+                                                              offset: const Offset(1.0, 1.0),
                                                               blurRadius: 5.0,
-                                                              color:
-                                                                  textSecondary,
+                                                              color: textSecondary,
                                                             ),
                                                           ],
                                                         ),
                                                       ),
-                                                    ].divide(
-                                                        SizedBox(height: 5)),
+                                                    ].divide(SizedBox(height: 5)),
                                                   ),
                                                 ],
                                               ),
@@ -616,15 +496,13 @@ class _HomeWidgetState extends State<HomeWidget> {
                             ),
                           ),
                           child: Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 25, 0, 15),
+                            padding: EdgeInsetsDirectional.fromSTEB(0, 25, 0, 15),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      25, 0, 0, 0),
+                                  padding: EdgeInsetsDirectional.fromSTEB(25, 0, 0, 0),
                                   child: Text(
                                     'Tổng quan',
                                     style: TextStyle(
@@ -639,8 +517,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                 SingleChildScrollView(
                                     scrollDirection: Axis.horizontal,
                                     child: FutureBuilder<Map<String, dynamic>>(
-                                        future:
-                                            _viewModel.getExpensesRevenueData(),
+                                        future: _viewModel.getExpensesRevenueData(),
                                         builder: (context, snapshot) {
                                           if (snapshot.data != null) {
                                             final data = snapshot.data!;
@@ -648,82 +525,49 @@ class _HomeWidgetState extends State<HomeWidget> {
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
                                                 Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(25, 15, 0, 35),
+                                                  padding: EdgeInsetsDirectional.fromSTEB(25, 15, 0, 35),
                                                   child: Card(
-                                                    clipBehavior: Clip
-                                                        .antiAliasWithSaveLayer,
+                                                    clipBehavior: Clip.antiAliasWithSaveLayer,
                                                     color: Colors.white,
                                                     elevation: 10,
-                                                    shape:
-                                                        RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              18),
+                                                    shape: RoundedRectangleBorder(
+                                                      borderRadius: BorderRadius.circular(18),
                                                     ),
                                                     child: Padding(
-                                                      padding:
-                                                          EdgeInsets.all(20),
+                                                      padding: EdgeInsets.all(20),
                                                       child: Column(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
+                                                        mainAxisSize: MainAxisSize.max,
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
                                                           Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0,
-                                                                        0,
-                                                                        16,
-                                                                        0),
+                                                            padding: EdgeInsetsDirectional.fromSTEB(0, 0, 16, 0),
                                                             child: Icon(
-                                                              Icons
-                                                                  .trending_down,
-                                                              color:
-                                                                  textPrimary,
+                                                              Icons.trending_down,
+                                                              color: textPrimary,
                                                               size: 32,
                                                             ),
                                                           ),
                                                           Text(
                                                             'Chi tiêu tháng ${Utils.getMonth()}',
                                                             style: TextStyle(
-                                                              fontFamily:
-                                                                  'Nunito',
+                                                              fontFamily: 'Nunito',
                                                               fontSize: 17,
-                                                              letterSpacing:
-                                                                  0.0,
-                                                              color:
-                                                                  textSecondary,
+                                                              letterSpacing: 0.0,
+                                                              color: textSecondary,
                                                               // fontStyle: FontStyle.italic,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w400,
+                                                              fontWeight: FontWeight.w400,
                                                             ),
                                                           ),
                                                           Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0,
-                                                                        15,
-                                                                        0,
-                                                                        0),
+                                                            padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                                                             child: Text(
                                                               '\$${data['totalExpense']}',
                                                               style: TextStyle(
-                                                                fontFamily:
-                                                                    'Nunito',
+                                                                fontFamily: 'Nunito',
                                                                 fontSize: 25,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                color:
-                                                                    textPrimary,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600,
+                                                                letterSpacing: 0.0,
+                                                                color: textPrimary,
+                                                                fontWeight: FontWeight.w600,
                                                               ),
                                                             ),
                                                           ),
@@ -733,81 +577,48 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                   ),
                                                 ),
                                                 Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(0, 15, 0, 35),
+                                                  padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 35),
                                                   child: Card(
-                                                    clipBehavior: Clip
-                                                        .antiAliasWithSaveLayer,
+                                                    clipBehavior: Clip.antiAliasWithSaveLayer,
                                                     color: Colors.white,
                                                     elevation: 10,
-                                                    shape:
-                                                        RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              18),
+                                                    shape: RoundedRectangleBorder(
+                                                      borderRadius: BorderRadius.circular(18),
                                                     ),
                                                     child: Padding(
-                                                      padding:
-                                                          EdgeInsets.all(20),
+                                                      padding: EdgeInsets.all(20),
                                                       child: Column(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
+                                                        mainAxisSize: MainAxisSize.max,
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
                                                           Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0,
-                                                                        0,
-                                                                        16,
-                                                                        0),
+                                                            padding: EdgeInsetsDirectional.fromSTEB(0, 0, 16, 0),
                                                             child: Icon(
-                                                              Icons
-                                                                  .attach_money_rounded,
-                                                              color:
-                                                                  textPrimary,
+                                                              Icons.attach_money_rounded,
+                                                              color: textPrimary,
                                                               size: 32,
                                                             ),
                                                           ),
                                                           Text(
                                                             'Thu nhập tháng ${Utils.getMonth()}',
                                                             style: TextStyle(
-                                                              fontFamily:
-                                                                  'Nunito',
+                                                              fontFamily: 'Nunito',
                                                               fontSize: 17,
-                                                              letterSpacing:
-                                                                  0.0,
-                                                              color:
-                                                                  textSecondary,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w400,
+                                                              letterSpacing: 0.0,
+                                                              color: textSecondary,
+                                                              fontWeight: FontWeight.w400,
                                                             ),
                                                           ),
                                                           Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0,
-                                                                        15,
-                                                                        0,
-                                                                        0),
+                                                            padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                                                             child: Text(
                                                               '\$${data['totalRevenue']}',
                                                               style: TextStyle(
-                                                                fontFamily:
-                                                                    'Nunito',
+                                                                fontFamily: 'Nunito',
                                                                 fontSize: 25,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                color:
-                                                                    textPrimary,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600,
+                                                                letterSpacing: 0.0,
+                                                                color: textPrimary,
+                                                                fontWeight: FontWeight.w600,
                                                               ),
                                                             ),
                                                           ),
@@ -817,81 +628,48 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                   ),
                                                 ),
                                                 Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(0, 15, 25, 35),
+                                                  padding: EdgeInsetsDirectional.fromSTEB(0, 15, 25, 35),
                                                   child: Card(
-                                                    clipBehavior: Clip
-                                                        .antiAliasWithSaveLayer,
+                                                    clipBehavior: Clip.antiAliasWithSaveLayer,
                                                     color: Colors.white,
                                                     elevation: 10,
-                                                    shape:
-                                                        RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              18),
+                                                    shape: RoundedRectangleBorder(
+                                                      borderRadius: BorderRadius.circular(18),
                                                     ),
                                                     child: Padding(
-                                                      padding:
-                                                          EdgeInsets.all(20),
+                                                      padding: EdgeInsets.all(20),
                                                       child: Column(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
+                                                        mainAxisSize: MainAxisSize.max,
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
                                                           Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0,
-                                                                        0,
-                                                                        16,
-                                                                        0),
+                                                            padding: EdgeInsetsDirectional.fromSTEB(0, 0, 16, 0),
                                                             child: Icon(
-                                                              Icons
-                                                                  .attach_money_rounded,
-                                                              color:
-                                                                  textPrimary,
+                                                              Icons.attach_money_rounded,
+                                                              color: textPrimary,
                                                               size: 32,
                                                             ),
                                                           ),
                                                           Text(
                                                             'Thu nhập tháng 9',
                                                             style: TextStyle(
-                                                              fontFamily:
-                                                                  'Nunito',
+                                                              fontFamily: 'Nunito',
                                                               fontSize: 17,
-                                                              letterSpacing:
-                                                                  0.0,
-                                                              color:
-                                                                  textSecondary,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w400,
+                                                              letterSpacing: 0.0,
+                                                              color: textSecondary,
+                                                              fontWeight: FontWeight.w400,
                                                             ),
                                                           ),
                                                           Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0,
-                                                                        15,
-                                                                        0,
-                                                                        0),
+                                                            padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                                                             child: Text(
                                                               '\$567,402',
                                                               style: TextStyle(
-                                                                fontFamily:
-                                                                    'Nunito',
+                                                                fontFamily: 'Nunito',
                                                                 fontSize: 25,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                color:
-                                                                    textPrimary,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600,
+                                                                letterSpacing: 0.0,
+                                                                color: textPrimary,
+                                                                fontWeight: FontWeight.w600,
                                                               ),
                                                             ),
                                                           ),
@@ -904,8 +682,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                             );
                                           } else {
                                             return Center(
-                                                child:
-                                                    CircularProgressIndicator(
+                                                child: CircularProgressIndicator(
                                               color: primaryColor,
                                             ));
                                           }
@@ -947,11 +724,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                     padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
                     iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                     color: Color(0xFF69CAA7),
-                    textStyle: TextStyle(
-                        fontFamily: 'Nunito',
-                        fontSize: 17,
-                        letterSpacing: 0.0,
-                        color: Colors.white),
+                    textStyle: TextStyle(fontFamily: 'Nunito', fontSize: 17, letterSpacing: 0.0, color: Colors.white),
                     elevation: 0,
                     borderRadius: BorderRadius.circular(12),
                   ),
@@ -961,6 +734,49 @@ class _HomeWidgetState extends State<HomeWidget> {
           ),
         ),
       ),
+    );
+  }
+
+  void _showDialogAdd() {
+    showModalBottomSheet<void>(
+      context: context,
+      constraints: const BoxConstraints(maxHeight: 300, minHeight: 300),
+      barrierColor: Colors.black.withOpacity(0.7),
+      backgroundColor: backgroundColor,
+      showDragHandle: true,
+      elevation: 10,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(0),
+          bottomRight: Radius.circular(0),
+          topLeft: Radius.circular(28),
+          topRight: Radius.circular(28),
+        ),
+      ),
+      builder: (BuildContext context) {
+        return const Padding(
+          padding: EdgeInsetsDirectional.fromSTEB(25, 0, 25, 25),
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                child: AddButton(title: 'Thêm chi tiêu', route: '/AddExpense'),
+              ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                child: AddButton(title: 'Thêm thu nhap', route: '/AddExpense'),
+              ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                child: AddButton(title: 'Thêm tiet kiem', route: '/AddExpense'),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }
