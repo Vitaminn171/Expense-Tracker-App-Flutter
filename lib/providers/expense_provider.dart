@@ -69,14 +69,25 @@ class ExpenseProvider extends ChangeNotifier{
     notifyListeners();
   }
 
+  bool _isUpdated = false;
+  bool get isUpdated => _isUpdated;
+
+  void setState(bool newState) {
+    _isUpdated = newState;
+    notifyListeners();
+  }
+
 
   void logout(){
     _expensesList = null;
-    _totalExpenseCurrentMonth = 0;
+    _totalExpenseCurrentMonth = null;
     _totalExpenseRange = Future.value(0);
     _expense = null;
     _dateTimeRangeExpense = null;
     _tagItemPercent = null;
+    _expenseEdit = null;
+    _listDetails = Future.value([]);
+    _isUpdated = false;
   }
 
 }

@@ -55,7 +55,7 @@ class _ExpenseListWidgetState extends State<ExpenseListWidget> {
         );
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      _viewModel.getExpDateRange(_selectedDateRange!);
+      _viewModel.getExpenxeData(_selectedDateRange!);
     });
   }
 
@@ -102,7 +102,7 @@ class _ExpenseListWidgetState extends State<ExpenseListWidget> {
             ),
             backgroundColor: backgroundColor,
             bottomNavigationBar: CustomNavbar(
-              indexCurrent: 2,
+              indexCurrent: 1,
             ),
             endDrawer: CustomDrawer(
               index: 0,

@@ -37,9 +37,6 @@ class _HomeWidgetState extends State<HomeWidget> {
     _model = createModel(context, () => HomeModel());
     _viewModel = Provider.of<HomeViewModel>(context, listen: false);
 
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   _viewModel = Provider.of<HomeViewModel>(context, listen: false);
-    // });
     // WidgetsBinding.instance.addPostFrameCallback((_) async {
     //   await getStoredUser();
     //   final userProvider = Provider.of<UserProvider>(context, listen: false); // Access context after frame builds
@@ -479,7 +476,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                             color: backgroundColor,
                             boxShadow: [
                               BoxShadow(
-                                blurRadius: 5,
+                                blurRadius: 15,
                                 color: Color(0x33000000),
                                 offset: Offset(
                                   0,
@@ -767,11 +764,11 @@ class _HomeWidgetState extends State<HomeWidget> {
               ),
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                child: AddButton(title: 'Thêm thu nhap', route: '/AddExpense'),
+                child: AddButton(title: 'Thêm thu nhập', route: '/AddExpense'),
               ),
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                child: AddButton(title: 'Thêm tiet kiem', route: '/AddExpense'),
+                child: AddButton(title: 'Thêm mục tiết kiệm', route: '/AddExpense'),
               ),
             ],
           ),

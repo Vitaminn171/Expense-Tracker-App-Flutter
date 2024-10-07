@@ -69,7 +69,7 @@ class _ExpenseDetailWidgetState extends State<ExpenseDetailWidget> {
             key: scaffoldKey,
             backgroundColor: backgroundColor,
             bottomNavigationBar: CustomNavbar(
-              indexCurrent: 2,
+              indexCurrent: 1,
             ),
             endDrawer: CustomDrawer(),
             appBar: PreferredSize(
@@ -86,17 +86,17 @@ class _ExpenseDetailWidgetState extends State<ExpenseDetailWidget> {
                     flexibleSpace: FlexibleSpaceBar(
                         background: Stack(children: [
                       BackgroundWidget(
-                        alignmentDirectional: AlignmentDirectional(0, -1),
+                        alignmentDirectional: const AlignmentDirectional(0, -1),
                         imgHeight: 500,
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 45),
+                        padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 45),
                         child: Column(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     25, 60, 25, 0),
                                 child: UserWidget(
                                   scaffoldKey: scaffoldKey,
@@ -105,7 +105,7 @@ class _ExpenseDetailWidgetState extends State<ExpenseDetailWidget> {
                                 ), //'Danh sách chi tiêu'
                               ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     25, 0, 25, 0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
@@ -147,7 +147,7 @@ class _ExpenseDetailWidgetState extends State<ExpenseDetailWidget> {
                               ),
 
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     25, 0, 25, 0),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.max,
@@ -162,7 +162,7 @@ class _ExpenseDetailWidgetState extends State<ExpenseDetailWidget> {
                                         Expanded(
                                           flex: 1,
                                           child: Padding(
-                                            padding:
+                                            padding: const
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     0, 0, 5, 0),
                                             child: TagItemsWidget(tagId: 0, percent: listPercent[0]),
@@ -171,7 +171,7 @@ class _ExpenseDetailWidgetState extends State<ExpenseDetailWidget> {
                                         Expanded(
                                           flex: 1,
                                           child: Padding(
-                                            padding:
+                                            padding: const
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     5, 0, 0, 0),
                                             child: TagItemsWidget(tagId: 1, percent: listPercent[1]),
@@ -189,7 +189,7 @@ class _ExpenseDetailWidgetState extends State<ExpenseDetailWidget> {
                                         Expanded(
                                           flex: 1,
                                           child: Padding(
-                                            padding:
+                                            padding: const
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     0, 10, 5, 0),
                                             child: TagItemsWidget(tagId: 2, percent: listPercent[2]),
@@ -198,7 +198,7 @@ class _ExpenseDetailWidgetState extends State<ExpenseDetailWidget> {
                                         Expanded(
                                           flex: 1,
                                           child: Padding(
-                                            padding:
+                                            padding: const
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     5, 10, 0, 0),
                                             child: TagItemsWidget(tagId: 3, percent: listPercent[3]),
@@ -210,14 +210,14 @@ class _ExpenseDetailWidgetState extends State<ExpenseDetailWidget> {
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     25, 0, 25, 0),
                                 child: Container(
                                   width: double.infinity,
                                   height: 370,
                                   decoration: BoxDecoration(
                                     color: backgroundColor,
-                                    boxShadow: [
+                                    boxShadow: const [
                                       BoxShadow(
                                         blurRadius: 15,
                                         color: Color(0x33000000),
@@ -231,7 +231,7 @@ class _ExpenseDetailWidgetState extends State<ExpenseDetailWidget> {
                                     borderRadius: BorderRadius.circular(28),
                                   ),
                                   child: Padding(
-                                      padding: EdgeInsets.all(20),
+                                      padding: const EdgeInsets.all(20),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
@@ -265,9 +265,9 @@ class _ExpenseDetailWidgetState extends State<ExpenseDetailWidget> {
                                                 ),
                                                 options: FFButtonOptions(
                                                   height: 36,
-                                                  padding: EdgeInsetsDirectional
+                                                  padding: const EdgeInsetsDirectional
                                                       .fromSTEB(10, 0, 10, 0),
-                                                  iconPadding:
+                                                  iconPadding: const
                                                       EdgeInsetsDirectional
                                                           .fromSTEB(0, 0, 0, 0),
                                                   color: backgroundColor,
@@ -331,230 +331,6 @@ class _ExpenseDetailWidgetState extends State<ExpenseDetailWidget> {
                             ]),
                       )
                     ])))),
-            // appBar: AppBar(
-            //   backgroundColor: Color(0xFF69CAA7),
-            //   iconTheme: IconThemeData(color: alternateColor),
-            //   automaticallyImplyLeading: true,
-            //   leading: Container(),
-            //   title: Text(
-            //     'Danh sách chi tiêu',
-            //     textAlign: TextAlign.start,
-            //   ),
-            //   actions: [Container()],
-            //   centerTitle: true,
-            //   elevation: 0,
-            // ),
-            // body: SafeArea(
-            //   top: true,
-            //   child: Stack(
-            //     alignment: AlignmentDirectional(0, -1),
-            //     children: [
-            //       Align(
-            //         alignment: AlignmentDirectional(0, -1),
-            //         child: Container(
-            //           width: double.infinity,
-            //           height: 400,
-            //           decoration: BoxDecoration(
-            //             color: Color(0xFF69CAA7),
-            //           ),
-            //         ),
-            //       ),
-            //       Align(
-            //         alignment: AlignmentDirectional(0, 1),
-            //         child: Padding(
-            //           padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 30),
-            //           child: Material(
-            //             color: Colors.transparent,
-            //             elevation: 10,
-            //             shape: RoundedRectangleBorder(
-            //               borderRadius: BorderRadius.circular(18),
-            //             ),
-            //             child: Container(
-            //               width: double.infinity,
-            //               height: 550,
-            //               decoration: BoxDecoration(
-            //                 color: Colors.white,
-            //                 borderRadius: BorderRadius.circular(18),
-            //               ),
-            //               child: Padding(
-            //                 padding: EdgeInsets.all(20),
-            //                 child: ListView(
-            //                   padding: EdgeInsets.zero,
-            //                   shrinkWrap: true,
-            //                   scrollDirection: Axis.vertical,
-            //                   children: [
-            //                     Row(
-            //                       mainAxisSize: MainAxisSize.max,
-            //                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //                       children: [
-            //                         Expanded(
-            //                           flex: 4,
-            //                           child: Padding(
-            //                             padding: EdgeInsetsDirectional.fromSTEB(
-            //                                 0, 8, 12, 8),
-            //                             child: Row(
-            //                               mainAxisSize: MainAxisSize.max,
-            //                               children: [
-            //                                 Column(
-            //                                   mainAxisSize: MainAxisSize.min,
-            //                                   mainAxisAlignment:
-            //                                       MainAxisAlignment.center,
-            //                                   crossAxisAlignment:
-            //                                       CrossAxisAlignment.start,
-            //                                   children: [
-            //                                     Text(
-            //                                       'Ngày 12/12/2024',
-            //                                       style: TextStyle(
-            //                                         fontFamily: 'Montserrat',
-            //                                         fontSize: 17,
-            //                                         letterSpacing: 0.0,
-            //                                         color: backgroundColor,
-            //                                         fontWeight: FontWeight.w400,
-            //                                       ),
-            //                                     ),
-            //                                   ],
-            //                                 ),
-            //                               ],
-            //                             ),
-            //                           ),
-            //                         ),
-            //                         Text(
-            //                           '\$123,123',
-            //                           style: TextStyle(
-            //                             fontFamily: 'Montserrat',
-            //                             fontSize: 17,
-            //                             letterSpacing: 0.0,
-            //                             color: backgroundColor,
-            //                             fontWeight: FontWeight.w600,
-            //                           ),
-            //                         ),
-            //                         Padding(
-            //                           padding: EdgeInsetsDirectional.fromSTEB(
-            //                               10, 0, 0, 0),
-            //                           child: Icon(
-            //                             Icons.arrow_forward_ios_rounded,
-            //                             color: textSecondary,
-            //                             size: 18,
-            //                           ),
-            //                         ),
-            //                       ],
-            //                     ),
-            //                   ].divide(SizedBox(height: 10)),
-            //                 ),
-            //               ),
-            //             ),
-            //           ),
-            //         ),
-            //       ),
-            //       Align(
-            //         alignment: AlignmentDirectional(0, -1),
-            //         child: Padding(
-            //           padding: EdgeInsetsDirectional.fromSTEB(20, 25, 20, 0),
-            //           child: Row(
-            //             mainAxisSize: MainAxisSize.max,
-            //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //             children: [
-            //               Column(
-            //                 mainAxisSize: MainAxisSize.min,
-            //                 crossAxisAlignment: CrossAxisAlignment.start,
-            //                 children: [
-            //                   Text(
-            //                     'Tổng chi tiêu',
-            //                     style: TextStyle(
-            //                       fontFamily: 'Montserrat',
-            //                       fontSize: 17,
-            //                       letterSpacing: 0.0,
-            //                       color: backgroundColor,
-            //                       fontWeight: FontWeight.w400,
-            //                     ),
-            //                   ),
-            //                   Padding(
-            //                     padding:
-            //                         EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-            //                     child: Text(
-            //                       '\$567,402',
-            //                       style: TextStyle(
-            //                         fontFamily: 'Montserrat',
-            //                         fontSize: 27,
-            //                         letterSpacing: 0.0,
-            //                         color: backgroundColor,
-            //                         fontWeight: FontWeight.w600,
-            //                       ),
-            //                     ),
-            //                   ),
-            //                 ],
-            //               ),
-            //               SizedBox(
-            //                 height: 50,
-            //                 child: VerticalDivider(
-            //                   thickness: 1,
-            //                   color: Colors.white,
-            //                 ),
-            //               ),
-            //               Column(
-            //                 mainAxisSize: MainAxisSize.min,
-            //                 crossAxisAlignment: CrossAxisAlignment.end,
-            //                 children: [
-            //                   Padding(
-            //                     padding:
-            //                         EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
-            //                     child: Row(
-            //                       mainAxisSize: MainAxisSize.min,
-            //                       mainAxisAlignment: MainAxisAlignment.center,
-            //                       crossAxisAlignment: CrossAxisAlignment.start,
-            //                       children: [
-            //                         Padding(
-            //                           padding: EdgeInsetsDirectional.fromSTEB(
-            //                               0, 0, 5, 0),
-            //                           child: Icon(
-            //                             Icons.calendar_month_rounded,
-            //                             color: Colors.white,
-            //                             size: 20,
-            //                           ),
-            //                         ),
-            //                         Text(
-            //                           '01/9 - 31/9',
-            //                           style: TextStyle(
-            //                             fontFamily: 'Montserrat',
-            //                             fontSize: 17,
-            //                             letterSpacing: 0.0,
-            //                             color: backgroundColor,
-            //                             fontWeight: FontWeight.w400,
-            //                           ),
-            //                         ),
-            //                         Icon(
-            //                           Icons.arrow_drop_down,
-            //                           color: Colors.white,
-            //                           size: 20,
-            //                         ),
-            //                       ],
-            //                     ),
-            //                   ),
-            //                   Row(
-            //                     mainAxisSize: MainAxisSize.min,
-            //                     crossAxisAlignment: CrossAxisAlignment.start,
-            //                     children: [
-            //                       Text(
-            //                         'Tiền thấp - cao',
-            //                         style: TextStyle(
-            //                           fontFamily: 'Montserrat',
-            //                           fontSize: 17,
-            //                           letterSpacing: 0.0,
-            //                           color: backgroundColor,
-            //                           fontWeight: FontWeight.w400,
-            //                         ),
-            //                       ),
-            //                     ],
-            //                   ),
-            //                 ],
-            //               ),
-            //             ],
-            //           ),
-            //         ),
-            //       ),
-            //     ],
-            //   ),
-            // ),
           ),
         ));
   }

@@ -1,21 +1,27 @@
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
 import 'package:expenseapp/models/tag.dart';
+import 'package:expenseapp/providers/expense_provider.dart';
 import 'package:expenseapp/providers/user_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:toastification/toastification.dart';
 
 import '../../models/colors.dart';
+import '../../viewmodels/add_expense_viewmodel.dart';
 import '../../viewmodels/utils.dart';
+import '../components/custom_alert_dialog.dart';
 
 class AddExpenseDetailItems extends StatelessWidget {
   final int index;
   final String name;
   final int total;
   final int tag;
+  final Function delete;
+  final DateTime date;
 
-  const AddExpenseDetailItems({super.key, required this.name, required this.total, required this.tag, required this.index});
+  const AddExpenseDetailItems({super.key, required this.name, required this.total, required this.tag, required this.index, required this.delete, required this.date});
 
   @override
   Widget build(BuildContext context) {
@@ -35,11 +41,20 @@ class AddExpenseDetailItems extends StatelessWidget {
               children: [
                 Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
-                    child: Icon(
-                      tagItem.icon,
-                      color: tagItem.color,
-                      size: 30,
-                    )),
+                    child: Card(
+                        elevation: 0,
+                        color: tagItem.color,
+                        shape:
+                        RoundedRectangleBorder(
+                          borderRadius:
+                          BorderRadius.circular(
+                              8),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.all(7),
+                          child: Icon(tagItem.icon, color: backgroundColor, size: 26,),
+                        )
+                    ),),
                 Expanded(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
@@ -87,8 +102,57 @@ class AddExpenseDetailItems extends StatelessWidget {
           ),
         ),
         InkWell(
-          onTap: () {
-            print(index);
+          onTap: () async {
+            final viewModel = context.read<AddExpenseViewModel>();
+            final list = await viewModel.expenseProvider.listDetails;
+            if(list?.length == 1 && index == 0){
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) => CustomAlertDialog(
+                      title: 'Xóa thông tin?',
+                      info: 'Bạn có chắc chắn muốn xóa tất cả các thông tin chi tiêu cho ngày này? Hành động này không thể hoàn tác.',
+                      actionButtonName: 'Xóa',
+                      action: () async {
+                        Utils.showLoadingDialog(context);
+                        delete();
+                        await viewModel.deleteData(date);
+                        if(viewModel.errorMessage.isEmpty){
+                          toastification.show(
+                            context: context,
+                            title: const Text('Lưu thông tin thành công!'),
+                            type: ToastificationType.success,
+                            style: ToastificationStyle.flat,
+                            autoCloseDuration: const Duration(seconds: 3),
+                          );
+
+                        }else{
+                          toastification.show(
+                            context: context,
+                            title: Text(viewModel.errorMessage),
+                            type: ToastificationType.error,
+                            style: ToastificationStyle.flat,
+                            autoCloseDuration: const Duration(seconds: 3),
+                          );
+
+                        }
+                        Navigator.popAndPushNamed(context, '/Home');
+
+
+
+                      }));
+            }else{
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) => CustomAlertDialog(
+                      title: 'Xóa thông tin này?',
+                      info: 'Xác nhận thông tin $name sẽ bị xóa.',
+                      actionButtonName: 'Xóa',
+                      action: () {
+                        delete();
+                        Navigator.pop(context);
+                      }));
+            }
+
           },
           child: Padding(
             padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),

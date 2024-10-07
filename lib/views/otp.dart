@@ -55,8 +55,8 @@ class _RegisterOTPWidgetState extends State<RegisterOTPWidget> {
     if((await _model.checkPin()) == false){
       toastification.show(
         context: context,
-        title: Text(_model.errorMessage,style: TextStyle(
-            fontFamily: 'Raleway'
+        title:  Text(_model.errorMessage,style: TextStyle(
+            fontFamily: 'Nunito'
         ),),
         type: ToastificationType.error,
         style: ToastificationStyle.flat,
@@ -66,8 +66,8 @@ class _RegisterOTPWidgetState extends State<RegisterOTPWidget> {
     }else{
       toastification.show(
         context: context,
-        title: Text('Tạo tài khoản thành công!',style: TextStyle(
-            fontFamily: 'Raleway'
+        title: const Text('Tạo tài khoản thành công!',style: TextStyle(
+            fontFamily: 'Nunito'
         ),),
         type: ToastificationType.success,
         style: ToastificationStyle.flat,
@@ -83,7 +83,7 @@ class _RegisterOTPWidgetState extends State<RegisterOTPWidget> {
         key: scaffoldKey,
         backgroundColor: backgroundColor,
         body: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(40, 0, 40, 0),
+              padding: const EdgeInsetsDirectional.fromSTEB(40, 0, 40, 0),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -92,7 +92,7 @@ class _RegisterOTPWidgetState extends State<RegisterOTPWidget> {
                   Text(
                     'Xác thực OTP',
                     style: TextStyle(
-                        fontFamily: 'Raleway',
+                        fontFamily: 'Nunito',
                         fontSize: 35,
                         letterSpacing: 0.0,
                         fontWeight: FontWeight.w500,
@@ -101,7 +101,7 @@ class _RegisterOTPWidgetState extends State<RegisterOTPWidget> {
 
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -109,7 +109,7 @@ class _RegisterOTPWidgetState extends State<RegisterOTPWidget> {
                         Text(
                           'Nhập mã xác thực',
                           style: TextStyle(
-                              fontFamily: 'Raleway',
+                              fontFamily: 'Nunito',
                               fontSize: 15,
                               letterSpacing: 0.0,
                               fontWeight: FontWeight.w600,
@@ -123,7 +123,7 @@ class _RegisterOTPWidgetState extends State<RegisterOTPWidget> {
                             Text(
                               'Còn lại ',
                               style: TextStyle(
-                                  fontFamily: 'Raleway',
+                                  fontFamily: 'Nunito',
                                   fontSize: 15,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.normal,
@@ -136,19 +136,19 @@ class _RegisterOTPWidgetState extends State<RegisterOTPWidget> {
                               build: (BuildContext context, double time) =>
                                   Text("${time.toInt() ~/ 60}:${time.toInt() % 60}s",
                                     style: TextStyle(
-                                      fontFamily: 'Raleway',
+                                      fontFamily: 'Nunito',
                                       fontSize: 15,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.normal,
                                       color: textPrimary
                                     ),
                                   ),
-                              interval: Duration(milliseconds: 1000),
+                              interval: const Duration(milliseconds: 1000),
                               onFinished: () {
                                 toastification.show(
                                   context: context,
-                                  title: Text('Mã OTP đã hết hiệu lực! Vui lòng nhấn gửi lại.', style: TextStyle(
-                                    fontFamily: 'Raleway'
+                                  title: const Text('Mã OTP đã hết hiệu lực! Vui lòng nhấn gửi lại.', style: TextStyle(
+                                    fontFamily: 'Nunito'
                                   ),),
                                   type: ToastificationType.error,
                                   style: ToastificationStyle.flat,
@@ -163,13 +163,13 @@ class _RegisterOTPWidgetState extends State<RegisterOTPWidget> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                     child: PinCodeTextField(
                       autoDisposeControllers: false,
                       appContext: context,
                       length: 6,
                       textStyle:TextStyle(
-                          fontFamily: 'Raleway',
+                          fontFamily: 'Nunito',
                           fontSize: 17,
                           letterSpacing: 0.0,
                           fontWeight: FontWeight.normal,
@@ -189,7 +189,7 @@ class _RegisterOTPWidgetState extends State<RegisterOTPWidget> {
                         fieldHeight: 44,
                         fieldWidth: 44,
                         borderWidth: 2,
-                        borderRadius: BorderRadius.only(
+                        borderRadius: const BorderRadius.only(
                           bottomLeft: Radius.circular(12),
                           bottomRight: Radius.circular(12),
                           topLeft: Radius.circular(12),
@@ -208,7 +208,7 @@ class _RegisterOTPWidgetState extends State<RegisterOTPWidget> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -221,12 +221,12 @@ class _RegisterOTPWidgetState extends State<RegisterOTPWidget> {
                           options: FFButtonOptions(
                             height: 40,
                             padding:
-                            EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
+                            const EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
                             iconPadding:
-                            EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                            const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                             color: alternateColor,
-                            textStyle: TextStyle(
-                                fontFamily: 'Raleway',
+                            textStyle: const TextStyle(
+                                fontFamily: 'Nunito',
                                 fontSize: 17,
                                 letterSpacing: 0.0,
                                 fontWeight: FontWeight.normal,
@@ -252,9 +252,9 @@ class _RegisterOTPWidgetState extends State<RegisterOTPWidget> {
                             EdgeInsetsDirectional.fromSTEB(46, 0, 46, 0),
                             iconPadding:
                             EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                            color: Color(0xFF69CAA7),
-                            textStyle: TextStyle(
-                                fontFamily: 'Raleway',
+                            color: primaryColor,
+                            textStyle: const TextStyle(
+                                fontFamily: 'Nunito',
                                 fontSize: 17,
                                 letterSpacing: 0.0,
                                 fontWeight: FontWeight.normal,

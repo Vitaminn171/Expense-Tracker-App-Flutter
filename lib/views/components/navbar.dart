@@ -4,16 +4,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/colors.dart';
+import 'custom_alert_dialog.dart';
 
 class CustomNavbar extends StatefulWidget  {
   final int indexCurrent;
+  final bool? flag;
+  final Function? action;
 
   CustomNavbar({super.key,
-    required this.indexCurrent,
+    required this.indexCurrent,this.flag, this.action,
   });
 
   @override
-  State<CustomNavbar> createState() => _CustomNavbarState(indexCurrent: indexCurrent);
+  State<CustomNavbar> createState() => _CustomNavbarState(indexCurrent: indexCurrent, flag: flag, action: action);
 
 
 
@@ -22,9 +25,13 @@ class CustomNavbar extends StatefulWidget  {
 
 class _CustomNavbarState extends State<CustomNavbar>{
   final int indexCurrent;
+  final bool? flag;
+  final Function? action;
 
   _CustomNavbarState({
     required this.indexCurrent,
+    this.flag,
+    this.action,
   });
 
   TextStyle textStyle = TextStyle(
@@ -54,11 +61,11 @@ class _CustomNavbarState extends State<CustomNavbar>{
             label: 'Home',
             labelStyle: textStyle,
           ),
-          CurvedNavigationBarItem(
-            child: Icon(Icons.savings_rounded, color: textPrimary),
-            label: 'Tiết kiệm',
-            labelStyle: textStyle,
-          ),
+          // CurvedNavigationBarItem(
+          //   child: Icon(Icons.savings_rounded, color: textPrimary),
+          //   label: 'Tiết kiệm',
+          //   labelStyle: textStyle,
+          // ),
           CurvedNavigationBarItem(
             child: Icon(Icons.outbox_rounded, color: textPrimary),
             label: 'Chi tiêu',
@@ -71,25 +78,34 @@ class _CustomNavbarState extends State<CustomNavbar>{
           ),
         ],
         onTap: (index) async {
-          switch (index) {
-            case 0:
-              if(indexCurrent != index){
-                await Future.delayed(const Duration(milliseconds: 250));
-                Navigator.popAndPushNamed(context, '/Home');
-              }
-              break;
-            case 2:
-
-              if(indexCurrent != index){
-                await Future.delayed(const Duration(milliseconds: 250));
-                Navigator.popAndPushNamed(context, '/ExpenseList');
-              }
-              break;
-          // ... more cases
-
+          if(flag == null){
+            switchCase(index);
+          }else{
+            index = indexCurrent;
           }
+
         },
       );
+  }
+
+  Future<void> switchCase(int index) async {
+    switch (index) {
+      case 0:
+        if(indexCurrent != index){
+          await Future.delayed(const Duration(milliseconds: 250));
+          Navigator.popAndPushNamed(context, '/Home');
+        }
+        break;
+      case 2:
+
+        if(indexCurrent != index){
+          await Future.delayed(const Duration(milliseconds: 250));
+          Navigator.popAndPushNamed(context, '/ExpenseList');
+        }
+        break;
+    // ... more cases
+
+    }
   }
 }
 

@@ -32,7 +32,10 @@ class ExpenseDetailViewModel extends ChangeNotifier {
 
   String getDate(){
     final data = expenseProvider.expense;
-    return data?.date ?? 'Loading..';
+    if(data != null){
+      return Utils.formatDate(data.date);
+    }
+    return 'Loading..';
   }
 
   List<TransactionDetails>? getExpenseDetail(){

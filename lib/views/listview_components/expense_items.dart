@@ -9,7 +9,7 @@ import '../../models/colors.dart';
 import '../../viewmodels/utils.dart';
 
 class ExpenseItems extends StatelessWidget {
-  final String date;
+  final DateTime date;
   final int total;
 
   const ExpenseItems({super.key, required this.date, required this.total});
@@ -33,7 +33,7 @@ class ExpenseItems extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Ngày $date',
+                      'Ngày ${Utils.formatDate(date)}',
                       style: TextStyle(
                         fontFamily: 'Nunito',
                         fontSize: 18,

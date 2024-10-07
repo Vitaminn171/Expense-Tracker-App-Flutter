@@ -4,14 +4,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/colors.dart';
+import 'custom_alert_dialog.dart';
 
 class CustomPopscope extends StatelessWidget {
   final String? route;
   final Widget widget;
+  final bool? flag;
+  final Function? action;
 
   CustomPopscope({super.key,
     this.route,
-    required this.widget
+    required this.widget,
+    this.flag,
+    this.action,
   });
 
 
@@ -21,7 +26,22 @@ class CustomPopscope extends StatelessWidget {
         canPop: false,
         onPopInvokedWithResult: (bool didPop, dynamic result) {
       if (!didPop) {
-        Navigator.popAndPushNamed(context, route == null ? '/Home' : route.toString());
+        if(flag != null && flag!){
+          showDialog(
+              context: context,
+              builder: (BuildContext context) => CustomAlertDialog(
+                title: 'Dữ liệu chưa được lưu!',
+                info: 'Dữ liệu của bạn chưa được lưu. Bạn có muốn lưu lại trước khi thoát không?',
+                action: () {
+                  action!();
+                },
+                actionCancel: (){
+                  Navigator.popAndPushNamed(context, route == null ? '/Home' : route.toString());
+                },
+              ));
+        }else{
+            Navigator.popAndPushNamed(context, route == null ? '/Home' : route.toString());
+        }
       }
     },
     child: widget,

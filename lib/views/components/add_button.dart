@@ -22,6 +22,7 @@ class AddButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return FFButtonWidget(
       onPressed: () async {
+        Navigator.pop(context);
         Navigator.popAndPushNamed(context, route);
       },
       text: title,

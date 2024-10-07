@@ -82,9 +82,9 @@ class _RegisterWidgetState extends State<RegisterWidget> {
         body: SafeArea(
           top: true,
           child: Align(
-            alignment: AlignmentDirectional(0, 0),
+            alignment: const AlignmentDirectional(0, 0),
             child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(40, 0, 40, 0),
+              padding: const EdgeInsetsDirectional.fromSTEB(40, 0, 40, 0),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -93,7 +93,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                   Text(
                     'Đăng ký',
                     style: TextStyle(
-                        fontFamily: 'Raleway',
+                        fontFamily: 'Nunito',
                         fontSize: 35,
                         letterSpacing: 0.0,
                         fontWeight: FontWeight.w500,
@@ -102,8 +102,8 @@ class _RegisterWidgetState extends State<RegisterWidget> {
 
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
-                    child: Container(
+                    padding: const EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
+                    child: SizedBox(
                       width: 200,
                       child: TextFormField(
                         controller: _model.textController1,
@@ -114,7 +114,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                           isDense: true,
                           labelText: 'Họ Tên',
                           labelStyle: TextStyle(
-                              fontFamily: 'Raleway',
+                              fontFamily: 'Nunito',
                               fontSize: 15,
                               letterSpacing: 0.0,
                               fontWeight: FontWeight.w400,
@@ -122,7 +122,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                           ),
 
                           enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Color(0x00000000),
                               width: 1,
                             ),
@@ -130,7 +130,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: Color(0xFF65C6A3),
+                              color: primaryColor,
                               width: 1,
                             ),
                             borderRadius: BorderRadius.circular(12),
@@ -150,10 +150,10 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                             borderRadius: BorderRadius.circular(12),
                           ),
                           filled: true,
-                          fillColor: Color(0xFFFEFEFE),
+                          fillColor: const Color(0xFFFEFEFE),
                         ),
                         style: TextStyle(
-                            fontFamily: 'Raleway',
+                            fontFamily: 'Nunito',
                             fontSize: 17,
                             letterSpacing: 0.0,
                             fontWeight: FontWeight.w400,
@@ -166,8 +166,8 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
-                    child: Container(
+                    padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                    child: SizedBox(
                       width: 200,
                       child: TextFormField(
                         controller: _model.textController2,
@@ -179,13 +179,13 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                           labelText: 'Email',
                           labelStyle:
                           TextStyle(
-                              fontFamily: 'Raleway',
+                              fontFamily: 'Nunito',
                               fontSize: 15,
                               letterSpacing: 0.0,
                               color: textSecondary
                           ),
                           enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Color(0x00000000),
                               width: 1,
                             ),
@@ -193,7 +193,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: Color(0xFF65C6A3),
+                              color: primaryColor,
                               width: 1,
                             ),
                             borderRadius: BorderRadius.circular(12),
@@ -213,10 +213,10 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                             borderRadius: BorderRadius.circular(12),
                           ),
                           filled: true,
-                          fillColor: Color(0xFFFEFEFE),
+                          fillColor: const Color(0xFFFEFEFE),
                         ),
                         style: TextStyle(
-                            fontFamily: 'Raleway',
+                            fontFamily: 'Nunito',
                             fontSize: 17,
                             letterSpacing: 0.0,
                             color: textPrimary
@@ -228,8 +228,8 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
-                    child: Container(
+                    padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                    child: SizedBox(
                       width: 200,
                       child: TextFormField(
                         controller: _model.textController3,
@@ -241,21 +241,21 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                           labelText: 'Mật khẩu',
                           labelStyle:
                           TextStyle(
-                              fontFamily: 'Raleway',
+                              fontFamily: 'Nunito',
                               fontSize: 15,
                               letterSpacing: 0.0,
                               color: textSecondary
                           ),
                           enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0x00000000),
+                            borderSide: const BorderSide(
+                              color:  Color(0x00000000),
                               width: 1,
                             ),
                             borderRadius: BorderRadius.circular(12),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: Color(0xFF65C6A3),
+                              color: primaryColor,
                               width: 1,
                             ),
                             borderRadius: BorderRadius.circular(12),
@@ -275,7 +275,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                             borderRadius: BorderRadius.circular(12),
                           ),
                           filled: true,
-                          fillColor: Color(0xFFFEFEFE),
+                          fillColor: const Color(0xFFFEFEFE),
                           suffixIcon: InkWell(
                             onTap: () => safeSetState(
                                   () => _model.passwordVisibility =
@@ -286,13 +286,13 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                               _model.passwordVisibility
                                   ? Icons.visibility_outlined
                                   : Icons.visibility_off_outlined,
-                              color: Color(0xFF65C6A3),
+                              color: primaryColor,
                               size: 20,
                             ),
                           ),
                         ),
                         style: TextStyle(
-                            fontFamily: 'Raleway',
+                            fontFamily: 'Nunito',
                             fontSize: 17,
                             letterSpacing: 0.0,
                             color: textPrimary
@@ -316,11 +316,11 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                       text: 'Đăng ký',
                       options: FFButtonOptions(
                         height: 40,
-                        padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
-                        iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                        color: Color(0xFF69CAA7),
-                        textStyle: TextStyle(
-                            fontFamily: 'Raleway',
+                        padding: const EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
+                        iconPadding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                        color: primaryColor,
+                        textStyle: const TextStyle(
+                            fontFamily: 'Nunito',
                             fontSize: 17,
                             letterSpacing: 0.0,
                             color: Colors.white
@@ -332,17 +332,17 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Align(
-                          alignment: AlignmentDirectional(0, 0),
+                          alignment: const  AlignmentDirectional(0, 0),
                           child: Text(
                             'Đã có tài khoản?',
                             style: TextStyle(
-                              fontFamily: 'Raleway',
+                              fontFamily: 'Nunito',
                               fontSize: 14,
                               letterSpacing: 0.0,
                               color: textSecondary,
@@ -352,7 +352,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                           ),
                         ),
                         Align(
-                          alignment: AlignmentDirectional(0, 0),
+                          alignment: const AlignmentDirectional(0, 0),
                           child: InkWell(
                             onTap:() {
                               Navigator.pushNamed(context, "/");
@@ -360,7 +360,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                             child:  Text(
                             ' Đăng nhập tại đây!',
                             style: TextStyle(
-                              fontFamily: 'Raleway',
+                              fontFamily: 'Nunito',
                               fontSize: 14,
                               letterSpacing: 0.0,
                               color: primaryColor,

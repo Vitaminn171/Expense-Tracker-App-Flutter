@@ -15,6 +15,7 @@ import '../models/transaction.dart';
 import '../providers/expense_provider.dart';
 import '../viewmodels/utils.dart';
 import 'components/background_widget.dart';
+import 'components/custom_alert_dialog.dart';
 import 'components/custom_drawer.dart';
 import 'components/custom_popscope.dart';
 import 'components/navbar.dart';
@@ -61,6 +62,7 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
 
     _viewModel = Provider.of<AddExpenseViewModel>(context, listen: false);
 
+
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       _viewModel.getListTransactionsDetail();
     });
@@ -68,7 +70,11 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
 
   @override
   void dispose() {
-    _viewModel.expenseProvider.setListTransactionsDetail([]);
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      _viewModel.expenseProvider.setListTransactionsDetail([]);
+      _viewModel.expenseProvider.setExpenseEdit(null);
+    });
+
     _model.dispose();
 
     super.dispose();
@@ -91,8 +97,8 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
   }
 
   void _clearDataTextField() {
-    _model.textController_title.text = '';
-    _model.textController_total.text = '';
+    _model.textController_title?.clear();
+    _model.textController_total?.clear();
     _tagItemSelected = Utils.tagExpense.first;
   }
 
@@ -104,9 +110,13 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
             widget: Scaffold(
                 key: scaffoldKey,
                 backgroundColor: backgroundColor,
-                bottomNavigationBar: CustomNavbar(
-                  indexCurrent: 2,
-                ),
+                // bottomNavigationBar: CustomNavbar(
+                //   indexCurrent: 2,
+                //   flag: isAdded,
+                //   action: () {
+                //     _viewModel.saveDetails();
+                //   },
+                // ),
                 endDrawer: CustomDrawer(
                   index: 0,
                 ),
@@ -122,24 +132,31 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                     flexibleSpace: FlexibleSpaceBar(
                         background: SingleChildScrollView(
                             primary: true,
-                            child: Container(
+                            child: SizedBox(
                                 height: MediaQuery.of(context).size.height * 0.935,
                                 child: Stack(children: [
                                   BackgroundWidget(
-                                    alignmentDirectional: AlignmentDirectional(0, -1),
+                                    alignmentDirectional: const AlignmentDirectional(0, -1),
                                     imgHeight: 500,
                                   ),
                                   Column(mainAxisSize: MainAxisSize.max, mainAxisAlignment: MainAxisAlignment.start, children: [
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(25, 60, 25, 0),
-                                      child: UserWidget(scaffoldKey: scaffoldKey, title: 'Thêm chi tiêu'), //'Danh sách chi tiêu'
+                                      padding: const EdgeInsetsDirectional.fromSTEB(25, 60, 25, 0),
+                                      child: UserWidget(
+                                        scaffoldKey: scaffoldKey,
+                                        title: 'Thêm chi tiêu',
+                                        flag: isAdded,
+                                        save: () {
+                                          _viewModel.saveDetails(_selectedDate);
+                                        },
+                                      ), //'Danh sách chi tiêu'
                                     ),
                                     Expanded(
                                         child: Align(
-                                      alignment: AlignmentDirectional(0, 0),
+                                      alignment: const AlignmentDirectional(0, 0),
                                       child: Stack(children: [
                                         Align(
-                                          alignment: AlignmentDirectional(0, -1),
+                                          alignment: const AlignmentDirectional(0, -1),
                                           child: Container(
                                             height: MediaQuery.of(context).size.height / 2 + 50,
                                             color: Colors.transparent,
@@ -176,7 +193,7 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                                                             ),
                                                             FFButtonWidget(
                                                               onPressed: () {
-                                                                print('Button pressed ...');
+                                                                _showDialogSave();
                                                               },
                                                               text: 'Lưu',
                                                               icon: Icon(
@@ -186,8 +203,8 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                                                               ),
                                                               options: FFButtonOptions(
                                                                 height: 36,
-                                                                padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
-                                                                iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                                                                padding: const EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
+                                                                iconPadding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                                                                 color: backgroundColor,
                                                                 textStyle: TextStyle(
                                                                   fontFamily: 'Nunito',
@@ -215,7 +232,7 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                                                       ),
                                                     )),
                                                 Padding(
-                                                  padding: EdgeInsetsDirectional.fromSTEB(25, 0, 25, 10),
+                                                  padding: const EdgeInsetsDirectional.fromSTEB(25, 0, 25, 10),
                                                   child: Consumer<ExpenseProvider>(builder: (context, myState, child) {
                                                     //final data = myState.listTransactions!;
                                                     return FutureBuilder<List<TransactionDetails>>(
@@ -223,7 +240,7 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                                                         builder: (context, snapshot) {
                                                           if (snapshot.data != null) {
                                                             final data = snapshot.data!;
-                                                            return Container(
+                                                            return SizedBox(
                                                               height: 220,
                                                               child: ListView.builder(
                                                                 // itemCount: data.length,
@@ -244,6 +261,15 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                                                                             total: items.total,
                                                                             tag: items.tag,
                                                                             index: index,
+                                                                            date: _selectedDate,
+                                                                            delete: () async {
+                                                                              final flag = await _viewModel.deleteDetail(index);
+                                                                              setState(() {
+                                                                                isAdded = flag;
+                                                                              });
+                                                                              Navigator.pop(context);
+
+                                                                            },
                                                                           )));
                                                                 },
                                                               ),
@@ -262,9 +288,9 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                                           ),
                                         ),
                                         Align(
-                                          alignment: AlignmentDirectional(0, 1),
+                                          alignment: const AlignmentDirectional(0, 1),
                                           child: Padding(
-                                            padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                                            padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                                             child: Container(
                                               width: double.infinity,
                                               height: _heightContainer,
@@ -290,7 +316,7 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                                               ),
                                               child: // Generated code for this Column Widget...
                                                   Padding(
-                                                padding: EdgeInsets.all(25),
+                                                padding: const EdgeInsets.all(25),
                                                 child: Column(
                                                   mainAxisSize: MainAxisSize.max,
                                                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -307,8 +333,8 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                                                       ),
                                                     ),
                                                     Padding(
-                                                      padding: EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
-                                                      child: Container(
+                                                      padding: const EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
+                                                      child: SizedBox(
                                                         width: 200,
                                                         child: TextFormField(
                                                           scrollPadding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
@@ -317,15 +343,14 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                                                           autofocus: false,
                                                           readOnly: true,
                                                           obscureText: false,
-
                                                           onTapOutside: (_) {
                                                             moveWidgetWhenUseKeyBoard(false);
                                                           },
                                                           onTap: () async {
-                                                            if(!isAdded){
+                                                            if (!isAdded) {
                                                               final DateTime? picked = await showDatePicker(
                                                                 context: context,
-                                                                locale: Locale('vi'),
+                                                                locale: const Locale('vi'),
                                                                 initialDate: _selectedDate,
                                                                 firstDate: DateTime.now().subtract(Duration(days: 365)),
                                                                 lastDate: DateTime.now(),
@@ -333,9 +358,11 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                                                                   return Theme(
                                                                     data: Theme.of(context).copyWith(
                                                                       colorScheme: ColorScheme.light(
-                                                                        primary: primaryColor, // header background color
+                                                                        primary: primaryColor,
+                                                                        // header background color
                                                                         secondary: alternateColor,
-                                                                        onPrimary: Colors.black, // header text color
+                                                                        onPrimary: Colors.black,
+                                                                        // header text color
                                                                         onTertiary: primaryColor,
                                                                         onSurface: textSecondary, // body text color
                                                                       ),
@@ -364,7 +391,7 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                                                           decoration: InputDecoration(
                                                             isDense: true,
                                                             filled: true,
-                                                            fillColor: isAdded == true ? alternateColor : Color(0xFFFEFEFE),
+                                                            fillColor: isAdded == true ? alternateColor : const Color(0xFFFEFEFE),
                                                             labelText: 'Ngày',
                                                             labelStyle: TextStyle(
                                                                 fontFamily: 'Nunito', fontSize: 15, letterSpacing: 0.0, color: textSecondary),
@@ -375,7 +402,7 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                                                               letterSpacing: 0.0,
                                                             ),
                                                             enabledBorder: OutlineInputBorder(
-                                                              borderSide: BorderSide(
+                                                              borderSide: const BorderSide(
                                                                 color: Color(0x00000000),
                                                                 width: 1,
                                                               ),
@@ -402,13 +429,12 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                                                               ),
                                                               borderRadius: BorderRadius.circular(12),
                                                             ),
-
                                                             prefixIcon: Icon(
                                                               Icons.calendar_today_rounded,
                                                               color: secondaryColor,
                                                             ),
                                                           ),
-                                                          style: TextStyle(
+                                                          style: const TextStyle(
                                                             fontFamily: 'Nunito',
                                                             fontSize: 15,
                                                             letterSpacing: 0.0,
@@ -419,8 +445,8 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                                                       ),
                                                     ),
                                                     Padding(
-                                                      padding: EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
-                                                      child: Container(
+                                                      padding: const EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
+                                                      child: SizedBox(
                                                         width: 200,
                                                         child: TextFormField(
                                                           scrollPadding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
@@ -446,7 +472,7 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                                                               letterSpacing: 0.0,
                                                             ),
                                                             enabledBorder: OutlineInputBorder(
-                                                              borderSide: BorderSide(
+                                                              borderSide: const BorderSide(
                                                                 color: Color(0x00000000),
                                                                 width: 1,
                                                               ),
@@ -474,13 +500,13 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                                                               borderRadius: BorderRadius.circular(12),
                                                             ),
                                                             filled: true,
-                                                            fillColor: Color(0xFFFEFEFE),
+                                                            fillColor: const Color(0xFFFEFEFE),
                                                             prefixIcon: Icon(
                                                               Icons.text_snippet_rounded,
                                                               color: secondaryColor,
                                                             ),
                                                           ),
-                                                          style: TextStyle(
+                                                          style: const TextStyle(
                                                             fontFamily: 'Nunito',
                                                             fontSize: 15,
                                                             letterSpacing: 0.0,
@@ -491,14 +517,15 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                                                       ),
                                                     ),
                                                     Padding(
-                                                      padding: EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
-                                                      child: Container(
+                                                      padding: const EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
+                                                      child: SizedBox(
                                                         width: 200,
                                                         child: TextFormField(
                                                           scrollPadding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
                                                           controller: _model.textController_total,
                                                           focusNode: _model.textFieldFocusNode_total,
                                                           onTap: () {
+
                                                             moveWidgetWhenUseKeyBoard(true);
                                                           },
                                                           onTapOutside: (_) {
@@ -522,7 +549,7 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                                                               letterSpacing: 0.0,
                                                             ),
                                                             enabledBorder: OutlineInputBorder(
-                                                              borderSide: BorderSide(
+                                                              borderSide: const BorderSide(
                                                                 color: Color(0x00000000),
                                                                 width: 1,
                                                               ),
@@ -550,13 +577,13 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                                                               borderRadius: BorderRadius.circular(12),
                                                             ),
                                                             filled: true,
-                                                            fillColor: Color(0xFFFEFEFE),
+                                                            fillColor: const Color(0xFFFEFEFE),
                                                             prefixIcon: Icon(
                                                               Icons.attach_money_rounded,
                                                               color: secondaryColor,
                                                             ),
                                                           ),
-                                                          style: TextStyle(
+                                                          style: const TextStyle(
                                                             fontFamily: 'Nunito',
                                                             fontSize: 15,
                                                             letterSpacing: 0.0,
@@ -567,8 +594,8 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                                                       ),
                                                     ),
                                                     Padding(
-                                                      padding: EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
-                                                      child: Container(
+                                                      padding: const EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
+                                                      child: SizedBox(
                                                         width: 200,
                                                         child: FormField<TagItem>(
                                                           builder: (FormFieldState<TagItem> state) {
@@ -585,7 +612,7 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                                                                   letterSpacing: 0.0,
                                                                 ),
                                                                 enabledBorder: OutlineInputBorder(
-                                                                  borderSide: BorderSide(
+                                                                  borderSide: const BorderSide(
                                                                     color: Color(0x00000000),
                                                                     width: 1,
                                                                   ),
@@ -613,7 +640,7 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                                                                   borderRadius: BorderRadius.circular(12),
                                                                 ),
                                                                 filled: true,
-                                                                fillColor: Color(0xFFFEFEFE),
+                                                                fillColor: const Color(0xFFFEFEFE),
                                                                 prefixIcon: Icon(
                                                                   Icons.category_rounded,
                                                                   color: secondaryColor,
@@ -641,16 +668,6 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                                                                       child: Row(
                                                                         // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                                         children: [
-                                                                          Icon(
-                                                                            value.icon,
-                                                                            color: value.color,
-                                                                            size: 18,
-                                                                          ),
-
-                                                                          // Icon(valueItem.bank_logo),
-                                                                          const SizedBox(
-                                                                            width: 10,
-                                                                          ),
                                                                           Text(value.name),
                                                                         ],
                                                                       ),
@@ -670,22 +687,19 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                                                       ),
                                                     ),
                                                     Padding(
-                                                      padding: EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
+                                                      padding: const EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
                                                       child: FFButtonWidget(
                                                         onPressed: () async {
                                                           FocusManager.instance.primaryFocus?.unfocus();
-                                                          print('Date: ${_model.textController_date.text}\n'
-                                                              'Title: ${_model.textController_title.text}\n'
-                                                              'Total: ${_model.textController_total.text}\n'
-                                                              'Tag: ${_tagItemSelected.id}');
 
                                                           _viewModel.addDetails(_selectedDate, _model.textController_title.text,
                                                               _model.textController_total.text, _tagItemSelected);
-                                                          if(_viewModel.errorMessage.isEmpty){
+
+                                                          if (_viewModel.errorMessage.isEmpty) {
                                                             setState(() {
                                                               isAdded = true;
                                                             });
-                                                          }else{
+                                                          } else {
                                                             toastification.show(
                                                               context: context,
                                                               title: Text(_viewModel.errorMessage),
@@ -703,7 +717,7 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                                                           padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
                                                           iconPadding: EdgeInsets.all(0),
                                                           color: secondaryColor,
-                                                          textStyle: TextStyle(
+                                                          textStyle: const TextStyle(
                                                             fontFamily: 'Nunito',
                                                             color: Colors.white,
                                                             fontSize: 17,
@@ -726,5 +740,47 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                                 ])))),
                   ),
                 ))));
+  }
+
+  void _showDialogSave() {
+    if (isAdded) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) => CustomAlertDialog(
+              title: 'Lưu thông tin?',
+              info: 'Xác nhận lưu chi tiêu hoặc có thể thoát để tiếp tục chỉnh sửa.',
+              action: () async {
+                if(await _viewModel.saveDetails(_selectedDate)){
+                  toastification.show(
+                    context: context,
+                    title: const Text('Lưu thông tin thành công!'),
+                    type: ToastificationType.success,
+                    style: ToastificationStyle.flat,
+                    autoCloseDuration: const Duration(seconds: 3),
+                  );
+                  Navigator.popAndPushNamed(context, '/Home');
+                  // await Future.delayed(Duration(seconds: 1)).then((_){
+                  //
+                  // });
+                }else{
+                  if(_viewModel.errorMessage.isNotEmpty){
+                    toastification.show(
+                      context: context,
+                      title: Text(_viewModel.errorMessage),
+                      type: ToastificationType.error,
+                      style: ToastificationStyle.flat,
+                      autoCloseDuration: const Duration(seconds: 3),
+                    );
+                }
+                }
+              }));
+    } else {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) => const CustomAlertDialog(
+                title: 'Không cần lưu!',
+                info: 'Hiện tại dữ liệu chưa có hoặc chưa có sự thay đổi nào để lưu!',
+              ));
+    }
   }
 }

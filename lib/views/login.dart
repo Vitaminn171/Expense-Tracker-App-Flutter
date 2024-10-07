@@ -107,13 +107,13 @@ class _LoginWidgetState extends State<LoginWidget> {
 
         print('Google email: $email');
 
-        toastification.show(
-          context: context,
-          title: Text(email),
-          type: ToastificationType.success,
-          style: ToastificationStyle.flat,
-          autoCloseDuration: const Duration(seconds: 3),
-        );
+        // toastification.show(
+        //   context: context,
+        //   title: Text(email),
+        //   type: ToastificationType.success,
+        //   style: ToastificationStyle.flat,
+        //   autoCloseDuration: const Duration(seconds: 3),
+        // );
         await _model.loginGoogle(email, name, photoUrl);
         Navigator.popAndPushNamed(context, '/Home');
         // Use the credential to sign-in to Firebase or your backend
@@ -136,9 +136,9 @@ class _LoginWidgetState extends State<LoginWidget> {
         body: SafeArea(
           top: true,
           child: Align(
-            alignment: AlignmentDirectional(0, 0),
+            alignment: const AlignmentDirectional(0, 0),
             child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(40, 0, 40, 0),
+              padding: const EdgeInsetsDirectional.fromSTEB(40, 0, 40, 0),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -147,15 +147,15 @@ class _LoginWidgetState extends State<LoginWidget> {
                   Text(
                     'Đăng nhập',
                     style: TextStyle(
-                        fontFamily: 'Raleway',
+                        fontFamily: 'Nunito',
                         fontSize: 35,
                         letterSpacing: 0.0,
                         fontWeight: FontWeight.w500,
                         color: textPrimary),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
-                    child: Container(
+                    padding: const EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
+                    child: SizedBox(
                       width: 200,
                       child: TextFormField(
                         controller: _model.textController1,
@@ -175,12 +175,12 @@ class _LoginWidgetState extends State<LoginWidget> {
                           isDense: true,
                           labelText: 'Email',
                           labelStyle: TextStyle(
-                              fontFamily: 'Raleway',
+                              fontFamily: 'Nunito',
                               fontSize: 15,
                               letterSpacing: 0.0,
                               color: textSecondary),
                           enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Color(0x00000000),
                               width: 1,
                             ),
@@ -208,10 +208,10 @@ class _LoginWidgetState extends State<LoginWidget> {
                             borderRadius: BorderRadius.circular(12),
                           ),
                           filled: true,
-                          fillColor: Color(0xFFFEFEFE),
+                          fillColor: const Color(0xFFFEFEFE),
                         ),
                         style: TextStyle(
-                            fontFamily: 'Raleway',
+                            fontFamily: 'Nunito',
                             fontSize: 17,
                             letterSpacing: 0.0,
                             color: textPrimary),
@@ -222,8 +222,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
-                    child: Container(
+                    padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                    child:  SizedBox(
                       width: 200,
                       child: TextFormField(
                         controller: _model.textController2,
@@ -234,12 +234,12 @@ class _LoginWidgetState extends State<LoginWidget> {
                           isDense: true,
                           labelText: 'Mật khẩu',
                           labelStyle: TextStyle(
-                              fontFamily: 'Raleway',
+                              fontFamily: 'Nunito',
                               fontSize: 15,
                               letterSpacing: 0.0,
                               color: textSecondary),
                           enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Color(0x00000000),
                               width: 1,
                             ),
@@ -267,7 +267,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                             borderRadius: BorderRadius.circular(12),
                           ),
                           filled: true,
-                          fillColor: Color(0xFFFEFEFE),
+                          fillColor: const Color(0xFFFEFEFE),
                           suffixIcon: InkWell(
                             onTap: () => safeSetState(
                               () => _model.passwordVisibility =
@@ -284,7 +284,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                           ),
                         ),
                         style: TextStyle(
-                            fontFamily: 'Raleway',
+                            fontFamily: 'Nunito',
                             fontSize: 17,
                             letterSpacing: 0.0,
                             color: textPrimary),
@@ -295,17 +295,17 @@ class _LoginWidgetState extends State<LoginWidget> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Align(
-                          alignment: AlignmentDirectional(0, 0),
+                          alignment: const AlignmentDirectional(0, 0),
                           child: Text(
                             'Quên mật khẩu?',
                             style: TextStyle(
-                                fontFamily: 'Raleway',
+                                fontFamily: 'Nunito',
                                 fontSize: 13,
                                 fontWeight: FontWeight.w500,
                                 fontStyle: FontStyle.italic,
@@ -317,7 +317,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                     child: FFButtonWidget(
                       onPressed: () async {
                         FocusManager.instance.primaryFocus?.unfocus();
@@ -328,11 +328,11 @@ class _LoginWidgetState extends State<LoginWidget> {
                       text: 'Đăng nhập',
                       options: FFButtonOptions(
                         height: 40,
-                        padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
-                        iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                        padding: const EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
+                        iconPadding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                         color: primaryColor,
-                        textStyle: TextStyle(
-                            fontFamily: 'Raleway',
+                        textStyle: const TextStyle(
+                            fontFamily: 'Nunito',
                             fontSize: 17,
                             letterSpacing: 0.0,
                             color: Colors.white),
@@ -342,7 +342,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                     child: FFButtonWidget(
                       onPressed: () async {
                         FocusManager.instance.primaryFocus?.unfocus();
@@ -354,36 +354,36 @@ class _LoginWidgetState extends State<LoginWidget> {
                       text: 'Đăng nhập với Google',
                       options: FFButtonOptions(
                         height: 40,
-                        padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
-                        iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                        padding: const EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
+                        iconPadding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                         color: backgroundColor,
 
                         textStyle: TextStyle(
-                            fontFamily: 'Raleway',
+                            fontFamily: 'Nunito',
                             fontSize: 17,
                             letterSpacing: 0.0,
-                            color: Colors.blue),
+                            color: textPrimary),
                         elevation: 0,
                         borderRadius: BorderRadius.circular(12),
                         borderSide: BorderSide(
-                          color: Colors.blue,
+                          color: alternateColor,
                           width: 1.5
                         ),
                       ),
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Align(
-                          alignment: AlignmentDirectional(0, 0),
+                          alignment: const AlignmentDirectional(0, 0),
                           child: Text(
                             'Chưa có tài khoản?',
                             style: TextStyle(
-                              fontFamily: 'Raleway',
+                              fontFamily: 'Nunito',
                               fontSize: 14,
                               letterSpacing: 0.0,
                               color: textPrimary,
@@ -392,7 +392,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                           ),
                         ),
                         Align(
-                            alignment: AlignmentDirectional(0, 0),
+                            alignment: const AlignmentDirectional(0, 0),
                             child: InkWell(
                               onTap: () {
                                 Navigator.pushNamed(context, "/Register");
@@ -400,11 +400,11 @@ class _LoginWidgetState extends State<LoginWidget> {
                               child: Text(
                                 ' Đăng ký tại đây!',
                                 style: TextStyle(
-                                  fontFamily: 'Raleway',
+                                  fontFamily: 'Nunito',
                                   fontSize: 14,
                                   letterSpacing: 0.0,
                                   color: secondaryColor,
-                                  fontWeight: FontWeight.w400,
+                                  fontWeight: FontWeight.w600,
                                 ),
                               ),
                             )),

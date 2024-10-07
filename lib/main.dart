@@ -39,6 +39,9 @@ Future<void> main() async {
   if(prefs.getString('this_email') == null || prefs.getString('this_username') == null){
     initRoute = '/Login';
   }
+  //TODO: check internet connection for entire app
+  //https://pub.dev/packages/internet_connection_checker_plus
+
   runApp(
       MultiProvider(
       providers: [

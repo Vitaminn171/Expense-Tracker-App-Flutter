@@ -31,61 +31,90 @@ class HomeViewModel extends ChangeNotifier {
   String _errorMessage = '';
   String get errorMessage => _errorMessage;
 
-
   Future<int> getCash(String email) async {
     final queryWalletsnapshot = await Api.getWalletData(email);
     final dataWallet = queryWalletsnapshot.docs.single.data();
     return dataWallet['cash'];
   }
 
-
   Future<User> getStoredUser() async {
     User user;
-    if (userProvider.user != null) {
-      user = userProvider.user!;
-      return user;
-    } else {
-      final prefs = await SharedPreferences.getInstance();
-      String email = prefs.getString('this_email').toString();
-      String name = prefs.getString('this_username').toString();
-      int total = prefs.getInt('this_totalCash')!;
+    final prefs = await SharedPreferences.getInstance();
+    if (expenseProvider.isUpdated) {
+      print('Cash update');
+      User userTemp = userProvider.user!;
       String? photo = prefs.getString('this_photoUrl');
-
-
-
       if (photo == null) {
-        user = User(
-            name: name,
-            email: email,
-            totalCash: total,
-            imgPath: prefs.getString('this_imgPath'));
+        user = User(name: userTemp.name, email: userTemp.email, totalCash: await getCash(userTemp.email), imgPath: prefs.getString('this_imgPath'));
       } else {
         user = User(
-          name: name,
-          email: email,
-          totalCash: total,
+          name: userTemp.name,
+          email: userTemp.email,
+          totalCash: await getCash(userTemp.email),
           photoUrl: photo,
         );
       }
+    } else {
+      if (userProvider.user != null) {
+        user = userProvider.user!;
+        return user;
+      } else {
+        String email = prefs.getString('this_email').toString();
+        String name = prefs.getString('this_username').toString();
+        int total = prefs.getInt('this_totalCash')!;
+        String? photo = prefs.getString('this_photoUrl');
 
-      userProvider.setUser(user);
-      notifyListeners();
-      return user;
+        if (photo == null) {
+          user = User(name: name, email: email, totalCash: total, imgPath: prefs.getString('this_imgPath'));
+        } else {
+          user = User(
+            name: name,
+            email: email,
+            totalCash: total,
+            photoUrl: photo,
+          );
+        }
+      }
     }
+    expenseProvider.setState(false);
+    userProvider.setUser(user);
+    notifyListeners();
+    return user;
   }
 
-  Future<Map<String, dynamic>> getExpensesRevenueData() async {
-    final prefs = await SharedPreferences.getInstance();
-    String email = userProvider.user?.email ?? prefs.getString('this_email').toString();
-    final expenseList = expenseProvider.expensesList;
-    final revenueList = revenueProvider.revenuesList;
+  Future<void> getHomeData() async {
+    User user = await getStoredUser();
+    if (expenseProvider.isUpdated || expenseProvider.totalExpenseCurrentMonth == null) {
+      final prefs = await SharedPreferences.getInstance();
+      print('Reload data from Api');
+      // if (userProvider.user != null) {
+      //   user = userProvider.user!;
+      // } else {
+      //   String email = prefs.getString('this_email').toString();
+      //   String name = prefs.getString('this_username').toString();
+      //   int total = prefs.getInt('this_totalCash')!;
+      //   String? photo = prefs.getString('this_photoUrl');
+      //
+      //   if (photo == null) {
+      //     user = User(name: name, email: email, totalCash: total, imgPath: prefs.getString('this_imgPath'));
+      //   } else {
+      //     user = User(
+      //       name: name,
+      //       email: email,
+      //       totalCash: total,
+      //       photoUrl: photo,
+      //     );
+      //   }
+      //
+      //   userProvider.setUser(user);
+      //   notifyListeners();
+      // }
 
-    final totalExp = expenseProvider.totalExpenseCurrentMonth;
-    final totalRev = revenueProvider.totalRevenue;
+      String email = userProvider.user?.email ?? prefs.getString('this_email').toString();
 
-    num totalExpense = 0;
-    num totalRevenue = 0;
-    try {
+      num totalExpense = 0;
+      num totalRevenue = 0;
+      try {
         if (email.isNotEmpty) {
           final querySnapshot = await Api.getExpenseThisMonth(email);
           final querysnapshotRev = await Api.getRevenueThisMonth(email);
@@ -96,29 +125,23 @@ class HomeViewModel extends ChangeNotifier {
             for (final doc in querySnapshot.docs) {
               final data = doc.data();
               //List<TransactionDetails> details = Utils.getDetails(data['details']);
-              Transactions expenses = Transactions(
-                  date: formatTimeStamptoDate(data['date']),
-                  total: data['total'],
-                  details: Utils.getDetails(data['details']));
+              Transactions expenses =
+                  Transactions(date: Utils.formatTimeStamptoDate(data['date']), total: data['total'], details: Utils.getDetails(data['details']));
               list.add(expenses);
               totalExpense += data['total'];
               print('Document data: ${expenses.date}');
             }
-
           }
           expenseProvider.setExpensesList(Future.value(list));
           expenseProvider.setTotalExpenseCurrentMonth(totalExpense.toInt());
-          expenseProvider
-              .setTotalExpenseRange(Future.value(totalExpense.toInt()));
+          expenseProvider.setTotalExpenseRange(Future.value(totalExpense.toInt()));
 
           if (querysnapshotRev.size > 0) {
             //final data = querySnapshot.docs.single.data();
             for (final doc in querysnapshotRev.docs) {
               final data = doc.data();
-              Transactions revenues = Transactions(
-                  date: formatTimeStamptoDate(data['date']),
-                  total: data['total'],
-                  details: Utils.getDetails(data['details']));
+              Transactions revenues =
+                  Transactions(date: Utils.formatTimeStamptoDate(data['date']), total: data['total'], details: Utils.getDetails(data['details']));
               listRev.add(revenues);
               totalRevenue += data['total'];
               print('Document revenue: ${revenues.date}');
@@ -126,15 +149,69 @@ class HomeViewModel extends ChangeNotifier {
             revenueProvider.setRevenuesList(listRev);
             revenueProvider.setTotalRevenue(totalRevenue.toInt());
           }
-
-
+        }
+      } catch (e) {
+        print(e);
       }
-        return {
-          'totalExpense': Utils.formatCurrency(totalExpense.toInt()),
-          'totalRevenue': Utils.formatCurrency(totalRevenue.toInt()),
-        };
+      expenseProvider.setState(false);
+      notifyListeners();
+    } else {
+      print('No reload data from Api');
+    }
+  }
+
+  Future<Map<String, dynamic>> getExpensesRevenueData() async {
+    final prefs = await SharedPreferences.getInstance();
+    String email = userProvider.user?.email ?? prefs.getString('this_email').toString();
+
+    num totalExpense = 0;
+    num totalRevenue = 0;
+    try {
+      if (email.isNotEmpty) {
+        final querySnapshot = await Api.getExpenseThisMonth(email);
+        final querysnapshotRev = await Api.getRevenueThisMonth(email);
+        List<Transactions> list = [];
+        List<Transactions> listRev = [];
+        if (querySnapshot.size > 0) {
+          //final data = querySnapshot.docs.single.data();
+          for (final doc in querySnapshot.docs) {
+            final data = doc.data();
+            //List<TransactionDetails> details = Utils.getDetails(data['details']);
+            Transactions expenses =
+                Transactions(date: Utils.formatTimeStamptoDate(data['date']), total: data['total'], details: Utils.getDetails(data['details']));
+            list.add(expenses);
+            totalExpense += data['total'];
+            print('Document data: ${expenses.date}');
+          }
+        }
+        expenseProvider.setExpensesList(Future.value(list));
+        expenseProvider.setTotalExpenseCurrentMonth(totalExpense.toInt());
+        expenseProvider.setTotalExpenseRange(Future.value(totalExpense.toInt()));
+
+        if (querysnapshotRev.size > 0) {
+          //final data = querySnapshot.docs.single.data();
+          for (final doc in querysnapshotRev.docs) {
+            final data = doc.data();
+            Transactions revenues =
+                Transactions(date: Utils.formatTimeStamptoDate(data['date']), total: data['total'], details: Utils.getDetails(data['details']));
+            listRev.add(revenues);
+            totalRevenue += data['total'];
+            print('Document revenue: ${revenues.date}');
+          }
+          revenueProvider.setRevenuesList(listRev);
+          revenueProvider.setTotalRevenue(totalRevenue.toInt());
+        }
+      }
+      expenseProvider.setState(false);
+      notifyListeners();
+      return {
+        'totalExpense': Utils.formatCurrency(totalExpense.toInt()),
+        'totalRevenue': Utils.formatCurrency(totalRevenue.toInt()),
+      };
     } catch (e) {
       print(e);
+      expenseProvider.setState(false);
+      notifyListeners();
       return {
         'totalExpense': Utils.formatCurrency(totalExpense.toInt()),
         'totalRevenue': Utils.formatCurrency(totalRevenue.toInt()),

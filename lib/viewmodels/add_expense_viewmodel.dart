@@ -1,14 +1,18 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expenseapp/models/tag.dart';
 import 'package:expenseapp/models/transaction.dart';
+import 'package:expenseapp/models/user.dart';
 import 'package:expenseapp/viewmodels/utils.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
 
 import 'package:expenseapp/views/add_expense.dart' show AddExpenseWidget;
 import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../providers/expense_provider.dart';
 import '../providers/user_provider.dart';
+import '../views/components/custom_alert_dialog.dart';
 import 'apis.dart';
 
 class AddExpenseModel extends FlutterFlowModel<AddExpenseWidget> {
@@ -25,7 +29,6 @@ class AddExpenseModel extends FlutterFlowModel<AddExpenseWidget> {
   // State field(s) for TextField widget.
   FocusNode? textFieldFocusNode_total;
   TextEditingController? textController_total;
-  final textFieldMask_total = MaskTextInputFormatter(mask: '###,###,###,###');
   String? Function(BuildContext, String?)? textControllerValidator_total;
   // State field(s) for TextField widget.
   FocusNode? textFieldFocusNode_tag;
@@ -69,6 +72,7 @@ class AddExpenseViewModel extends ChangeNotifier {
     final data = expenseProvider.listDetails;
     if(data == null){
       expenseProvider.setListTransactionsDetail([]);
+      expenseProvider.setExpenseEdit(null);
     }
   }
 
@@ -87,11 +91,140 @@ class AddExpenseViewModel extends ChangeNotifier {
     }
   }
 
+  Future<bool> saveDetails(DateTime date) async {
+
+    _errorMessage= '';
+    try{
+
+      final dataDetails = await expenseProvider.listDetails;
+      int total = 0;
+      List<dynamic> expenseDetail = [];
+      for(TransactionDetails item in dataDetails!){
+        total += item.total;
+        expenseDetail.add({
+          'name': item.name,
+          'total': item.total,
+          'tag': item.tag
+        });
+
+      }
+
+      final queryWalletsnapshot = await Api.getWalletData(userProvider.user!.email);
+      final dataWallet = queryWalletsnapshot.docs.single.data();
+      DocumentReference walletRef = queryWalletsnapshot.docs.single.reference;
+
+
+      int cash = 0;
+
+      if(expenseProvider.expenseEdit == null){
+        final expenseDoc = Api.expensesCollection.doc(); // Generate a unique document ID
+
+        final expenseData = {
+          'email': userProvider.user!.email,
+          'date': Timestamp.fromDate(date),
+          'total': total,
+          'details': expenseDetail
+        };
+        await expenseDoc.set(expenseData);
+
+        cash = (dataWallet['cash'] - total);
+      }else{
+        final querySnapshot = await Api.getExpenseDetails(userProvider.user!.email, date);
+        if (querySnapshot.size > 0) {
+          DocumentSnapshot document = querySnapshot.docs.first;
+          DocumentReference expenseRef = document.reference;
+          final dataTotal = querySnapshot.docs.first.data();
+          cash = (dataWallet['cash'] + dataTotal['total']) - total;
+          final expenseData = {
+            //'email': userProvider.user!.email,
+            //'date': date,
+            'total': total,
+            'details': expenseDetail
+          };
+          await expenseRef.update(expenseData);
+        }
+      }
+      final walletData = {
+        'cash': cash,
+      };
+      await walletRef.update(walletData);
+      expenseProvider.setState(true);
+      userProvider.setUser(
+          User(email: userProvider.user!.email, name: userProvider.user!.name, totalCash: cash)
+      );
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setInt('this_totalCash', cash);
+      notifyListeners();
+      return true;
+    }catch(e){
+      expenseProvider.setState(false);
+      _errorMessage = 'Hệ thống bị lỗi! Vui lòng thử lại sau vài giây.';
+      print(e);
+      return false;
+    }
+
+
+  }
+
+  void cancelDetails() {
+
+    print('saved');
+
+
+  }
+
+
+
+  Future<bool> deleteDetail(int index) async {
+    _errorMessage= '';
+    try{
+      List<TransactionDetails>? list = await expenseProvider.listDetails;
+      list?.removeAt(index);
+      if(list!.isEmpty && expenseProvider.expenseEdit == null){
+        return false;
+      }
+      expenseProvider.setListTransactionsDetail(list);
+      notifyListeners();
+      return true;
+    }catch(e){
+      _errorMessage = 'Hệ thống bị lỗi! Vui lòng thử lại sau vài giây.';
+      return false;
+    }
+  }
+
+  Future<void> deleteData(DateTime date) async {
+    _errorMessage = '';
+    try{
+      final data = expenseProvider.expenseEdit;
+      int cash = data!.total;
+      final queryWalletsnapshot = await Api.getWalletData(userProvider.user!.email);
+      final dataWallet = queryWalletsnapshot.docs.single.data();
+      DocumentReference walletRef = queryWalletsnapshot.docs.single.reference;
+      final walletData = {
+        'cash': dataWallet['cash'] + cash,
+      };
+      await walletRef.update(walletData);
+      Api.deleteExpenseData(userProvider.user!.email, date);
+      expenseProvider.setExpenseEdit(null);
+      expenseProvider.setListTransactionsDetail([]);
+      expenseProvider.setState(true);
+      userProvider.setUser(
+          User(email: userProvider.user!.email, name: userProvider.user!.name, totalCash: dataWallet['cash'] + cash)
+      );
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setInt('this_totalCash', dataWallet['cash'] + cash);
+      notifyListeners();
+    }catch(e){
+      _errorMessage = 'Hệ thống bị lỗi! Vui lòng thử lại sau vài giây.';
+      print(e);
+    }
+
+  }
 
   Future<void> getDetailsData(DateTime date) async {
     String email = userProvider.user!.email;
     final querySnapshot = await Api.getExpenseDetails(email, date);
-    if(querySnapshot.docs.length > 0){
+    if(querySnapshot.docs.isNotEmpty){
       final data = querySnapshot.docs.single.data();
       Transactions expenses = Transactions(
           date: Utils.formatTimeStamptoDate(data['date']),
@@ -108,9 +241,6 @@ class AddExpenseViewModel extends ChangeNotifier {
 
     return Future.value();
   }
-//https://pub.dev/packages/slide_popup_dialog_null_safety
-  //TODO 1: check when navigate -> show dialog https://pub.dev/packages/simple_alert_dialog
-  //TODO 2: add details data to firebase
 
 
 }

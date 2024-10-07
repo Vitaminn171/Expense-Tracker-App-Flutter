@@ -19,7 +19,7 @@ class Api {
    DateTimeRange month = thisMonth();
     final query = expensesCollection.where('email', isEqualTo: email)
         .where('date', isGreaterThanOrEqualTo: Timestamp.fromDate(month.start))
-        .where('date', isLessThanOrEqualTo: Timestamp.fromDate(month.end.add(Duration(days: 1))));
+        .where('date', isLessThanOrEqualTo: Timestamp.fromDate(month.end.add(const Duration(seconds: 10))));
     return await query.get();
   }
 
@@ -44,7 +44,15 @@ class Api {
   static Future<QuerySnapshot<Map<String, dynamic>>> getExpenseDetails(String email, DateTime date) async {
     final query = expensesCollection.where('email', isEqualTo: email)
         .where('date', isGreaterThanOrEqualTo: Timestamp.fromDate(date))
-        .where('date', isLessThanOrEqualTo: Timestamp.fromDate(date.add(const Duration(days: 1))));
+        .where('date', isLessThanOrEqualTo: Timestamp.fromDate(date.add(const Duration(seconds: 10))));
     return await query.get();
+  }
+
+  static Future<void> deleteExpenseData(String email, DateTime date) async {
+    final query = expensesCollection.where('email', isEqualTo: email)
+        .where('date', isGreaterThanOrEqualTo: Timestamp.fromDate(date))
+        .where('date', isLessThanOrEqualTo: Timestamp.fromDate(date.add(const Duration(seconds: 10))));
+    final querySnapshot = await query.get();
+    querySnapshot.docs.single.reference.delete();
   }
 }

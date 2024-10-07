@@ -10,6 +10,7 @@ import 'package:expenseapp/providers/expense_provider.dart';
 import 'package:expenseapp/providers/revenues_provider.dart';
 import 'package:expenseapp/providers/user_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -128,10 +129,21 @@ class Utils {
     return TagItem(id: 0, name: '', icon: Icons.abc, color: Colors.white);
   }
 
-  static String formatTimeStamptoDate(Timestamp sec) {
+  static DateTime formatTimeStamptoDate(Timestamp sec) {
     DateTime date = sec.toDate();
-    final formattedDate = DateFormat('dd/MM/yyyy').format(date);
-    return formattedDate;
+    return date;
+  }
+
+  static Future<void> showLoadingDialog(BuildContext context) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // Prevent dismissing by tapping outside
+      builder: (BuildContext context) => Center(
+        child: CircularProgressIndicator(
+          color: primaryColor,
+        ),
+      ),
+    );
   }
 
 

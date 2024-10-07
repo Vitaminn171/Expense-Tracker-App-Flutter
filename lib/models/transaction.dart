@@ -1,5 +1,5 @@
 class Transactions {
-  final String date;
+  final DateTime date;
   final int total;
   final List<TransactionDetails> details;
 

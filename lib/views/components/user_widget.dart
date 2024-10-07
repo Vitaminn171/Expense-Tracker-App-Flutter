@@ -6,17 +6,22 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/colors.dart';
+import 'custom_alert_dialog.dart';
 
 class UserWidget extends StatelessWidget {
   final scaffoldKey;
   final String? title;
   final String? route;
+  final bool? flag;
+  final Function? save;
 
   const UserWidget({
     super.key,
     required this.scaffoldKey,
     this.title,
     this.route,
+    this.flag,
+    this.save,
   });
 
   @override
@@ -30,7 +35,23 @@ class UserWidget extends StatelessWidget {
               alignment: AlignmentDirectional(0, 0),
               child: InkWell(
                 onTap: () {
-                  Navigator.popAndPushNamed(context, route ?? '/Home');
+                  if (flag == null || flag == false) {
+                    Navigator.popAndPushNamed(context, route ?? '/Home');
+                  } else {
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) => CustomAlertDialog(
+                            title: 'Dữ liệu chưa được lưu!',
+                            info: 'Dữ liệu của bạn chưa được lưu. Bạn có muốn lưu lại trước khi thoát không?',
+                            action: () {
+                              save!();
+                            },
+                            actionCancel: (){
+                              Navigator.popAndPushNamed(context, '/Home');
+                            },
+                        ));
+                  }
+
                   //scaffoldKey.currentState?.openEndDrawer();
                 },
                 child: Icon(
@@ -67,7 +88,10 @@ class UserWidget extends StatelessWidget {
               alignment: AlignmentDirectional(0, 0),
               child: InkWell(
                 onTap: () {
-                  scaffoldKey.currentState?.openEndDrawer();
+                  if (flag == null || flag == false) {
+                    scaffoldKey.currentState?.openEndDrawer();
+                  }
+
                 },
                 child: Icon(
                   Icons.menu_rounded,
@@ -79,7 +103,7 @@ class UserWidget extends StatelessWidget {
       );
     } else {
       final userProvider = context.read<UserProvider>();
-      print(userProvider.user?.imgPath);
+      //print(userProvider.user?.imgPath);
       return Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -98,7 +122,7 @@ class UserWidget extends StatelessWidget {
                               fit: BoxFit.cover,
                             )
                           : Image.asset(
-                    'assets/images/logo.jpg',
+                              'assets/images/logo.jpg',
                               width: 50,
                               height: 50,
                               fit: BoxFit.cover,

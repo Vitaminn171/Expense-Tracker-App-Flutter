@@ -35,7 +35,7 @@ class ExpenseListViewModel extends ChangeNotifier {
       if (querySnapshot.size > 0) {
         for (final doc in querySnapshot.docs) {
           final data = doc.data();
-          Transactions expenses = Transactions(date: formatTimeStamptoDate(data['date']),total: data['total'], details: Utils.getDetails(data['details']));
+          Transactions expenses = Transactions(date: Utils.formatTimeStamptoDate(data['date']),total: data['total'], details: Utils.getDetails(data['details']));
           list.add(expenses);
           totalExpense += data['total'];
           print('Document data: ${expenses.date}');
@@ -58,13 +58,13 @@ class ExpenseListViewModel extends ChangeNotifier {
     final query = expensesCollection
         .where('email', isEqualTo: userProvider.user?.email)
         .where('date', isGreaterThanOrEqualTo: Timestamp.fromDate(range.start))
-        .where('date', isLessThanOrEqualTo: Timestamp.fromDate(range.end.add(const Duration(days: 1))));
+        .where('date', isLessThanOrEqualTo: Timestamp.fromDate(range.end.add(const Duration(seconds: 10))));
     final querySnapshot = await query.get();
     List<Transactions> list = [];
     if (querySnapshot.size > 0) {
       for (final doc in querySnapshot.docs) {
         final data = doc.data();
-        Transactions expenses = Transactions(date: formatTimeStamptoDate(data['date']),total: data['total'], details: Utils.getDetails(data['details']));
+        Transactions expenses = Transactions(date: Utils.formatTimeStamptoDate(data['date']),total: data['total'], details: Utils.getDetails(data['details']));
         list.add(expenses);
         totalExpense += data['total'];
         print('Document data: ${expenses.date}');
@@ -90,12 +90,6 @@ class ExpenseListViewModel extends ChangeNotifier {
     return data;
   }
 
-  String formatTimeStamptoDate(Timestamp sec) {
-    DateTime date = sec.toDate();
-    final formattedDate = DateFormat('dd/MM/yyyy').format(date);
-    return formattedDate;
-  }
-
   String formatDatePicker(DateTime date) {
     final formattedDate = DateFormat('dd/MM').format(date);
     return formattedDate;
@@ -104,6 +98,14 @@ class ExpenseListViewModel extends ChangeNotifier {
 
   DateTimeRange? getDateRange(){
     return expenseProvider.dateTimeRangeExpense;
+  }
+
+  Future<void> getExpenxeData(DateTimeRange dateRange) async {
+    if(expenseProvider.isUpdated || expenseProvider.expensesList == null){
+      getExpDateRange(dateRange);
+    }else{
+      print('No reload data from Api');
+    }
   }
 
 }
