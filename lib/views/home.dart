@@ -11,6 +11,7 @@ import 'package:expenseapp/viewmodels/home_viewmodel.dart';
 import 'package:toastification/toastification.dart';
 
 import '../models/user.dart';
+import 'components/custom_alert_dialog.dart';
 import 'components/custom_drawer.dart';
 import 'components/custom_popscope.dart';
 import 'components/navbar.dart';
@@ -290,6 +291,12 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                     children: [
                                                       InkWell(
                                                         onTap: (() {
+                                                          showDialog(
+                                                              context: context,
+                                                              builder: (BuildContext context) => const CustomAlertDialog(
+                                                                title: 'Coming soon!',
+                                                                info: 'Tính năng này sẽ được thêm vào trong các bản cập nhật tiếp theo.',
+                                                              ));
                                                         }),
                                                         child: Card(
                                                           clipBehavior: Clip.antiAliasWithSaveLayer,

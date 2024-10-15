@@ -1,6 +1,7 @@
 import 'package:expenseapp/viewmodels/utils.dart';
 import 'package:expenseapp/views/components/add_button.dart';
 import 'package:expenseapp/views/components/background_widget.dart';
+import 'package:expenseapp/views/listview_components/setting_items.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'package:expenseapp/models/colors.dart';
 import 'dart:ui';
@@ -50,30 +51,6 @@ class _SettingWidgetState extends State<SettingWidget> {
         ),
       ),
     );
-  }
-
-  Future<void> _performLoadingTask() async {
-    showLoadingDialog(context);
-
-    if ((await Utils.logout(context)) == false) {
-      toastification.show(
-        context: context,
-        title: const Text('Đăng xuất thất bại! Vui lòng thử lại sau vài giây.'),
-        type: ToastificationType.error,
-        style: ToastificationStyle.flatColored,
-        autoCloseDuration: const Duration(seconds: 4),
-      );
-      Navigator.pop(context);
-    } else {
-      toastification.show(
-        context: context,
-        title: const Text('Đăng xuất thành công!'),
-        type: ToastificationType.success,
-        style: ToastificationStyle.flatColored,
-        autoCloseDuration: const Duration(seconds: 3),
-      );
-      Navigator.popAndPushNamed(context, '/Login');
-    }
   }
 
   @override
@@ -137,32 +114,62 @@ class _SettingWidgetState extends State<SettingWidget> {
                                                 child: UserWidget(scaffoldKey: scaffoldKey, title: 'Cài đặt')),
                                             Row(
                                               mainAxisAlignment: MainAxisAlignment.center,
-                                              
                                               children: [
-                                                ClipRRect(
-                                                    borderRadius: BorderRadius.circular(18),
-                                                    child: snapshot.data?.photoUrl == null
-                                                        ? (snapshot.data?.imgPath == 'user'
-                                                            ? Image.asset(
-                                                                'assets/images/user.png',
-                                                                width: 50,
-                                                                height: 50,
-                                                                fit: BoxFit.cover,
-                                                              )
-                                                            : Image.asset(
-                                                                'assets/images/user.png',
-                                                                width: 50,
-                                                                height: 50,
-                                                                fit: BoxFit.cover,
-                                                              ))
-                                                        : Image.network(
-                                                            snapshot.data!.photoUrl.toString(),
-                                                            width: 50,
-                                                            height: 50,
-                                                            fit: BoxFit.cover,
-                                                          )),
+                                                Padding(
+                                                  padding: const EdgeInsetsDirectional.fromSTEB(25, 50, 25, 0),
+                                                  child: ClipRRect(
+                                                      borderRadius: BorderRadius.circular(58),
+                                                      child: snapshot.data?.photoUrl == null
+                                                          ? (snapshot.data?.imgPath == 'user'
+                                                              ? Image.asset(
+                                                                  'assets/images/user.png',
+                                                                  width: 150,
+                                                                  height: 150,
+                                                                  fit: BoxFit.cover,
+                                                                )
+                                                              : Image.asset(
+                                                                  'assets/images/user.png',
+                                                                  width: 150,
+                                                                  height: 150,
+                                                                  fit: BoxFit.cover,
+                                                                ))
+                                                          : Image.network(
+                                                              snapshot.data!.photoUrl.toString(),
+                                                              width: 100,
+                                                              height: 100,
+                                                              fit: BoxFit.cover,
+                                                            )),
+                                                ),
                                               ],
                                             ),
+                                            Padding(
+                                              padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 30),
+                                              child: Column(
+                                                children: [
+                                                  Text(
+                                                    snapshot.data!.name,
+                                                    style: TextStyle(
+                                                        fontFamily: 'Nunito',
+                                                        fontSize: 20,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight: FontWeight.w500,
+                                                        color: backgroundColor),
+                                                  ),
+                                                  Text(
+                                                    snapshot.data!.email,
+                                                    style: TextStyle(
+                                                        fontFamily: 'Nunito',
+                                                        fontSize: 17,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight: FontWeight.w400,
+                                                        color: backgroundColor),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                           SettingItems(text: 'Chỉnh sửa thông tin cá nhân', action: () {}, icon: Icons.manage_accounts_rounded,),
+                                            SettingItems(text: 'Đổi mật khẩu', action: () {}, icon: Icons.password_rounded,),
+                                            SettingItems(text: 'Chuyển đổi tài khoản Google', action: () {}, icon: Icons.manage_accounts_rounded,),
                                           ],
                                         );
                                       }
