@@ -86,9 +86,10 @@ class _LoginWidgetState extends State<LoginWidget> {
   }
 
   Future<void> _signInWithGoogle() async {
+    GoogleSignInAccount? googleUser;
     try {
       showLoadingDialog(context);
-      final GoogleSignInAccount? googleUser = await _model.userProvider.googleSignIn.signIn();
+      googleUser = await _model.userProvider.googleSignIn.signIn();
       if (googleUser != null) {
         final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
 
@@ -96,17 +97,13 @@ class _LoginWidgetState extends State<LoginWidget> {
         //   accessToken: googleAuth.accessToken,
         //   idToken: googleAuth.idToken,
         // );
+
         if (kDebugMode) {
           print('================> Google: $googleUser');
         }
         final String name = googleUser.displayName!;
         final String email = googleUser.email;
         final String photoUrl = googleUser.photoUrl!;
-
-
-
-
-
 
         await _model.loginGoogle(email, name, photoUrl);
         if(_model.errorMessage.isNotEmpty){
@@ -127,25 +124,27 @@ class _LoginWidgetState extends State<LoginWidget> {
           );
           Navigator.popAndPushNamed(context, '/Home');
         }
-
-
-        // Use the credential to sign-in to Firebase or your backend
-        // ...
       }else{
         Navigator.pop(context);
       }
     } catch (error, stacktrace) {
-      if (kDebugMode) {
-        print("Sign-in error: $error, $stacktrace");
-        toastification.show(
-          context: context,
-          title: Text("Sign-in error: $error", overflow: TextOverflow.fade,),
-          type: ToastificationType.success,
-          style: ToastificationStyle.flatColored,
-          autoCloseDuration: const Duration(seconds: 3),
-        );
-      }
+      await _model.sendError("Sign-in error: $error, StackTrace: $stacktrace");
 
+      toastification.show(
+        context: context,
+        title: Text('Hệ thống bị lỗi! Vui lòng thử lại sau vài giây.'),
+        type: ToastificationType.error,
+        style: ToastificationStyle.flatColored,
+        autoCloseDuration: const Duration(seconds: 3),
+      );
+      if(googleUser != null){
+        await _model.userProvider.googleSignIn.signOut();
+        await Utils.logout(context);
+      }
+      if (kDebugMode) {
+        print("Sign-in error: $error, StackTrace: $stacktrace");
+      }
+      Navigator.pop(context);
     }
   }
 

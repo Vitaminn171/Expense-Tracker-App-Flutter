@@ -134,8 +134,6 @@ class LoginViewModel extends FlutterFlowModel<LoginWidget> {
 
   Future<void> loginGoogle(String email, String username, String photoUrl) async {
     _errorMessage = '';
-    print('===============> photoUrl: $photoUrl');
-    final usersCollection = FirebaseFirestore.instance.collection('users');
 
     final querySnapshot = await Api.getUserData(email);
     if(querySnapshot.size == 0){
@@ -182,6 +180,18 @@ class LoginViewModel extends FlutterFlowModel<LoginWidget> {
     }
 
   }
+
+  Future<void> sendError(String text) async {
+    final errDoc = Api.errorCollection.doc(); // Generate a unique document ID
+
+    final errorData = {
+      'text': text,
+    };
+    await errDoc.set(errorData);
+
+  }
+
+
 
 
 //'.', '#', '$', '[', or ']'
