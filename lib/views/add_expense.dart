@@ -21,7 +21,7 @@ import 'components/custom_popscope.dart';
 import 'components/navbar.dart';
 import 'components/user_widget.dart';
 import 'listview_components/addExpenseDetail_items.dart';
-import 'listview_components/expense_items.dart';
+import 'listview_components/transaction_items.dart';
 export 'package:expenseapp/viewmodels/add_expense_viewmodel.dart';
 
 class AddExpenseWidget extends StatefulWidget {
@@ -34,8 +34,8 @@ class AddExpenseWidget extends StatefulWidget {
 class _AddExpenseWidgetState extends State<AddExpenseWidget> {
   late AddExpenseModel _model;
   late AddExpenseViewModel _viewModel;
-  double _heightContainer = 380;
-  DateTime _selectedDate = DateTime(Utils.now.year, Utils.now.month, Utils.now.day);
+  double _heightContainer = 370;
+  late DateTime _selectedDate;
 
   TagItem _tagItemSelected = Utils.tagExpense.first;
   bool isAdded = false;
@@ -47,25 +47,31 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
     super.initState();
     _model = createModel(context, () => AddExpenseModel());
 
-    _model.textController_date ??= TextEditingController();
-    _model.textFieldFocusNode_date ??= FocusNode();
-    _model.textController_date.text = Utils.formatDate(_selectedDate);
-
-    _model.textController_title ??= TextEditingController();
-    _model.textFieldFocusNode_title ??= FocusNode();
-
-    _model.textController_total ??= TextEditingController();
-    _model.textFieldFocusNode_total ??= FocusNode();
-
-    _model.textController_tag ??= TextEditingController();
-    _model.textFieldFocusNode_tag ??= FocusNode();
-
     _viewModel = Provider.of<AddExpenseViewModel>(context, listen: false);
-
-
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       _viewModel.getListTransactionsDetail();
+
+        setState(() {
+          _selectedDate = _viewModel.selectedDate ?? DateTime(Utils.now.year, Utils.now.month, Utils.now.day);
+        });
+
+      _model.textController_date ??= TextEditingController();
+      _model.textFieldFocusNode_date ??= FocusNode();
+
+      _model.textController_date.text = Utils.formatDate(_selectedDate);
+
+      _model.textController_title ??= TextEditingController();
+      _model.textFieldFocusNode_title ??= FocusNode();
+
+      _model.textController_total ??= TextEditingController();
+      _model.textFieldFocusNode_total ??= FocusNode();
+
+      _model.textController_tag ??= TextEditingController();
+      _model.textFieldFocusNode_tag ??= FocusNode();
+
     });
+
+
   }
 
   @override
@@ -85,7 +91,7 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
       if (flag) {
         _heightContainer = 600;
       } else {
-        _heightContainer = 380;
+        _heightContainer = 370;
       }
     });
   }
@@ -104,6 +110,10 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.sizeOf(context).height;
+    var heightContainer = size * 0.26953125;
+    print(size);
+
     return GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
         child: CustomPopscope(
@@ -132,6 +142,7 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                     flexibleSpace: FlexibleSpaceBar(
                         background: SingleChildScrollView(
                             primary: true,
+                            physics: const NeverScrollableScrollPhysics(),
                             child: SizedBox(
                                 height: MediaQuery.of(context).size.height * 0.935,
                                 child: Stack(children: [
@@ -167,7 +178,7 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                                               children: [
                                                 // Generated code for this Row Widget...
                                                 Padding(
-                                                    padding: const EdgeInsetsDirectional.fromSTEB(25, 25, 25, 10),
+                                                    padding: const EdgeInsetsDirectional.fromSTEB(25, 25, 25, 5),
                                                     child: Card(
                                                       elevation: 0,
                                                       shape: RoundedRectangleBorder(
@@ -241,7 +252,7 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                                                           if (snapshot.data != null) {
                                                             final data = snapshot.data!;
                                                             return SizedBox(
-                                                              height: 220,
+                                                              height: heightContainer,
                                                               child: ListView.builder(
                                                                 // itemCount: data.length,
                                                                 itemCount: data.length,
@@ -256,7 +267,7 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                                                                       color: glassColor,
                                                                       child: Padding(
                                                                           padding: const EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
-                                                                          child: AddExpenseDetailItems(
+                                                                          child: AddTransactionDetailItems(
                                                                             name: items.name,
                                                                             total: items.total,
                                                                             tag: items.tag,
@@ -268,8 +279,8 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                                                                                 isAdded = flag;
                                                                               });
                                                                               Navigator.pop(context);
-
                                                                             },
+                                                                            type: 0,
                                                                           )));
                                                                 },
                                                               ),
@@ -525,7 +536,6 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                                                           controller: _model.textController_total,
                                                           focusNode: _model.textFieldFocusNode_total,
                                                           onTap: () {
-
                                                             moveWidgetWhenUseKeyBoard(true);
                                                           },
                                                           onTapOutside: (_) {
@@ -750,28 +760,25 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
               title: 'Lưu thông tin?',
               info: 'Xác nhận lưu chi tiêu hoặc có thể thoát để tiếp tục chỉnh sửa.',
               action: () async {
-                if(await _viewModel.saveDetails(_selectedDate)){
+                if (await _viewModel.saveDetails(_selectedDate)) {
                   toastification.show(
                     context: context,
                     title: const Text('Lưu thông tin thành công!'),
                     type: ToastificationType.success,
-                    style: ToastificationStyle.flat,
+                    style: ToastificationStyle.flatColored,
                     autoCloseDuration: const Duration(seconds: 3),
                   );
                   Navigator.popAndPushNamed(context, '/Home');
-                  // await Future.delayed(Duration(seconds: 1)).then((_){
-                  //
-                  // });
-                }else{
-                  if(_viewModel.errorMessage.isNotEmpty){
+                } else {
+                  if (_viewModel.errorMessage.isNotEmpty) {
                     toastification.show(
                       context: context,
                       title: Text(_viewModel.errorMessage),
                       type: ToastificationType.error,
-                      style: ToastificationStyle.flat,
+                      style: ToastificationStyle.flatColored,
                       autoCloseDuration: const Duration(seconds: 3),
                     );
-                }
+                  }
                 }
               }));
     } else {

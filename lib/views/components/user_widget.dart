@@ -32,7 +32,7 @@ class UserWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Align(
-              alignment: AlignmentDirectional(0, 0),
+              alignment: const AlignmentDirectional(0, 0),
               child: InkWell(
                 onTap: () {
                   if (flag == null || flag == false) {
@@ -41,15 +41,15 @@ class UserWidget extends StatelessWidget {
                     showDialog(
                         context: context,
                         builder: (BuildContext context) => CustomAlertDialog(
-                            title: 'Dữ liệu chưa được lưu!',
-                            info: 'Dữ liệu của bạn chưa được lưu. Bạn có muốn lưu lại trước khi thoát không?',
-                            action: () {
-                              save!();
-                            },
-                            actionCancel: (){
-                              Navigator.popAndPushNamed(context, '/Home');
-                            },
-                        ));
+                              title: 'Dữ liệu chưa được lưu!',
+                              info: 'Dữ liệu của bạn chưa được lưu. Bạn có muốn lưu lại trước khi thoát không?',
+                              action: () {
+                                save!();
+                              },
+                              actionCancel: () {
+                                Navigator.popAndPushNamed(context, '/Home');
+                              },
+                            ));
                   }
 
                   //scaffoldKey.currentState?.openEndDrawer();
@@ -64,7 +64,7 @@ class UserWidget extends StatelessWidget {
             mainAxisSize: MainAxisSize.max,
             children: [
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                padding: const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -85,13 +85,12 @@ class UserWidget extends StatelessWidget {
             ],
           ),
           Align(
-              alignment: AlignmentDirectional(0, 0),
+              alignment: const AlignmentDirectional(0, 0),
               child: InkWell(
                 onTap: () {
                   if (flag == null || flag == false) {
                     scaffoldKey.currentState?.openEndDrawer();
                   }
-
                 },
                 child: Icon(
                   Icons.menu_rounded,
@@ -122,7 +121,7 @@ class UserWidget extends StatelessWidget {
                               fit: BoxFit.cover,
                             )
                           : Image.asset(
-                              'assets/images/logo.jpg',
+                              'assets/images/user.png',
                               width: 50,
                               height: 50,
                               fit: BoxFit.cover,
@@ -134,7 +133,7 @@ class UserWidget extends StatelessWidget {
                           fit: BoxFit.cover,
                         )),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                padding: const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -165,10 +164,11 @@ class UserWidget extends StatelessWidget {
             ],
           ),
           Align(
-              alignment: AlignmentDirectional(0, 0),
+              alignment: const AlignmentDirectional(0, 0),
               child: InkWell(
                 onTap: () {
                   scaffoldKey.currentState?.openEndDrawer();
+                 // SimpleHiddenDrawerController.of(context).toggle();
                 },
                 child: Icon(
                   Icons.menu_rounded,

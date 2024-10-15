@@ -28,11 +28,11 @@ class ExpenseProvider extends ChangeNotifier{
     notifyListeners();
   }
 
-  Transactions? _expense;
-  Transactions? get expense => _expense;
+  Transactions? _expenseDetail;
+  Transactions? get expenseDetail => _expenseDetail;
 
-  void setExpense(Transactions? newExpense) {
-    _expense = newExpense;
+  void setExpenseDetail(Transactions? newExpense) {
+    _expenseDetail = newExpense;
     notifyListeners();
   }
 
@@ -82,7 +82,7 @@ class ExpenseProvider extends ChangeNotifier{
     _expensesList = null;
     _totalExpenseCurrentMonth = null;
     _totalExpenseRange = Future.value(0);
-    _expense = null;
+    _expenseDetail = null;
     _dateTimeRangeExpense = null;
     _tagItemPercent = null;
     _expenseEdit = null;

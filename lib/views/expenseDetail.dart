@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'dart:ui';
+import 'package:expenseapp/models/tag.dart';
 import 'package:expenseapp/providers/expense_provider.dart';
 import 'package:expenseapp/views/components/background_widget.dart';
 import 'package:expenseapp/views/components/tag_items.dart';
@@ -15,12 +16,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import 'package:expenseapp/viewmodels/expenseDetail_viewmodel.dart';
+import 'package:toastification/toastification.dart';
 
 import '../models/transaction.dart';
 import 'components/custom_popscope.dart';
 import 'components/navbar.dart';
-import 'listview_components/expenseDetail_items.dart';
-import 'listview_components/expense_items.dart';
+import 'listview_components/transactionDetail_items.dart';
+import 'listview_components/transaction_items.dart';
 export 'package:expenseapp/viewmodels/expenseDetail_viewmodel.dart';
 
 class ExpenseDetailWidget extends StatefulWidget {
@@ -48,8 +50,6 @@ class _ExpenseDetailWidgetState extends State<ExpenseDetailWidget> {
     _viewModel = Provider.of<ExpenseDetailViewModel>(context, listen: false);
 
     listPercent = _viewModel.calByTagItemPercent();
-
-
   }
 
   @override
@@ -61,6 +61,9 @@ class _ExpenseDetailWidgetState extends State<ExpenseDetailWidget> {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.sizeOf(context).height;
+    var heightContainer = size * 0.43359375;
+
     return GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
         child: CustomPopscope(
@@ -73,8 +76,7 @@ class _ExpenseDetailWidgetState extends State<ExpenseDetailWidget> {
             ),
             endDrawer: CustomDrawer(),
             appBar: PreferredSize(
-                preferredSize:
-                    Size.fromHeight(MediaQuery.sizeOf(context).height * 0.9),
+                preferredSize: Size.fromHeight(MediaQuery.sizeOf(context).height * 0.9),
                 child: AppBar(
                     elevation: 0,
                     scrolledUnderElevation: 0,
@@ -91,246 +93,202 @@ class _ExpenseDetailWidgetState extends State<ExpenseDetailWidget> {
                       ),
                       Padding(
                         padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 45),
-                        child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    25, 60, 25, 0),
-                                child: UserWidget(
-                                  scaffoldKey: scaffoldKey,
-                                  title: 'Ngày ${_viewModel.getDate()}',
-                                  route: '/ExpenseList',
-                                ), //'Danh sách chi tiêu'
-                              ),
-                              Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    25, 0, 25, 0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Tổng chi tiêu',
-                                          style: TextStyle(
-                                            fontFamily: 'Nunito',
-                                            fontSize: 17,
-                                            letterSpacing: 0.0,
-                                            color: backgroundColor,
-                                            fontWeight: FontWeight.w300,
-                                          ),
-                                        ),
-                                        Text(
-                                          '\$${_viewModel.getTotal()}',
-                                          style: TextStyle(
-                                            fontFamily: 'Nunito',
-                                            fontSize: 37,
-                                            letterSpacing: 0.0,
-                                            color: backgroundColor,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
+                        child: SingleChildScrollView(
+                          physics: const AlwaysScrollableScrollPhysics(),
+                          child:
 
-                              Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    25, 0, 25, 0),
-                                child: Column(
+                        Column(mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                          Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(25, 60, 25, 0),
+                            child: UserWidget(
+                              scaffoldKey: scaffoldKey,
+                              title: 'Ngày ${_viewModel.getDate()}',
+                              route: '/ExpenseList',
+                            ), //'Danh sách chi tiêu'
+                          ),
+                          Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(25, 15, 25, 0),
+                            child:
+                                Column(
                                   mainAxisSize: MainAxisSize.max,
+                                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                                  mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
-                                    Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Expanded(
-                                          flex: 1,
-                                          child: Padding(
-                                            padding: const
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 0, 5, 0),
-                                            child: TagItemsWidget(tagId: 0, percent: listPercent[0]),
-                                          ),
-                                        ),
-                                        Expanded(
-                                          flex: 1,
-                                          child: Padding(
-                                            padding: const
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    5, 0, 0, 0),
-                                            child: TagItemsWidget(tagId: 1, percent: listPercent[1]),
-                                          ),
-                                        )
-                                      ],
+                                    Text(
+                                      'Tổng chi tiêu',
+                                      style: TextStyle(
+                                        fontFamily: 'Nunito',
+                                        fontSize: 17,
+                                        letterSpacing: 0.0,
+                                        color: backgroundColor,
+                                        fontWeight: FontWeight.w300,
+                                      ),
                                     ),
-                                    Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Expanded(
-                                          flex: 1,
-                                          child: Padding(
-                                            padding: const
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 10, 5, 0),
-                                            child: TagItemsWidget(tagId: 2, percent: listPercent[2]),
-                                          ),
-                                        ),
-                                        Expanded(
-                                          flex: 1,
-                                          child: Padding(
-                                            padding: const
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    5, 10, 0, 0),
-                                            child: TagItemsWidget(tagId: 3, percent: listPercent[3]),
-                                          ),
-                                        )
-                                      ],
+                                    Text(
+                                      '\$${_viewModel.getTotal()}',
+                                      style: TextStyle(
+                                        fontFamily: 'Nunito',
+                                        fontSize: 37,
+                                        letterSpacing: 0.0,
+                                        color: backgroundColor,
+                                        fontWeight: FontWeight.w500,
+                                      ),
                                     ),
                                   ],
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    25, 0, 25, 0),
-                                child: Container(
-                                  width: double.infinity,
-                                  height: 370,
-                                  decoration: BoxDecoration(
-                                    color: backgroundColor,
-                                    boxShadow: const [
-                                      BoxShadow(
-                                        blurRadius: 15,
-                                        color: Color(0x33000000),
-                                        offset: Offset(
-                                          0,
-                                          0,
-                                        ),
-                                        spreadRadius: 5,
-                                      )
-                                    ],
-                                    borderRadius: BorderRadius.circular(28),
+
+
+                          ),
+                          Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(25, 15, 25, 0),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Flexible(
+                                  child: GridView.builder(
+                                    padding: EdgeInsets.zero,
+                                    physics: NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    primary: true,
+                                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 2, // Adjust the number of columns as needed
+                                      mainAxisSpacing: 10.0,
+                                      crossAxisSpacing: 10.0,
+                                      childAspectRatio: 2.25,
+                                    ),
+                                    itemCount: Utils.tagExpense.length,
+                                    itemBuilder: (BuildContext context, int index) {
+                                      TagItem item = Utils.tagExpense[index];
+                                      return TagItemsWidget(tagId: item.id, percent: listPercent[index], type: 0,);
+                                    },
                                   ),
-                                  child: Padding(
-                                      padding: const EdgeInsets.all(20),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          // Generated code for this Row Widget...
-                                          Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                'Danh sách chi tiêu',
-                                                style: TextStyle(
-                                                  fontFamily: 'Nunito',
-                                                  fontSize: 17,
-                                                  letterSpacing: 0.0,
-                                                  color: textPrimary,
-                                                  fontWeight: FontWeight.w400,
-                                                ),
-                                              ),
-                                              FFButtonWidget(
-                                                onPressed: () {
-                                                  print('Button pressed ...');
-                                                },
-                                                text: 'Sửa',
-                                                icon: Icon(
-                                                  Icons.edit,
-                                                  size: 15,
-                                                  color: secondaryColor,
-                                                ),
-                                                options: FFButtonOptions(
-                                                  height: 36,
-                                                  padding: const EdgeInsetsDirectional
-                                                      .fromSTEB(10, 0, 10, 0),
-                                                  iconPadding: const
-                                                      EdgeInsetsDirectional
-                                                          .fromSTEB(0, 0, 0, 0),
-                                                  color: backgroundColor,
-                                                  textStyle: TextStyle(
-                                                    fontFamily: 'Nunito',
-                                                    fontSize: 15,
-                                                    letterSpacing: 0.0,
-                                                    color: secondaryColor,
-                                                    fontWeight: FontWeight.w400,
-                                                  ),
-                                                  elevation: 0,
-                                                  borderSide: BorderSide(
-                                                    color: secondaryColor,
-                                                    width: 2,
-                                                  ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(8),
-                                                  hoverColor: alternateColor,
-                                                  hoverBorderSide: BorderSide(
-                                                    color: alternateColor,
-                                                    width: 2,
-                                                  ),
-                                                  hoverTextColor: textPrimary,
-                                                  hoverElevation: 3,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          Divider(
-                                            color: alternateColor,
-                                          ),
-                                          Container(
-                                            height: 270,
-                                            child: ListView.builder(
-                                                itemCount: _viewModel
-                                                    .getExpenseDetail()
-                                                    ?.length,
-                                                shrinkWrap: true,
-                                                primary: false,
-                                                padding: EdgeInsets.zero,
-                                                scrollDirection: Axis.vertical,
-                                                itemBuilder: (context, index) {
-                                                  TransactionDetails items =
-                                                      _viewModel
-                                                          .getExpenseDetail()!
-                                                          .elementAt(index);
-                                                  return InkWell(
-                                                    onTap: () {},
-                                                    child: ExpenseDetailItems(
-                                                        name: items.name,
-                                                        total: items.total,
-                                                        tag: items.tag),
-                                                  );
-                                                }),
-                                          )
-                                          //
-                                        ],
-                                      )),
-                                ),
+                                )
+
+                              ],
+                            )),
+
+                          Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(25, 25, 25, 0),
+                            child: Container(
+                              width: double.infinity,
+                              height: heightContainer,
+                              decoration: BoxDecoration(
+                                color: backgroundColor,
+                                boxShadow: const [
+                                  BoxShadow(
+                                    blurRadius: 15,
+                                    color: Color(0x33000000),
+                                    offset: Offset(
+                                      0,
+                                      0,
+                                    ),
+                                    spreadRadius: 5,
+                                  )
+                                ],
+                                borderRadius: BorderRadius.circular(28),
                               ),
-                            ]),
+                              child: Padding(
+                                  padding: const EdgeInsets.all(20),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      // Generated code for this Row Widget...
+                                      Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            'Danh sách chi tiêu',
+                                            style: TextStyle(
+                                              fontFamily: 'Nunito',
+                                              fontSize: 17,
+                                              letterSpacing: 0.0,
+                                              color: textPrimary,
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                          FFButtonWidget(
+                                            onPressed: () {
+                                              if(_viewModel.setEditData()){
+                                                Future.delayed(const Duration(milliseconds: 250)).then((_) {
+                                                  Navigator.popAndPushNamed(context, '/AddExpense');
+                                                });
+                                              }else{
+                                                toastification.show(
+                                                  context: context,
+                                                  title: const Text('Hệ thống bị lỗi! Vui lòng thử lại sau vài giây.'),
+                                                  type: ToastificationType.error,
+                                                  style: ToastificationStyle.flatColored,
+                                                  autoCloseDuration: const Duration(seconds: 3),
+                                                );
+                                              }
+                                            },
+                                            text: 'Sửa',
+                                            icon: Icon(
+                                              Icons.edit,
+                                              size: 15,
+                                              color: secondaryColor,
+                                            ),
+                                            options: FFButtonOptions(
+                                              height: 36,
+                                              padding: const EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
+                                              iconPadding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                                              color: backgroundColor,
+                                              textStyle: TextStyle(
+                                                fontFamily: 'Nunito',
+                                                fontSize: 15,
+                                                letterSpacing: 0.0,
+                                                color: secondaryColor,
+                                                fontWeight: FontWeight.w400,
+                                              ),
+                                              elevation: 0,
+                                              borderSide: BorderSide(
+                                                color: secondaryColor,
+                                                width: 2,
+                                              ),
+                                              borderRadius: BorderRadius.circular(8),
+                                              hoverColor: alternateColor,
+                                              hoverBorderSide: BorderSide(
+                                                color: alternateColor,
+                                                width: 2,
+                                              ),
+                                              hoverTextColor: textPrimary,
+                                              hoverElevation: 3,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Divider(
+                                        color: alternateColor,
+                                      ),
+                                      SizedBox(
+                                        height: heightContainer - 100,
+                                        child: ListView.builder(
+                                            itemCount: _viewModel.getExpenseDetail()?.length,
+                                            shrinkWrap: true,
+                                            primary: false,
+                                            padding: EdgeInsets.zero,
+                                            scrollDirection: Axis.vertical,
+                                            itemBuilder: (context, index) {
+                                              TransactionDetails items = _viewModel.getExpenseDetail()!.elementAt(index);
+                                              return InkWell(
+                                                onTap: () {},
+                                                child: TransactionDetailItems(name: items.name, total: items.total, tag: items.tag, type: 0,),
+                                              );
+                                            }),
+                                      ),
+                                      //
+                                    ],
+                                  )),
+                            ),
+                          ),
+                        ]),
                       )
-                    ])))),
+                      )])))),
           ),
         ));
   }

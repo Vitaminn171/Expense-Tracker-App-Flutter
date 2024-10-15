@@ -4,12 +4,13 @@ import 'package:expenseapp/viewmodels/utils.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
 
 import 'package:flutter/material.dart';
-import 'package:expenseapp/views/expenseDetail.dart';
+import 'package:expenseapp/views/revenueDetail.dart';
 import '../models/transaction.dart';
 import '../providers/expense_provider.dart';
+import '../providers/revenues_provider.dart';
 import '../providers/user_provider.dart';
 
-class ExpenseDetailModel extends FlutterFlowModel<ExpenseDetailWidget> {
+class RevenueDetailModel extends FlutterFlowModel<RevenueDetailWidget> {
   @override
   void initState(BuildContext context) {
 
@@ -19,19 +20,19 @@ class ExpenseDetailModel extends FlutterFlowModel<ExpenseDetailWidget> {
   void dispose() {}
 }
 
-class ExpenseDetailViewModel extends ChangeNotifier {
-  final ExpenseProvider expenseProvider;
+class RevenueDetailViewModel extends ChangeNotifier {
+  final RevenueProvider revenueProvider;
   final UserProvider userProvider;
-  ExpenseDetailViewModel(this.userProvider, this.expenseProvider);
+  RevenueDetailViewModel(this.userProvider, this.revenueProvider);
 
 
   String getTotal(){
-    final data = expenseProvider.expenseDetail;
+    final data = revenueProvider.revenueDetail;
     return Utils.formatCurrency(data!.total);
   }
 
   String getDate(){
-    final data = expenseProvider.expenseDetail;
+    final data = revenueProvider.revenueDetail;
     if(data != null){
       return Utils.formatDate(data.date);
     }
@@ -39,7 +40,7 @@ class ExpenseDetailViewModel extends ChangeNotifier {
   }
 
   List<TransactionDetails>? getExpenseDetail(){
-    final data = expenseProvider.expenseDetail?.details;
+    final data = revenueProvider.revenueDetail?.details;
     return data;
   }
 
@@ -50,18 +51,19 @@ class ExpenseDetailViewModel extends ChangeNotifier {
   }
 
   List<int> calByTagItemPercent(){
-    final expense = expenseProvider.expenseDetail;
-    List<int> list = List.filled(Utils.tagExpense.length, 0);
-    List<int> listPercent = List.filled(Utils.tagExpense.length, 0);
-    if(expense != null){
-      int total = expense.total;
-      final detail = expense.details;
+    final revenue = revenueProvider.revenueDetail;
+    List<int> list = List.filled(Utils.tagRevenue.length, 0);
+    List<int> listPercent = List.filled(Utils.tagRevenue.length, 0);
+    if(revenue != null){
+      int total = revenue.total;
+      final detail = revenue.details;
       for(final item in detail){
         list[item.tag] += item.total;
       }
 
       for(int i = 0; i < list.length; i ++){
         listPercent[i] = ((list[i] / total) * 100).round();
+        print(listPercent[i]);
       }
 
     }
@@ -69,10 +71,10 @@ class ExpenseDetailViewModel extends ChangeNotifier {
   }
 
   bool setEditData(){
-    final data = expenseProvider.expenseDetail;
+    final data = revenueProvider.revenueDetail;
     if(data != null){
-      expenseProvider.setExpenseEdit(data);
-      expenseProvider.setListTransactionsDetail(data.details);
+      revenueProvider.setRevenueEdit(data);
+      revenueProvider.setListTransactionsDetail(data.details);
       return true;
     }
     return false;

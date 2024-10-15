@@ -12,6 +12,7 @@ import 'package:expenseapp/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/user.dart';
@@ -87,10 +88,18 @@ class Utils {
     return details;
   }
 
-  static Future<bool> logout(UserProvider userProvider, ExpenseProvider expenseProvider, RevenueProvider revenueProvider) async {
+  static Future<void> clearPref() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.clear();
+  }
+
+  static Future<bool> logout(BuildContext context) async {
     try{
-      final prefs = await SharedPreferences.getInstance();
-      prefs.clear();
+      clearPref();
+      UserProvider userProvider = context.read<UserProvider>();
+      ExpenseProvider expenseProvider = context.read<ExpenseProvider>();
+      RevenueProvider revenueProvider = context.read<RevenueProvider>();
+
       userProvider.logout();
       expenseProvider.logout();
       revenueProvider.logout();

@@ -11,6 +11,8 @@ import 'package:expenseapp/viewmodels/home_viewmodel.dart';
 import 'package:toastification/toastification.dart';
 
 import '../models/user.dart';
+import 'components/custom_drawer.dart';
+import 'components/custom_popscope.dart';
 import 'components/navbar.dart';
 import 'components/user_widget.dart';
 export 'package:expenseapp/viewmodels/home_viewmodel.dart';
@@ -36,19 +38,9 @@ class _HomeWidgetState extends State<HomeWidget> {
     super.initState();
     _model = createModel(context, () => HomeModel());
     _viewModel = Provider.of<HomeViewModel>(context, listen: false);
-
-    // WidgetsBinding.instance.addPostFrameCallback((_) async {
-    //   await getStoredUser();
-    //   final userProvider = Provider.of<UserProvider>(context, listen: false); // Access context after frame builds
-    //   _model = createModel(context, () => HomeViewModel(userProvider));
-    // });
   }
 
-  // @override
-  // Future<void> didChangeDependencies() async {
-  //   _model = createModel(context, () => HomeViewModel(context.watch<UserProvider>()));
-  //   super.didChangeDependencies();
-  // }
+
   Future<void> showLoadingDialog(BuildContext context) async {
     return showDialog<void>(
       context: context,
@@ -64,21 +56,21 @@ class _HomeWidgetState extends State<HomeWidget> {
   Future<void> _performLoadingTask() async {
     showLoadingDialog(context);
 
-    if ((await Utils.logout(_viewModel.userProvider, _viewModel.expenseProvider, _viewModel.revenueProvider)) == false) {
+    if ((await Utils.logout(context)) == false) {
       toastification.show(
         context: context,
-        title: Text('Dang xuat that bai'),
+        title: const Text('Đăng xuất thất bại! Vui lòng thử lại sau vài giây.'),
         type: ToastificationType.error,
-        style: ToastificationStyle.flat,
+        style: ToastificationStyle.flatColored,
         autoCloseDuration: const Duration(seconds: 4),
       );
       Navigator.pop(context);
     } else {
       toastification.show(
         context: context,
-        title: Text('Đăng xuat thành công!'),
+        title: const Text('Đăng xuất thành công!'),
         type: ToastificationType.success,
-        style: ToastificationStyle.flat,
+        style: ToastificationStyle.flatColored,
         autoCloseDuration: const Duration(seconds: 3),
       );
       Navigator.popAndPushNamed(context, '/Login');
@@ -96,9 +88,12 @@ class _HomeWidgetState extends State<HomeWidget> {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
         create: (context) => _viewModel,
-        child: Scaffold(
+        child: CustomPopscope(
+            widget: Scaffold(
           key: scaffoldKey,
-          endDrawer: _buildEndDrawer(),
+          endDrawer: CustomDrawer(
+            index: 1,
+          ),
           backgroundColor: backgroundColor,
           bottomNavigationBar: CustomNavbar(
             indexCurrent: 0,
@@ -106,7 +101,7 @@ class _HomeWidgetState extends State<HomeWidget> {
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(MediaQuery.sizeOf(context).height * 0.91),
             child: AppBar(
-              backgroundColor: Color(0xFF69CAA7),
+              backgroundColor: backgroundColor,
               automaticallyImplyLeading: false,
               actions: <Widget>[
                 new Container(),
@@ -121,9 +116,9 @@ class _HomeWidgetState extends State<HomeWidget> {
                       children: [
                         Expanded(
                           child: Align(
-                            alignment: AlignmentDirectional(0, -1),
+                            alignment: const AlignmentDirectional(0, -1),
                             child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(0, 60, 0, 0),
+                                padding: const EdgeInsetsDirectional.fromSTEB(0, 60, 0, 0),
                                 child: FutureBuilder<User>(
                                     future: _viewModel.getStoredUser(),
                                     builder: (context, snapshot) {
@@ -139,14 +134,15 @@ class _HomeWidgetState extends State<HomeWidget> {
                                           crossAxisAlignment: CrossAxisAlignment.stretch,
                                           children: [
                                             Padding(
-                                                padding: EdgeInsetsDirectional.fromSTEB(25, 0, 25, 0), child: UserWidget(scaffoldKey: scaffoldKey)),
+                                                padding: const EdgeInsetsDirectional.fromSTEB(25, 0, 25, 0),
+                                                child: UserWidget(scaffoldKey: scaffoldKey)),
                                             Padding(
-                                              padding: EdgeInsetsDirectional.fromSTEB(25, 0, 25, 0),
+                                              padding: const EdgeInsetsDirectional.fromSTEB(25, 0, 25, 0),
                                               child: Row(
                                                 mainAxisSize: MainAxisSize.max,
                                                 children: [
                                                   Padding(
-                                                    padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                                                    padding: const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                                                     child: Column(
                                                       mainAxisSize: MainAxisSize.min,
                                                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -192,7 +188,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                               ),
                                             ),
                                             Padding(
-                                              padding: EdgeInsetsDirectional.fromSTEB(25, 0, 25, 25),
+                                              padding: const EdgeInsetsDirectional.fromSTEB(25, 0, 25, 25),
                                               child: Row(
                                                 mainAxisSize: MainAxisSize.max,
                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -208,13 +204,13 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                         }),
                                                         child: Card(
                                                           clipBehavior: Clip.antiAliasWithSaveLayer,
-                                                          color: Color(0x6EF4F4F4),
+                                                          color: const Color(0x6EF4F4F4),
                                                           elevation: 10,
                                                           shape: RoundedRectangleBorder(
                                                             borderRadius: BorderRadius.circular(23),
                                                           ),
                                                           child: Padding(
-                                                            padding: EdgeInsets.all(12),
+                                                            padding: const EdgeInsets.all(12),
                                                             child: Icon(
                                                               Icons.outbox_rounded,
                                                               color: backgroundColor,
@@ -240,26 +236,31 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                           ],
                                                         ),
                                                       ),
-                                                    ].divide(SizedBox(height: 5)),
+                                                    ].divide(const SizedBox(height: 5)),
                                                   ),
                                                   Column(
                                                     mainAxisSize: MainAxisSize.min,
                                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                     crossAxisAlignment: CrossAxisAlignment.center,
                                                     children: [
-                                                      Card(
-                                                        clipBehavior: Clip.antiAliasWithSaveLayer,
-                                                        color: Color(0x6EF4F4F4),
-                                                        elevation: 10,
-                                                        shape: RoundedRectangleBorder(
-                                                          borderRadius: BorderRadius.circular(23),
-                                                        ),
-                                                        child: Padding(
-                                                          padding: EdgeInsets.all(12),
-                                                          child: Icon(
-                                                            Icons.attach_money_rounded,
-                                                            color: backgroundColor,
-                                                            size: 45,
+                                                      InkWell(
+                                                        onTap: (() {
+                                                          Navigator.popAndPushNamed(context, '/RevenueList');
+                                                        }),
+                                                        child: Card(
+                                                          clipBehavior: Clip.antiAliasWithSaveLayer,
+                                                          color: const Color(0x6EF4F4F4),
+                                                          elevation: 10,
+                                                          shape: RoundedRectangleBorder(
+                                                            borderRadius: BorderRadius.circular(23),
+                                                          ),
+                                                          child: Padding(
+                                                            padding: EdgeInsets.all(12),
+                                                            child: Icon(
+                                                              Icons.attach_money_rounded,
+                                                              color: backgroundColor,
+                                                              size: 45,
+                                                            ),
                                                           ),
                                                         ),
                                                       ),
@@ -280,26 +281,30 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                           ],
                                                         ),
                                                       ),
-                                                    ].divide(SizedBox(height: 5)),
+                                                    ].divide(const SizedBox(height: 5)),
                                                   ),
                                                   Column(
                                                     mainAxisSize: MainAxisSize.min,
                                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                     crossAxisAlignment: CrossAxisAlignment.center,
                                                     children: [
-                                                      Card(
-                                                        clipBehavior: Clip.antiAliasWithSaveLayer,
-                                                        color: Color(0x6EF4F4F4),
-                                                        elevation: 10,
-                                                        shape: RoundedRectangleBorder(
-                                                          borderRadius: BorderRadius.circular(23),
-                                                        ),
-                                                        child: Padding(
-                                                          padding: EdgeInsets.all(12),
-                                                          child: Icon(
-                                                            Icons.savings_rounded,
-                                                            color: backgroundColor,
-                                                            size: 45,
+                                                      InkWell(
+                                                        onTap: (() {
+                                                        }),
+                                                        child: Card(
+                                                          clipBehavior: Clip.antiAliasWithSaveLayer,
+                                                          color: const Color(0x6EF4F4F4),
+                                                          elevation: 10,
+                                                          shape: RoundedRectangleBorder(
+                                                            borderRadius: BorderRadius.circular(23),
+                                                          ),
+                                                          child: Padding(
+                                                            padding: const EdgeInsets.all(12),
+                                                            child: Icon(
+                                                              Icons.savings_rounded,
+                                                              color: backgroundColor,
+                                                              size: 45,
+                                                            ),
                                                           ),
                                                         ),
                                                       ),
@@ -320,7 +325,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                           ],
                                                         ),
                                                       ),
-                                                    ].divide(SizedBox(height: 5)),
+                                                    ].divide(const SizedBox(height: 5)),
                                                   ),
                                                   Column(
                                                     mainAxisSize: MainAxisSize.min,
@@ -330,109 +335,16 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                       InkWell(
                                                         onTap: (() {
                                                           _showDialogAdd();
-                                                          // showDialog<void>(
-                                                          //     context: context,
-                                                          //     barrierDismissible:
-                                                          //         true, // Prevent dismissing by tapping outside
-                                                          //     builder: (BuildContext
-                                                          //             context) =>
-                                                          //         Center(
-                                                          //             child:
-                                                          //                 Padding(
-                                                          //           padding: EdgeInsetsDirectional
-                                                          //               .fromSTEB(
-                                                          //                   60,
-                                                          //                   0,
-                                                          //               60,
-                                                          //                   0),
-                                                          //           child: Card(
-                                                          //             elevation:
-                                                          //                 30,
-                                                          //             color:
-                                                          //                 backgroundColor,
-                                                          //             shape:
-                                                          //                 RoundedRectangleBorder(
-                                                          //               borderRadius:
-                                                          //                   BorderRadius.circular(18),
-                                                          //             ),
-                                                          //             child:
-                                                          //                 Padding(
-                                                          //               padding:
-                                                          //                   EdgeInsetsDirectional.all(25),
-                                                          //               child:
-                                                          //                   Column(
-                                                          //                 mainAxisSize:
-                                                          //                     MainAxisSize.min,
-                                                          //                 mainAxisAlignment:
-                                                          //                     MainAxisAlignment.center,
-                                                          //                 crossAxisAlignment:
-                                                          //                     CrossAxisAlignment.stretch,
-                                                          //                 children: [
-                                                          //                   Padding(
-                                                          //                     padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                                                          //                     child: FFButtonWidget(
-                                                          //                       onPressed: () async {
-                                                          //                         Navigator.popAndPushNamed(context, '/AddExpense');
-                                                          //                       },
-                                                          //                       text: 'Thêm chi tiêu',
-                                                          //                       options: FFButtonOptions(
-                                                          //                         height: 40,
-                                                          //                         padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
-                                                          //                         iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                                                          //                         color: backgroundColor,
-                                                          //                         textStyle: TextStyle(
-                                                          //                           fontFamily: 'Nunito',
-                                                          //                           color: textPrimary,
-                                                          //                           fontSize: 17,
-                                                          //                           letterSpacing: 0.0,
-                                                          //                         ),
-                                                          //                         elevation: 0,
-                                                          //                         borderSide: BorderSide(
-                                                          //                           color: alternateColor,
-                                                          //                         ),
-                                                          //                         borderRadius: BorderRadius.circular(28),
-                                                          //                       ),
-                                                          //                     ),
-                                                          //                   ),
-                                                          //                   Padding(
-                                                          //                     padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
-                                                          //                     child: FFButtonWidget(
-                                                          //                       onPressed: () async {},
-                                                          //                       text: 'Thêm thu nhập',
-                                                          //                       options: FFButtonOptions(
-                                                          //                         height: 40,
-                                                          //                         padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
-                                                          //                         iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                                                          //                         color: backgroundColor,
-                                                          //                         textStyle: TextStyle(
-                                                          //                           fontFamily: 'Nunito',
-                                                          //                           color: textPrimary,
-                                                          //                           fontSize: 17,
-                                                          //                           letterSpacing: 0.0,
-                                                          //                         ),
-                                                          //                         elevation: 0,
-                                                          //                         borderSide: BorderSide(
-                                                          //                           color: alternateColor,
-                                                          //                         ),
-                                                          //                         borderRadius: BorderRadius.circular(28),
-                                                          //                       ),
-                                                          //                     ),
-                                                          //                   )
-                                                          //                 ],
-                                                          //               ),
-                                                          //             ),
-                                                          //           ),
-                                                          //         )));
                                                         }),
                                                         child: Card(
                                                           clipBehavior: Clip.antiAliasWithSaveLayer,
-                                                          color: Color(0x6EF4F4F4),
+                                                          color: const Color(0x6EF4F4F4),
                                                           elevation: 10,
                                                           shape: RoundedRectangleBorder(
                                                             borderRadius: BorderRadius.circular(23),
                                                           ),
                                                           child: Padding(
-                                                            padding: EdgeInsets.all(12),
+                                                            padding: const EdgeInsets.all(12),
                                                             child: Icon(
                                                               Icons.add_rounded,
                                                               color: backgroundColor,
@@ -458,7 +370,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                           ],
                                                         ),
                                                       ),
-                                                    ].divide(SizedBox(height: 5)),
+                                                    ].divide(const SizedBox(height: 5)),
                                                   ),
                                                 ],
                                               ),
@@ -474,7 +386,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                           height: 280,
                           decoration: BoxDecoration(
                             color: backgroundColor,
-                            boxShadow: [
+                            boxShadow: const [
                               BoxShadow(
                                 blurRadius: 15,
                                 color: Color(0x33000000),
@@ -485,7 +397,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                 spreadRadius: 5,
                               )
                             ],
-                            borderRadius: BorderRadius.only(
+                            borderRadius: const BorderRadius.only(
                               bottomLeft: Radius.circular(0),
                               bottomRight: Radius.circular(0),
                               topLeft: Radius.circular(28),
@@ -493,13 +405,13 @@ class _HomeWidgetState extends State<HomeWidget> {
                             ),
                           ),
                           child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(0, 25, 0, 15),
+                            padding: const EdgeInsetsDirectional.fromSTEB(0, 25, 0, 15),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(25, 0, 0, 0),
+                                  padding: const EdgeInsetsDirectional.fromSTEB(25, 0, 0, 0),
                                   child: Text(
                                     'Tổng quan',
                                     style: TextStyle(
@@ -522,7 +434,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
                                                 Padding(
-                                                  padding: EdgeInsetsDirectional.fromSTEB(25, 15, 0, 35),
+                                                  padding: const EdgeInsetsDirectional.fromSTEB(25, 15, 0, 35),
                                                   child: Card(
                                                     clipBehavior: Clip.antiAliasWithSaveLayer,
                                                     color: Colors.white,
@@ -531,13 +443,13 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                       borderRadius: BorderRadius.circular(18),
                                                     ),
                                                     child: Padding(
-                                                      padding: EdgeInsets.all(20),
+                                                      padding: const EdgeInsets.all(20),
                                                       child: Column(
                                                         mainAxisSize: MainAxisSize.max,
                                                         crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
                                                           Padding(
-                                                            padding: EdgeInsetsDirectional.fromSTEB(0, 0, 16, 0),
+                                                            padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 16, 0),
                                                             child: Icon(
                                                               Icons.trending_down,
                                                               color: textPrimary,
@@ -556,7 +468,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                             ),
                                                           ),
                                                           Padding(
-                                                            padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                                                            padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                                                             child: Text(
                                                               '\$${data['totalExpense']}',
                                                               style: TextStyle(
@@ -574,7 +486,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                   ),
                                                 ),
                                                 Padding(
-                                                  padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 35),
+                                                  padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 35),
                                                   child: Card(
                                                     clipBehavior: Clip.antiAliasWithSaveLayer,
                                                     color: Colors.white,
@@ -583,13 +495,13 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                       borderRadius: BorderRadius.circular(18),
                                                     ),
                                                     child: Padding(
-                                                      padding: EdgeInsets.all(20),
+                                                      padding: const EdgeInsets.all(20),
                                                       child: Column(
                                                         mainAxisSize: MainAxisSize.max,
                                                         crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
                                                           Padding(
-                                                            padding: EdgeInsetsDirectional.fromSTEB(0, 0, 16, 0),
+                                                            padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 16, 0),
                                                             child: Icon(
                                                               Icons.attach_money_rounded,
                                                               color: textPrimary,
@@ -607,7 +519,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                             ),
                                                           ),
                                                           Padding(
-                                                            padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                                                            padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                                                             child: Text(
                                                               '\$${data['totalRevenue']}',
                                                               style: TextStyle(
@@ -624,58 +536,58 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                     ),
                                                   ),
                                                 ),
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional.fromSTEB(0, 15, 25, 35),
-                                                  child: Card(
-                                                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                                                    color: Colors.white,
-                                                    elevation: 10,
-                                                    shape: RoundedRectangleBorder(
-                                                      borderRadius: BorderRadius.circular(18),
-                                                    ),
-                                                    child: Padding(
-                                                      padding: EdgeInsets.all(20),
-                                                      child: Column(
-                                                        mainAxisSize: MainAxisSize.max,
-                                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                                        children: [
-                                                          Padding(
-                                                            padding: EdgeInsetsDirectional.fromSTEB(0, 0, 16, 0),
-                                                            child: Icon(
-                                                              Icons.attach_money_rounded,
-                                                              color: textPrimary,
-                                                              size: 32,
-                                                            ),
-                                                          ),
-                                                          Text(
-                                                            'Thu nhập tháng 9',
-                                                            style: TextStyle(
-                                                              fontFamily: 'Nunito',
-                                                              fontSize: 17,
-                                                              letterSpacing: 0.0,
-                                                              color: textSecondary,
-                                                              fontWeight: FontWeight.w400,
-                                                            ),
-                                                          ),
-                                                          Padding(
-                                                            padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
-                                                            child: Text(
-                                                              '\$567,402',
-                                                              style: TextStyle(
-                                                                fontFamily: 'Nunito',
-                                                                fontSize: 25,
-                                                                letterSpacing: 0.0,
-                                                                color: textPrimary,
-                                                                fontWeight: FontWeight.w600,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ].divide(SizedBox(width: 10)),
+                                                // Padding(
+                                                //   padding: EdgeInsetsDirectional.fromSTEB(0, 15, 25, 35),
+                                                //   child: Card(
+                                                //     clipBehavior: Clip.antiAliasWithSaveLayer,
+                                                //     color: Colors.white,
+                                                //     elevation: 10,
+                                                //     shape: RoundedRectangleBorder(
+                                                //       borderRadius: BorderRadius.circular(18),
+                                                //     ),
+                                                //     child: Padding(
+                                                //       padding: EdgeInsets.all(20),
+                                                //       child: Column(
+                                                //         mainAxisSize: MainAxisSize.max,
+                                                //         crossAxisAlignment: CrossAxisAlignment.start,
+                                                //         children: [
+                                                //           Padding(
+                                                //             padding: EdgeInsetsDirectional.fromSTEB(0, 0, 16, 0),
+                                                //             child: Icon(
+                                                //               Icons.attach_money_rounded,
+                                                //               color: textPrimary,
+                                                //               size: 32,
+                                                //             ),
+                                                //           ),
+                                                //           Text(
+                                                //             'Thu nhập tháng 9',
+                                                //             style: TextStyle(
+                                                //               fontFamily: 'Nunito',
+                                                //               fontSize: 17,
+                                                //               letterSpacing: 0.0,
+                                                //               color: textSecondary,
+                                                //               fontWeight: FontWeight.w400,
+                                                //             ),
+                                                //           ),
+                                                //           Padding(
+                                                //             padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                                                //             child: Text(
+                                                //               '\$567,402',
+                                                //               style: TextStyle(
+                                                //                 fontFamily: 'Nunito',
+                                                //                 fontSize: 25,
+                                                //                 letterSpacing: 0.0,
+                                                //                 color: textPrimary,
+                                                //                 fontWeight: FontWeight.w600,
+                                                //               ),
+                                                //             ),
+                                                //           ),
+                                                //         ],
+                                                //       ),
+                                                //     ),
+                                                //   ),
+                                                // ),
+                                              ].divide(const SizedBox(width: 10)),
                                             );
                                           } else {
                                             return Center(
@@ -697,47 +609,13 @@ class _HomeWidgetState extends State<HomeWidget> {
               elevation: 0,
             ),
           ),
-        ));
-  }
-
-  Drawer _buildEndDrawer() {
-    return Drawer(
-      child: ClipRRect(
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
-          child: Container(
-            child: Column(children: [
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0, 75, 0, 0),
-                child: FFButtonWidget(
-                  onPressed: () async {
-                    FocusManager.instance.primaryFocus?.unfocus();
-                    _performLoadingTask();
-                    //Navigator.popAndPushNamed(context, '/Login');
-                  },
-                  text: 'Logout',
-                  options: FFButtonOptions(
-                    height: 40,
-                    padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
-                    iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                    color: Color(0xFF69CAA7),
-                    textStyle: TextStyle(fontFamily: 'Nunito', fontSize: 17, letterSpacing: 0.0, color: Colors.white),
-                    elevation: 0,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-              )
-            ]),
-          ),
-        ),
-      ),
-    );
+        )));
   }
 
   void _showDialogAdd() {
     showModalBottomSheet<void>(
       context: context,
-      constraints: const BoxConstraints(maxHeight: 300, minHeight: 300),
+      constraints: const BoxConstraints(maxHeight: 200, minHeight: 200),
       barrierColor: Colors.black.withOpacity(0.7),
       backgroundColor: backgroundColor,
       showDragHandle: true,
@@ -764,12 +642,12 @@ class _HomeWidgetState extends State<HomeWidget> {
               ),
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                child: AddButton(title: 'Thêm thu nhập', route: '/AddExpense'),
+                child: AddButton(title: 'Thêm thu nhập', route: '/AddRevenue'),
               ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                child: AddButton(title: 'Thêm mục tiết kiệm', route: '/AddExpense'),
-              ),
+              // Padding(
+              //   padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+              //   child: AddButton(title: 'Thêm mục tiết kiệm', route: '/AddExpense'),
+              // ),
             ],
           ),
         );

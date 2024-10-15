@@ -134,10 +134,31 @@ class LoginViewModel extends FlutterFlowModel<LoginWidget> {
 
   Future<void> loginGoogle(String email, String username, String photoUrl) async {
     _errorMessage = '';
+    print('===============> photoUrl: $photoUrl');
     final usersCollection = FirebaseFirestore.instance.collection('users');
 
     final querySnapshot = await Api.getUserData(email);
-    if(querySnapshot.size > 0){
+    if(querySnapshot.size == 0){
+      final userDoc = Api.usersCollection.doc(); // Generate a unique document ID
+
+      final userData = {
+        'email': email,
+        'name': username,
+        'photoUrl': photoUrl,
+        //'password': Utils.generateMd5(userProvider.user!.password.toString()),
+      };
+      await userDoc.set(userData);
+
+      final walletDoc = await Api.walletsCollection.doc(); // Generate a unique document ID
+
+      final walletData = {
+        'email': email,
+        'cash': 0,
+      };
+      await walletDoc.set(walletData);
+
+      await storeUser(User(name: username, email: email, totalCash: 0, photoUrl: photoUrl));
+    }else{
       DocumentSnapshot document = querySnapshot.docs.first;
       DocumentReference userRef = document.reference;
       Map<String, dynamic> updatedData = {
@@ -157,26 +178,7 @@ class LoginViewModel extends FlutterFlowModel<LoginWidget> {
           photoUrl: photoUrl
       );
       await storeUser(user);
-    }else{
-      final userDoc = Api.usersCollection.doc(); // Generate a unique document ID
 
-      final userData = {
-        'email': email,
-        'name': username,
-        'photoUrl': photoUrl,
-        //'password': Utils.generateMd5(userProvider.user!.password.toString()),
-      };
-      await userDoc.set(userData);
-
-      final walletDoc = Api.walletsCollection.doc(); // Generate a unique document ID
-
-      final walletData = {
-        'email': email,
-        'cash': 0,
-      };
-      await walletDoc.set(walletData);
-
-      await storeUser(User(name: username, email: email, totalCash: 0, photoUrl: photoUrl));
     }
 
   }

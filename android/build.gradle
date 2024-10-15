@@ -9,6 +9,11 @@ rootProject.buildDir = "../build"
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
 }
+
+ext {
+    kotlinPluginVersion = '1.7.10'
+}
+
 subprojects {
     project.evaluationDependsOn(":app")
 }

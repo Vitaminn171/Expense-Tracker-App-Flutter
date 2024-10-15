@@ -62,7 +62,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
         context: context,
         title: Text(_model.errorMessage),
         type: ToastificationType.error,
-        style: ToastificationStyle.flat,
+        style: ToastificationStyle.flatColored,
         autoCloseDuration: const Duration(seconds: 4),
       );
     }else{
@@ -355,7 +355,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                           alignment: const AlignmentDirectional(0, 0),
                           child: InkWell(
                             onTap:() {
-                              Navigator.pushNamed(context, "/");
+                              Navigator.pushNamed(context, "/Login");
                             },
                             child:  Text(
                             ' Đăng nhập tại đây!',
@@ -363,8 +363,8 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                               fontFamily: 'Nunito',
                               fontSize: 14,
                               letterSpacing: 0.0,
-                              color: primaryColor,
-                              fontWeight: FontWeight.w400,
+                              color: secondaryColor,
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
                           )

@@ -12,23 +12,35 @@ import '../../models/colors.dart';
 class TagItemsWidget extends StatelessWidget {
   final int tagId;
   final int percent;
+  final int type;
 
   const TagItemsWidget({
     super.key,
     required this.tagId,
     required this.percent,
+    required this.type,
 
   });
 
   @override
   Widget build(BuildContext context) {
-    TagItem tagItem = Utils.getTag(tagId, Utils.tagExpense);
+    List<TagItem> list = [];
+    switch (type) {
+      case 0:
+        list = Utils.tagExpense;
+        break;
+      case 1:
+        list = Utils.tagRevenue;
+        break;
+    // ... more cases
+    }
+    TagItem tagItem = Utils.getTag(tagId, list);
     return Container(
       height: 70,
       decoration: BoxDecoration(
-        color: Color(0x6EF4F4F4),
+        color: const Color(0x6EF4F4F4),
         //: backgroundColor,
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
             blurRadius: 15,
             color: Color(0x33000000),
@@ -43,7 +55,7 @@ class TagItemsWidget extends StatelessWidget {
         BorderRadius.circular(28),
       ),
       child: Padding(
-        padding:
+        padding: const
         EdgeInsetsDirectional.fromSTEB(
             8, 8, 0, 8),
         child: Row(
@@ -61,12 +73,12 @@ class TagItemsWidget extends StatelessWidget {
                     20),
               ),
               child: Padding(
-                padding: EdgeInsetsDirectional.all(8),
+                padding: const EdgeInsetsDirectional.all(8),
                 child: Icon(tagItem.icon, color: backgroundColor, size: 30,),
               )
             ),
         Padding(
-          padding:
+          padding: const
           EdgeInsetsDirectional.fromSTEB(
               5, 0, 0, 0),
           child: Column(
@@ -74,7 +86,7 @@ class TagItemsWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('${Utils.getTagName(tagId, Utils.tagExpense)}',
+                Text(Utils.getTagName(tagId, list),
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     fontFamily: 'Nunito',

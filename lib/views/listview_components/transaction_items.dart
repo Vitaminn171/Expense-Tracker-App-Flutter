@@ -1,18 +1,17 @@
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
 import 'package:expenseapp/providers/user_provider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/colors.dart';
 import '../../viewmodels/utils.dart';
 
-class ExpenseItems extends StatelessWidget {
+class TransactionItems extends StatelessWidget {
   final DateTime date;
   final int total;
 
-  const ExpenseItems({super.key, required this.date, required this.total});
+  const TransactionItems({super.key, required this.date, required this.total});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +22,7 @@ class ExpenseItems extends StatelessWidget {
         Expanded(
           flex: 1,
           child: Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 10),
+            padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 10),
             child: Row(
               mainAxisSize: MainAxisSize.max,
               children: [
@@ -59,7 +58,7 @@ class ExpenseItems extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+          padding: const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
           child: Icon(
             Icons.arrow_forward_ios_rounded,
             color: textPrimary,

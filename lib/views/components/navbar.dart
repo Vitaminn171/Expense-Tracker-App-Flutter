@@ -96,11 +96,18 @@ class _CustomNavbarState extends State<CustomNavbar>{
           Navigator.popAndPushNamed(context, '/Home');
         }
         break;
-      case 2:
+      case 1:
 
         if(indexCurrent != index){
           await Future.delayed(const Duration(milliseconds: 250));
           Navigator.popAndPushNamed(context, '/ExpenseList');
+        }
+        break;
+      case 2:
+
+        if(indexCurrent != index){
+          await Future.delayed(const Duration(milliseconds: 250));
+          Navigator.popAndPushNamed(context, '/RevenueList');
         }
         break;
     // ... more cases

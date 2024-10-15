@@ -15,14 +15,24 @@ class UserProvider extends ChangeNotifier {
     scopes: [
       'email',
       'profile',
+      'https://www.googleapis.com/auth/userinfo.profile',
     ],);
 
   GoogleSignIn get googleSignIn => _googleSignIn;
+
+  GoogleSignInAccount? _userGoogle;
+  GoogleSignInAccount get userGoogle => _userGoogle!;
+
+  void setUserGoogle(GoogleSignInAccount? newUser) {
+    _userGoogle = newUser;
+    notifyListeners();
+  }
 
 
   void logout(){
     _user = null;
     _googleSignIn.signOut();
+    setUserGoogle(null);
   }
 
 }

@@ -10,22 +10,42 @@ import 'package:toastification/toastification.dart';
 
 import '../../models/colors.dart';
 import '../../viewmodels/add_expense_viewmodel.dart';
+import '../../viewmodels/add_revenue_viewmodel.dart';
 import '../../viewmodels/utils.dart';
 import '../components/custom_alert_dialog.dart';
 
-class AddExpenseDetailItems extends StatelessWidget {
+class AddTransactionDetailItems extends StatelessWidget {
   final int index;
   final String name;
   final int total;
   final int tag;
   final Function delete;
   final DateTime date;
+  final int type;
 
-  const AddExpenseDetailItems({super.key, required this.name, required this.total, required this.tag, required this.index, required this.delete, required this.date});
+  const AddTransactionDetailItems(
+      {super.key,
+      required this.name,
+      required this.total,
+      required this.tag,
+      required this.index,
+      required this.delete,
+      required this.date,
+      required this.type});
 
   @override
   Widget build(BuildContext context) {
-    TagItem tagItem = Utils.getTag(tag, Utils.tagExpense);
+    List<TagItem> list = [];
+    switch (type) {
+      case 0:
+        list = Utils.tagExpense;
+        break;
+      case 1:
+        list = Utils.tagRevenue;
+        break;
+    // ... more cases
+    }
+    TagItem tagItem = Utils.getTag(tag, list);
     return // Generated code for this Row Widget...
         Row(
       mainAxisSize: MainAxisSize.max,
@@ -40,21 +60,22 @@ class AddExpenseDetailItems extends StatelessWidget {
               mainAxisSize: MainAxisSize.max,
               children: [
                 Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
-                    child: Card(
-                        elevation: 0,
-                        color: tagItem.color,
-                        shape:
-                        RoundedRectangleBorder(
-                          borderRadius:
-                          BorderRadius.circular(
-                              8),
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
+                  child: Card(
+                      elevation: 0,
+                      color: tagItem.color,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.all(7),
+                        child: Icon(
+                          tagItem.icon,
+                          color: backgroundColor,
+                          size: 26,
                         ),
-                        child: Padding(
-                          padding: EdgeInsetsDirectional.all(7),
-                          child: Icon(tagItem.icon, color: backgroundColor, size: 26,),
-                        )
-                    ),),
+                      )),
+                ),
                 Expanded(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
@@ -103,9 +124,21 @@ class AddExpenseDetailItems extends StatelessWidget {
         ),
         InkWell(
           onTap: () async {
-            final viewModel = context.read<AddExpenseViewModel>();
-            final list = await viewModel.expenseProvider.listDetails;
-            if(list?.length == 1 && index == 0){
+            late final viewModel;
+            late final listData;
+            switch (type) {
+              case 0:
+                viewModel = context.read<AddExpenseViewModel>();
+                listData = await viewModel.expenseProvider.listDetails;
+                break;
+              case 1:
+                viewModel = context.read<AddRevenueViewModel>();
+                listData = await viewModel.revenueProvider.listDetails;
+                break;
+            // ... more cases
+            }
+
+            if (listData?.length == 1 && index == 0) {
               showDialog(
                   context: context,
                   builder: (BuildContext context) => CustomAlertDialog(
@@ -116,31 +149,26 @@ class AddExpenseDetailItems extends StatelessWidget {
                         Utils.showLoadingDialog(context);
                         delete();
                         await viewModel.deleteData(date);
-                        if(viewModel.errorMessage.isEmpty){
+                        if (viewModel.errorMessage.isEmpty) {
                           toastification.show(
                             context: context,
                             title: const Text('Lưu thông tin thành công!'),
                             type: ToastificationType.success,
-                            style: ToastificationStyle.flat,
+                            style: ToastificationStyle.flatColored,
                             autoCloseDuration: const Duration(seconds: 3),
                           );
-
-                        }else{
+                        } else {
                           toastification.show(
                             context: context,
                             title: Text(viewModel.errorMessage),
                             type: ToastificationType.error,
-                            style: ToastificationStyle.flat,
+                            style: ToastificationStyle.flatColored,
                             autoCloseDuration: const Duration(seconds: 3),
                           );
-
                         }
                         Navigator.popAndPushNamed(context, '/Home');
-
-
-
                       }));
-            }else{
+            } else {
               showDialog(
                   context: context,
                   builder: (BuildContext context) => CustomAlertDialog(
@@ -152,11 +180,13 @@ class AddExpenseDetailItems extends StatelessWidget {
                         Navigator.pop(context);
                       }));
             }
-
           },
           child: Padding(
             padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-            child: Icon(Icons.delete_outline_rounded, color: tag0,),
+            child: Icon(
+              Icons.delete_outline_rounded,
+              color: tag0,
+            ),
           ),
         )
       ],

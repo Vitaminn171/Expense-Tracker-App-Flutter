@@ -84,42 +84,21 @@ class HomeViewModel extends ChangeNotifier {
 
   Future<void> getHomeData() async {
     User user = await getStoredUser();
+    final prefs = await SharedPreferences.getInstance();
+    String email = userProvider.user?.email ?? prefs.getString('this_email').toString();
+
+    num totalExpense = 0;
+    num totalRevenue = 0;
+
     if (expenseProvider.isUpdated || expenseProvider.totalExpenseCurrentMonth == null) {
-      final prefs = await SharedPreferences.getInstance();
       print('Reload data from Api');
-      // if (userProvider.user != null) {
-      //   user = userProvider.user!;
-      // } else {
-      //   String email = prefs.getString('this_email').toString();
-      //   String name = prefs.getString('this_username').toString();
-      //   int total = prefs.getInt('this_totalCash')!;
-      //   String? photo = prefs.getString('this_photoUrl');
-      //
-      //   if (photo == null) {
-      //     user = User(name: name, email: email, totalCash: total, imgPath: prefs.getString('this_imgPath'));
-      //   } else {
-      //     user = User(
-      //       name: name,
-      //       email: email,
-      //       totalCash: total,
-      //       photoUrl: photo,
-      //     );
-      //   }
-      //
-      //   userProvider.setUser(user);
-      //   notifyListeners();
-      // }
 
-      String email = userProvider.user?.email ?? prefs.getString('this_email').toString();
-
-      num totalExpense = 0;
-      num totalRevenue = 0;
       try {
         if (email.isNotEmpty) {
           final querySnapshot = await Api.getExpenseThisMonth(email);
-          final querysnapshotRev = await Api.getRevenueThisMonth(email);
+          //final querysnapshotRev = await Api.getRevenueThisMonth(email);
           List<Transactions> list = [];
-          List<Transactions> listRev = [];
+          //List<Transactions> listRev = [];
           if (querySnapshot.size > 0) {
             //final data = querySnapshot.docs.single.data();
             for (final doc in querySnapshot.docs) {
@@ -135,6 +114,21 @@ class HomeViewModel extends ChangeNotifier {
           expenseProvider.setExpensesList(Future.value(list));
           expenseProvider.setTotalExpenseCurrentMonth(totalExpense.toInt());
           expenseProvider.setTotalExpenseRange(Future.value(totalExpense.toInt()));
+        }
+      } catch (e) {
+        print(e);
+      }
+      expenseProvider.setState(false);
+      notifyListeners();
+    } else if (revenueProvider.isUpdated || revenueProvider.totalRevenueCurrentMonth == null) {
+      print('Reload data from Api');
+
+      try {
+        if (email.isNotEmpty) {
+          //final querySnapshot = await Api.getExpenseThisMonth(email);
+          final querysnapshotRev = await Api.getRevenueThisMonth(email);
+          //List<Transactions> list = [];
+          List<Transactions> listRev = [];
 
           if (querysnapshotRev.size > 0) {
             //final data = querySnapshot.docs.single.data();
@@ -146,8 +140,9 @@ class HomeViewModel extends ChangeNotifier {
               totalRevenue += data['total'];
               print('Document revenue: ${revenues.date}');
             }
-            revenueProvider.setRevenuesList(listRev);
-            revenueProvider.setTotalRevenue(totalRevenue.toInt());
+            revenueProvider.setRevenuesList(Future.value(listRev));
+            revenueProvider.setTotalRevenueCurrentMonth(totalRevenue.toInt());
+            revenueProvider.setTotalRevenueRange(Future.value(totalRevenue.toInt()));
           }
         }
       } catch (e) {
@@ -168,42 +163,36 @@ class HomeViewModel extends ChangeNotifier {
     num totalRevenue = 0;
     try {
       if (email.isNotEmpty) {
-        final querySnapshot = await Api.getExpenseThisMonth(email);
-        final querysnapshotRev = await Api.getRevenueThisMonth(email);
-        List<Transactions> list = [];
-        List<Transactions> listRev = [];
-        if (querySnapshot.size > 0) {
-          //final data = querySnapshot.docs.single.data();
-          for (final doc in querySnapshot.docs) {
-            final data = doc.data();
-            //List<TransactionDetails> details = Utils.getDetails(data['details']);
-            Transactions expenses =
-                Transactions(date: Utils.formatTimeStamptoDate(data['date']), total: data['total'], details: Utils.getDetails(data['details']));
-            list.add(expenses);
-            totalExpense += data['total'];
-            print('Document data: ${expenses.date}');
-          }
+        if (expenseProvider.isUpdated || expenseProvider.totalExpenseCurrentMonth == null) {
+          final querySnapshot = await Api.getExpenseThisMonth(email);
+          Map<String, dynamic> dataExp = calData(querySnapshot, email);
+          totalExpense = dataExp['total'];
+          expenseProvider.setExpensesList(Future.value(dataExp['list']));
+          expenseProvider.setTotalExpenseCurrentMonth(dataExp['total'].toInt());
+          expenseProvider.setTotalExpenseRange(Future.value(dataExp['total'].toInt()));
+          expenseProvider.setState(false);
+          notifyListeners();
+        }else{
+          print('SYSOUT: no reload expense data');
+          totalExpense = expenseProvider.totalExpenseCurrentMonth ?? 0;
         }
-        expenseProvider.setExpensesList(Future.value(list));
-        expenseProvider.setTotalExpenseCurrentMonth(totalExpense.toInt());
-        expenseProvider.setTotalExpenseRange(Future.value(totalExpense.toInt()));
 
-        if (querysnapshotRev.size > 0) {
-          //final data = querySnapshot.docs.single.data();
-          for (final doc in querysnapshotRev.docs) {
-            final data = doc.data();
-            Transactions revenues =
-                Transactions(date: Utils.formatTimeStamptoDate(data['date']), total: data['total'], details: Utils.getDetails(data['details']));
-            listRev.add(revenues);
-            totalRevenue += data['total'];
-            print('Document revenue: ${revenues.date}');
-          }
-          revenueProvider.setRevenuesList(listRev);
-          revenueProvider.setTotalRevenue(totalRevenue.toInt());
+        if (revenueProvider.isUpdated || revenueProvider.totalRevenueCurrentMonth == null) {
+          final querysnapshotRev = await Api.getRevenueThisMonth(email);
+          Map<String, dynamic> dataRev = calData(querysnapshotRev, email);
+          totalRevenue = dataRev['total'];
+          revenueProvider.setRevenuesList(Future.value(dataRev['list']));
+          revenueProvider.setTotalRevenueCurrentMonth(dataRev['total'].toInt());
+          revenueProvider.setTotalRevenueRange(Future.value(dataRev['total'].toInt()));
+          revenueProvider.setState(false);
+          notifyListeners();
+        }else{
+          print('SYSOUT: no reload revenue data');
+          totalRevenue = revenueProvider.totalRevenueCurrentMonth ?? 0;
         }
       }
-      expenseProvider.setState(false);
-      notifyListeners();
+
+
       return {
         'totalExpense': Utils.formatCurrency(totalExpense.toInt()),
         'totalRevenue': Utils.formatCurrency(totalRevenue.toInt()),
@@ -211,12 +200,30 @@ class HomeViewModel extends ChangeNotifier {
     } catch (e) {
       print(e);
       expenseProvider.setState(false);
+      revenueProvider.setState(false);
       notifyListeners();
       return {
         'totalExpense': Utils.formatCurrency(totalExpense.toInt()),
         'totalRevenue': Utils.formatCurrency(totalRevenue.toInt()),
       };
     }
+  }
+
+  Map<String, dynamic> calData(QuerySnapshot<Map<String, dynamic>> querySnapshot, String email) {
+    num total = 0;
+    List<Transactions> list = [];
+    if (querySnapshot.size > 0) {
+      //final data = querySnapshot.docs.single.data();
+      for (final doc in querySnapshot.docs) {
+        final data = doc.data();
+        //List<TransactionDetails> details = Utils.getDetails(data['details']);
+        Transactions transactions =
+            Transactions(date: Utils.formatTimeStamptoDate(data['date']), total: data['total'], details: Utils.getDetails(data['details']));
+        list.add(transactions);
+        total += data['total'];
+      }
+    }
+    return {'total': total, 'list': list};
   }
 
   String formatTimeStamptoDate(Timestamp sec) {

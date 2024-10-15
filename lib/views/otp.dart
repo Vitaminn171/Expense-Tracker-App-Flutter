@@ -59,7 +59,7 @@ class _RegisterOTPWidgetState extends State<RegisterOTPWidget> {
             fontFamily: 'Nunito'
         ),),
         type: ToastificationType.error,
-        style: ToastificationStyle.flat,
+        style: ToastificationStyle.flatColored,
         autoCloseDuration: const Duration(seconds: 4),
 
       );
@@ -70,7 +70,7 @@ class _RegisterOTPWidgetState extends State<RegisterOTPWidget> {
             fontFamily: 'Nunito'
         ),),
         type: ToastificationType.success,
-        style: ToastificationStyle.flat,
+        style: ToastificationStyle.flatColored,
         autoCloseDuration: const Duration(seconds: 3),
       );
       Navigator.popAndPushNamed(context, '/Home');

@@ -6,8 +6,10 @@ import 'package:expenseapp/providers/user_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:toastification/toastification.dart';
 
 import '../../models/colors.dart';
+import '../../viewmodels/utils.dart';
 
 class CustomDrawer extends StatelessWidget {
   final int? index;
@@ -15,7 +17,7 @@ class CustomDrawer extends StatelessWidget {
 
   CustomDrawer({
     super.key,
-    this.index
+    this.index,
   });
 
   TextStyle style = TextStyle(
@@ -26,24 +28,60 @@ class CustomDrawer extends StatelessWidget {
   fontWeight: FontWeight.w400,
   );
 
+  Future<void> showLoadingDialog(BuildContext context) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // Prevent dismissing by tapping outside
+      builder: (BuildContext context) => Center(
+        child: CircularProgressIndicator(
+          color: primaryColor,
+        ),
+      ),
+    );
+  }
+
+  Future<void> _performLoadingTask(BuildContext context) async {
+    showLoadingDialog(context);
+
+    if ((await Utils.logout(context)) == false) {
+      toastification.show(
+        context: context,
+        title: const Text('Đăng xuất thất bại! Vui lòng thử lại sau vài giây.'),
+        type: ToastificationType.error,
+        style: ToastificationStyle.flatColored,
+        autoCloseDuration: const Duration(seconds: 4),
+      );
+      Navigator.pop(context);
+    } else {
+      toastification.show(
+        context: context,
+        title: const Text('Đăng xuất thành công!'),
+        type: ToastificationType.success,
+        style: ToastificationStyle.flatColored,
+        autoCloseDuration: const Duration(seconds: 3),
+      );
+      Navigator.popAndPushNamed(context, '/Login');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final userProvider = context.read<UserProvider>();
-    final cardColor = Colors.transparent;
-    final selectedColor = Color(0x66E4E4E4);
+    const cardColor = Colors.transparent;
+    var selectedColor = secondaryColor;
 
     return Drawer(
-        width: 260,
+
         //backgroundColor: const Color(0xCCE4E4E4),
         backgroundColor: backgroundColor,
         child: ClipRRect(
           child: BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0),
             child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(30, 0, 25, 30),
+              padding: const EdgeInsetsDirectional.fromSTEB(30, 0, 25, 30),
               child: Column(
                 children: [
-                  Container(
+                  SizedBox(
                     width: double.infinity,
                     height: 210,
                     // decoration:  BoxDecoration(
@@ -78,7 +116,7 @@ class CustomDrawer extends StatelessWidget {
                                     fit: BoxFit.cover,
                                   )),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 25),
+                          padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 25),
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -115,8 +153,11 @@ class CustomDrawer extends StatelessWidget {
 
 
                   InkWell(
+                    splashColor: Colors.transparent,
                     onTap: () {
-
+                      if(index != 1){
+                        Navigator.popAndPushNamed(context, '/Home');
+                      }
                     },
                     child: Card(
                       elevation: 0,
@@ -129,20 +170,26 @@ class CustomDrawer extends StatelessWidget {
                       ),
                       color: index != null ? (index == 1 ? selectedColor : cardColor) : cardColor,
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 10, 10, 10),
+                        padding: const EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(0, 0, 15, 0),
+                              padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 15, 0),
                               child:
                               Icon(
-                                Icons.account_circle,
-                                color: textSecondary,
+                                index == 1 ? Icons.home_rounded : Icons.home_outlined,
+                                color: index != null ? (index == 1 ? backgroundColor : textSecondary) : textSecondary,
                               ),),
                             Text(
-                              'Tài khoản',
-                              style: style
+                              'Trang chủ',
+                              style: TextStyle(
+                                fontFamily: 'Nunito',
+                                fontSize: 17,
+                                letterSpacing: 0.0,
+                                color: index != null ? (index == 1 ? backgroundColor : textSecondary) : textSecondary,
+                                fontWeight: FontWeight.w400,
+                              ),
                             ),
                           ],
                         ),
@@ -150,7 +197,11 @@ class CustomDrawer extends StatelessWidget {
                     ),
                   ),
                   InkWell(
+                    splashColor: Colors.transparent,
                     onTap: () {
+                      if(index != 2){
+                        Navigator.popAndPushNamed(context, '/Setting');
+                      }
 
                     },
                     child: Card(
@@ -164,29 +215,39 @@ class CustomDrawer extends StatelessWidget {
                       ),
                       color: index != null ? (index == 2 ? selectedColor : cardColor) : cardColor,
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 10, 10, 10),
+                        padding: const EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(0, 0, 15, 0),
+                              padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 15, 0),
                               child:
                               Icon(
-                                Icons.settings_rounded,
-                                color: textSecondary,
+                                index == 2 ? Icons.settings_rounded : Icons.settings_outlined,
+                                color: index != null ? (index == 2 ? backgroundColor : textSecondary) : textSecondary,
                               ),),
                             Text(
                               'Cài đặt',
-                              style: style
+                              style: TextStyle(
+                                fontFamily: 'Nunito',
+                                fontSize: 17,
+                                letterSpacing: 0.0,
+                                color: index != null ? (index == 2? backgroundColor : textSecondary) : textSecondary,
+                                fontWeight: FontWeight.w400,
+                              )
                             ),
                           ],
                         ),
                       ),
                     ),
                   ),
+                  Divider(
+                    color: alternateColor,
+                  ),
                   InkWell(
+                    splashColor: Colors.transparent,
                     onTap: () {
-
+                      _performLoadingTask(context);
                     },
                     child: Card(
                       elevation: 0,
@@ -199,12 +260,12 @@ class CustomDrawer extends StatelessWidget {
                       ),
                       color: cardColor,
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 10, 10, 10),
+                        padding: const EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(0, 0, 15, 0),
+                              padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 15, 0),
                               child:
                               Icon(
                                 Icons.logout_rounded,

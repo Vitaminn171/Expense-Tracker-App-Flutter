@@ -1,14 +1,20 @@
 import 'package:expenseapp/providers/expense_provider.dart';
 import 'package:expenseapp/providers/revenues_provider.dart';
 import 'package:expenseapp/providers/user_provider.dart';
-import 'package:expenseapp/viewmodels/expense_viewmodel.dart';
+import 'package:expenseapp/viewmodels/revenueDetail_viewmodel.dart';
+import 'package:expenseapp/viewmodels/revenue_viewmodel.dart';
+import 'package:expenseapp/viewmodels/setting_viewmodel.dart';
 import 'package:expenseapp/views/add_expense.dart';
+import 'package:expenseapp/views/add_revenue.dart';
 import 'package:expenseapp/views/expense.dart';
 import 'package:expenseapp/views/expenseDetail.dart';
 import 'package:expenseapp/views/home.dart';
 import 'package:expenseapp/views/login.dart';
 import 'package:expenseapp/views/otp.dart';
 import 'package:expenseapp/views/register.dart';
+import 'package:expenseapp/views/revenue.dart';
+import 'package:expenseapp/views/revenueDetail.dart';
+import 'package:expenseapp/views/setting.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -21,6 +27,7 @@ import 'package:email_otp/email_otp.dart';
 import 'models/colors.dart';
 
 Future<void> main() async {
+
   WidgetsFlutterBinding.ensureInitialized();
   final FlutterLocalization localization = FlutterLocalization.instance;
   await Firebase.initializeApp(
@@ -48,10 +55,17 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (_) => UserProvider()),
         ChangeNotifierProvider(create: (_) => ExpenseProvider()),
         ChangeNotifierProvider(create: (_) => RevenueProvider()),
+
         ChangeNotifierProvider(create: (context) => HomeViewModel(context.read<UserProvider>(),context.read<ExpenseProvider>(),context.read<RevenueProvider>())),
+        ChangeNotifierProvider(create: (context) => SettingViewModel(context.read<UserProvider>())),
+
         ChangeNotifierProvider(create: (context) => ExpenseListViewModel(context.read<UserProvider>(),context.read<ExpenseProvider>())),
         ChangeNotifierProvider(create: (context) => ExpenseDetailViewModel(context.read<UserProvider>(),context.read<ExpenseProvider>())),
         ChangeNotifierProvider(create: (context) => AddExpenseViewModel(context.read<UserProvider>(),context.read<ExpenseProvider>())),
+
+        ChangeNotifierProvider(create: (context) => RevenueListViewModel(context.read<UserProvider>(),context.read<RevenueProvider>())),
+        ChangeNotifierProvider(create: (context) => RevenueDetailViewModel(context.read<UserProvider>(),context.read<RevenueProvider>())),
+        ChangeNotifierProvider(create: (context) => AddRevenueViewModel(context.read<UserProvider>(),context.read<RevenueProvider>())),
       ],
       child: Directionality(
           textDirection: TextDirection
@@ -68,20 +82,21 @@ Future<void> main() async {
               '/Register': (context) => const RegisterWidget(),
               '/Otp': (context) => const RegisterOTPWidget(),
               '/Home': (_) => const HomeWidget(),
+              //'/HomePage': (_) => HomePageWidget(),
               // '/HomeExtend': (context) => const LoginWidget(),
-              // '/AddRevenue': (context) => const LoginWidget(),
+              '/AddRevenue': (context) => const AddRevenueWidget(),
               '/AddExpense': (context) => const AddExpenseWidget(),
               // '/AddSaving': (context) => const LoginWidget(),
-              // '/RevenueList': (context) => const LoginWidget(),
+              '/RevenueList': (context) => const RevenueListWidget(),
               '/ExpenseList': (context) => const ExpenseListWidget(),
               // '/SavingList': (context) => const LoginWidget(),
-              // '/RevenueDetail': (context) => const LoginWidget(),
+              '/RevenueDetail': (context) => const RevenueDetailWidget(),
               '/ExpenseDetail': (context) => const ExpenseDetailWidget(),
               // '/SavingDetail': (context) => const LoginWidget(),
-              // '/ChangeProfile': (context) => const LoginWidget(),
+              '/Setting': (context) => const SettingWidget(),
               // '/ChangeColor': (context) => const LoginWidget(),
             },
-            supportedLocales: [
+            supportedLocales: const [
               Locale('en'), // English
               Locale('vi'),
             ],

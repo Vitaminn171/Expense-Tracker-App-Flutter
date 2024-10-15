@@ -6,6 +6,7 @@ class Api {
   static final revenuesCollection = FirebaseFirestore.instance.collection('revenues');
   static final usersCollection = FirebaseFirestore.instance.collection('users');
   static final walletsCollection = FirebaseFirestore.instance.collection('wallets');
+  static final errorCollection = FirebaseFirestore.instance.collection('error');
 
   static DateTime now = DateTime.now();
 
@@ -23,11 +24,27 @@ class Api {
     return await query.get();
   }
 
+  static Future<QuerySnapshot<Map<String, dynamic>>> getExpenseRange(String email, DateTimeRange range) async {
+    final query = expensesCollection
+        .where('email', isEqualTo: email)
+        .where('date', isGreaterThanOrEqualTo: Timestamp.fromDate(range.start))
+        .where('date', isLessThanOrEqualTo: Timestamp.fromDate(range.end.add(const Duration(seconds: 10))));
+    return await query.get();
+  }
+
   static Future<QuerySnapshot<Map<String, dynamic>>> getRevenueThisMonth(String email) async {
     DateTimeRange month = thisMonth();
     final query = revenuesCollection.where('email', isEqualTo: email)
         .where('date', isGreaterThanOrEqualTo: Timestamp.fromDate(month.start))
-        .where('date', isLessThanOrEqualTo: Timestamp.fromDate(month.end));
+        .where('date', isLessThanOrEqualTo: Timestamp.fromDate(month.end.add(const Duration(seconds: 10))));
+    return await query.get();
+  }
+
+  static Future<QuerySnapshot<Map<String, dynamic>>> getRevenueRange(String email, DateTimeRange range) async {
+    final query = revenuesCollection
+        .where('email', isEqualTo: email)
+        .where('date', isGreaterThanOrEqualTo: Timestamp.fromDate(range.start))
+        .where('date', isLessThanOrEqualTo: Timestamp.fromDate(range.end.add(const Duration(seconds: 10))));
     return await query.get();
   }
 
@@ -48,8 +65,23 @@ class Api {
     return await query.get();
   }
 
+  static Future<QuerySnapshot<Map<String, dynamic>>> getRevenueDetails(String email, DateTime date) async {
+    final query = revenuesCollection.where('email', isEqualTo: email)
+        .where('date', isGreaterThanOrEqualTo: Timestamp.fromDate(date))
+        .where('date', isLessThanOrEqualTo: Timestamp.fromDate(date.add(const Duration(seconds: 10))));
+    return await query.get();
+  }
+
   static Future<void> deleteExpenseData(String email, DateTime date) async {
     final query = expensesCollection.where('email', isEqualTo: email)
+        .where('date', isGreaterThanOrEqualTo: Timestamp.fromDate(date))
+        .where('date', isLessThanOrEqualTo: Timestamp.fromDate(date.add(const Duration(seconds: 10))));
+    final querySnapshot = await query.get();
+    querySnapshot.docs.single.reference.delete();
+  }
+
+  static Future<void> deleteRevenueData(String email, DateTime date) async {
+    final query = revenuesCollection.where('email', isEqualTo: email)
         .where('date', isGreaterThanOrEqualTo: Timestamp.fromDate(date))
         .where('date', isLessThanOrEqualTo: Timestamp.fromDate(date.add(const Duration(seconds: 10))));
     final querySnapshot = await query.get();

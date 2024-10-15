@@ -16,22 +16,24 @@ import 'package:expenseapp/viewmodels/expense_viewmodel.dart';
 import 'package:toastification/toastification.dart';
 
 import '../models/transaction.dart';
+import '../providers/revenues_provider.dart';
+import '../viewmodels/revenue_viewmodel.dart';
 import 'components/custom_alert_dialog.dart';
 import 'components/custom_popscope.dart';
 import 'components/navbar.dart';
 import 'listview_components/transaction_items.dart';
 export 'package:expenseapp/viewmodels/expense_viewmodel.dart';
 
-class ExpenseListWidget extends StatefulWidget {
-  const ExpenseListWidget({super.key});
+class RevenueListWidget extends StatefulWidget {
+  const RevenueListWidget({super.key});
 
   @override
-  State<ExpenseListWidget> createState() => _ExpenseListWidgetState();
+  State<RevenueListWidget> createState() => _RevenueListWidgetState();
 }
 
-class _ExpenseListWidgetState extends State<ExpenseListWidget> {
-  late ExpenseListModel _model;
-  late ExpenseListViewModel _viewModel;
+class _RevenueListWidgetState extends State<RevenueListWidget> {
+  late RevenueListModel _model;
+  late RevenueListViewModel _viewModel;
   String datePicked = '';
   final scaffoldKey = GlobalKey<ScaffoldState>();
   DateTime now = DateTime.now();
@@ -39,15 +41,15 @@ class _ExpenseListWidgetState extends State<ExpenseListWidget> {
   DateTimeRange? _selectedDateRange;
 
   Future<List<Transactions>> _fetchData(DateTimeRange dateRange) async {
-    return _viewModel.getExpDateRange(dateRange); // Replace with your actual API call
+    return _viewModel.getRevDateRange(dateRange); // Replace with your actual API call
   }
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => ExpenseListModel());
+    _model = createModel(context, () => RevenueListModel());
     //_navbar = createModel(context, (_) => CustomNavbar(indexCurrent: 1));
-    _viewModel = Provider.of<ExpenseListViewModel>(context, listen: false);
+    _viewModel = Provider.of<RevenueListViewModel>(context, listen: false);
     _selectedDateRange = _viewModel.getDateRange() ??
         DateTimeRange(
           start: DateTime(now.year, now.month, 1),
@@ -55,7 +57,7 @@ class _ExpenseListWidgetState extends State<ExpenseListWidget> {
         );
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      _viewModel.getExpenxeData(_selectedDateRange!);
+      _viewModel.getRevenueData(_selectedDateRange!);
     });
   }
 
@@ -68,7 +70,7 @@ class _ExpenseListWidgetState extends State<ExpenseListWidget> {
 
   Future<void> fetchData(DateTimeRange picked) async {
     // Perform asynchronous data fetching here
-    await _viewModel.getExpDateRange(picked);
+    await _viewModel.getRevDateRange(picked);
 
     // Update the state synchronously after fetching data
     setState(() {
@@ -78,9 +80,6 @@ class _ExpenseListWidgetState extends State<ExpenseListWidget> {
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.sizeOf(context).height;
-    var heightContainer = size * 0.5625;
-
     return GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
         child: CustomPopscope(
@@ -94,7 +93,7 @@ class _ExpenseListWidgetState extends State<ExpenseListWidget> {
                 ),
                 backgroundColor: secondaryColor,
                 onPressed: () {
-                  Navigator.popAndPushNamed(context, '/AddExpense');
+                  Navigator.popAndPushNamed(context, '/AddRevenue');
                 },
                 enableFeedback: true,
                 child: Icon(
@@ -108,7 +107,7 @@ class _ExpenseListWidgetState extends State<ExpenseListWidget> {
             ),
             backgroundColor: backgroundColor,
             bottomNavigationBar: CustomNavbar(
-              indexCurrent: 1,
+              indexCurrent: 2,
             ),
             endDrawer: CustomDrawer(
               index: 0,
@@ -128,16 +127,16 @@ class _ExpenseListWidgetState extends State<ExpenseListWidget> {
                         alignmentDirectional: const AlignmentDirectional(0, -1),
                         imgHeight: 500,
                       ),
-                      Consumer<ExpenseProvider>(builder: (context, myState, child) {
+                      Consumer<RevenueProvider>(builder: (context, myState, child) {
                         return FutureBuilder<List<Transactions>>(
-                            future: myState.expensesList,
+                            future: myState.revenuesList,
                             builder: (context, snapshot) {
                               if (snapshot.data != null) {
                                 final data = snapshot.data!;
                                 return Column(mainAxisSize: MainAxisSize.max, mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
                                   Padding(
                                     padding: const EdgeInsetsDirectional.fromSTEB(25, 60, 25, 0),
-                                    child: UserWidget(scaffoldKey: scaffoldKey, title: 'Danh sách chi tiêu'), //'Danh sách chi tiêu'
+                                    child: UserWidget(scaffoldKey: scaffoldKey, title: 'Danh sách thu nhập'), //'Danh sách chi tiêu'
                                   ),
                                   Padding(
                                     padding: const EdgeInsetsDirectional.fromSTEB(25, 0, 25, 0),
@@ -146,7 +145,7 @@ class _ExpenseListWidgetState extends State<ExpenseListWidget> {
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         FutureBuilder<num>(
-                                            future: myState.totalExpenseRange,
+                                            future: myState.totalRevenueRange,
                                             builder: (context, snapshot) {
                                               if (snapshot.data != null) {
                                                 return Column(
@@ -154,7 +153,7 @@ class _ExpenseListWidgetState extends State<ExpenseListWidget> {
                                                   crossAxisAlignment: CrossAxisAlignment.start,
                                                   children: [
                                                     Text(
-                                                      'Tổng chi tiêu',
+                                                      'Tổng thu nhập',
                                                       style: TextStyle(
                                                         fontFamily: 'Nunito',
                                                         fontSize: 17,
@@ -164,7 +163,7 @@ class _ExpenseListWidgetState extends State<ExpenseListWidget> {
                                                       ),
                                                     ),
                                                     Padding(
-                                                      padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                                                      padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                                                       child: Text(
                                                         '\$${Utils.formatCurrency(snapshot.data?.toInt() ?? 0)}',
                                                         style: TextStyle(
@@ -292,7 +291,7 @@ class _ExpenseListWidgetState extends State<ExpenseListWidget> {
                                     padding: const EdgeInsetsDirectional.fromSTEB(25, 0, 25, 45),
                                     child: Container(
                                       width: double.infinity,
-                                      height: heightContainer,
+                                      height: 480,
                                       decoration: BoxDecoration(
                                         color: backgroundColor,
                                         boxShadow: const [
@@ -322,8 +321,8 @@ class _ExpenseListWidgetState extends State<ExpenseListWidget> {
                                               Transactions items = data[index];
                                               return InkWell(
                                                 onTap: () {
-                                                  _viewModel.setExpenseDetail(items);
-                                                  Navigator.popAndPushNamed(context, '/ExpenseDetail');
+                                                  _viewModel.setRevenueDetail(items);
+                                                  Navigator.popAndPushNamed(context, '/RevenueDetail');
                                                 },
                                                 onLongPress: () {
                                                   showDialog(
@@ -331,7 +330,7 @@ class _ExpenseListWidgetState extends State<ExpenseListWidget> {
                                                       builder: (BuildContext context) => CustomAlertDialog(
                                                           title: 'Xóa thông tin ngày ${Utils.formatDate(items.date)}?',
                                                           info:
-                                                              'Bạn có chắc chắn muốn xóa tất cả các thông tin chi tiêu cho ngày này? Hành động này không thể hoàn tác.',
+                                                          'Bạn có chắc chắn muốn xóa tất cả các thông tin chi tiêu cho ngày này? Hành động này không thể hoàn tác.',
                                                           actionButtonName: 'Xóa',
                                                           action: () async {
                                                             //Utils.showLoadingDialog(context);

@@ -3,7 +3,7 @@ import 'package:expenseapp/main.dart';
 import 'package:expenseapp/models/colors.dart';
 import 'package:expenseapp/providers/user_provider.dart';
 import 'package:expenseapp/viewmodels/utils.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:expenseapp/viewmodels/login_viewmodel.dart';
@@ -25,10 +25,6 @@ class _LoginWidgetState extends State<LoginWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
 
-  NumberFormat _numberFormat = NumberFormat.currency(
-    locale: 'vi_VN', // Adjust the locale as needed
-    symbol: '\$',
-  );
 
   @override
   void initState() {
@@ -73,16 +69,16 @@ class _LoginWidgetState extends State<LoginWidget> {
         context: context,
         title: Text(_model.errorMessage),
         type: ToastificationType.error,
-        style: ToastificationStyle.flat,
+        style: ToastificationStyle.flatColored,
         autoCloseDuration: const Duration(seconds: 4),
       );
       Navigator.pop(context);
     } else {
       toastification.show(
         context: context,
-        title: Text('Đăng nhập thành công!'),
+        title: const Text('Đăng nhập thành công!'),
         type: ToastificationType.success,
-        style: ToastificationStyle.flat,
+        style: ToastificationStyle.flatColored,
         autoCloseDuration: const Duration(seconds: 3),
       );
       Navigator.popAndPushNamed(context, '/Home');
@@ -100,29 +96,56 @@ class _LoginWidgetState extends State<LoginWidget> {
         //   accessToken: googleAuth.accessToken,
         //   idToken: googleAuth.idToken,
         // );
-
+        if (kDebugMode) {
+          print('================> Google: $googleUser');
+        }
         final String name = googleUser.displayName!;
-        final String email = googleUser.email!;
+        final String email = googleUser.email;
         final String photoUrl = googleUser.photoUrl!;
 
-        print('Google email: $email');
 
-        // toastification.show(
-        //   context: context,
-        //   title: Text(email),
-        //   type: ToastificationType.success,
-        //   style: ToastificationStyle.flat,
-        //   autoCloseDuration: const Duration(seconds: 3),
-        // );
+
+
+
+
         await _model.loginGoogle(email, name, photoUrl);
-        Navigator.popAndPushNamed(context, '/Home');
+        if(_model.errorMessage.isNotEmpty){
+          toastification.show(
+            context: context,
+            title: Text(_model.errorMessage),
+            type: ToastificationType.error,
+            style: ToastificationStyle.flatColored,
+            autoCloseDuration: const Duration(seconds: 3),
+          );
+        }else{
+          toastification.show(
+            context: context,
+            title: Text('Đăng nhập thành công!'),
+            type: ToastificationType.success,
+            style: ToastificationStyle.flatColored,
+            autoCloseDuration: const Duration(seconds: 3),
+          );
+          Navigator.popAndPushNamed(context, '/Home');
+        }
+
+
         // Use the credential to sign-in to Firebase or your backend
         // ...
       }else{
         Navigator.pop(context);
       }
-    } catch (error) {
-      print("Sign-in error: $error");
+    } catch (error, stacktrace) {
+      if (kDebugMode) {
+        print("Sign-in error: $error, $stacktrace");
+        toastification.show(
+          context: context,
+          title: Text("Sign-in error: $error", overflow: TextOverflow.fade,),
+          type: ToastificationType.success,
+          style: ToastificationStyle.flatColored,
+          autoCloseDuration: const Duration(seconds: 3),
+        );
+      }
+
     }
   }
 
@@ -270,8 +293,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                           fillColor: const Color(0xFFFEFEFE),
                           suffixIcon: InkWell(
                             onTap: () => safeSetState(
-                              () => _model.passwordVisibility =
-                                  !_model.passwordVisibility,
+                                  () => _model.passwordVisibility =
+                              !_model.passwordVisibility,
                             ),
                             focusNode: FocusNode(skipTraversal: true),
                             child: Icon(
@@ -366,8 +389,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                         elevation: 0,
                         borderRadius: BorderRadius.circular(12),
                         borderSide: BorderSide(
-                          color: alternateColor,
-                          width: 1.5
+                            color: alternateColor,
+                            width: 1.5
                         ),
                       ),
                     ),
@@ -420,3 +443,14 @@ class _LoginWidgetState extends State<LoginWidget> {
     );
   }
 }
+
+
+// print("Sign-in error: $error");
+//       toastification.show(
+//         context: context,
+//         title: Text("Sign-in error: $error"),
+//         type: ToastificationType.error,
+//         style: ToastificationStyle.flatColored,
+//         autoCloseDuration: const Duration(seconds: 3),
+//       );
+//       Navigator.pop(context);
