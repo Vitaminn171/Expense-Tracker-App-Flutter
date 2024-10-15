@@ -1,5 +1,3 @@
-import 'package:expenseapp/viewmodels/utils.dart';
-import 'package:expenseapp/views/components/add_button.dart';
 import 'package:expenseapp/views/components/background_widget.dart';
 import 'package:expenseapp/views/listview_components/setting_items.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
@@ -9,12 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:expenseapp/viewmodels/setting_viewmodel.dart';
-import 'package:toastification/toastification.dart';
 
 import '../models/user.dart';
 import 'components/custom_drawer.dart';
 import 'components/custom_popscope.dart';
-import 'components/navbar.dart';
 import 'components/user_widget.dart';
 export 'package:expenseapp/viewmodels/setting_viewmodel.dart';
 

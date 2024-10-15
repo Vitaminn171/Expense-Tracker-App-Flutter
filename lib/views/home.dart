@@ -54,30 +54,6 @@ class _HomeWidgetState extends State<HomeWidget> {
     );
   }
 
-  Future<void> _performLoadingTask() async {
-    showLoadingDialog(context);
-
-    if ((await Utils.logout(context)) == false) {
-      toastification.show(
-        context: context,
-        title: const Text('Đăng xuất thất bại! Vui lòng thử lại sau vài giây.'),
-        type: ToastificationType.error,
-        style: ToastificationStyle.flatColored,
-        autoCloseDuration: const Duration(seconds: 4),
-      );
-      Navigator.pop(context);
-    } else {
-      toastification.show(
-        context: context,
-        title: const Text('Đăng xuất thành công!'),
-        type: ToastificationType.success,
-        style: ToastificationStyle.flatColored,
-        autoCloseDuration: const Duration(seconds: 3),
-      );
-      Navigator.popAndPushNamed(context, '/Login');
-    }
-  }
-
   @override
   void dispose() {
     _model.dispose();

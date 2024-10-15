@@ -1,5 +1,3 @@
-import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
-import 'package:expenseapp/main.dart';
 import 'package:expenseapp/models/colors.dart';
 import 'package:expenseapp/providers/user_provider.dart';
 import 'package:expenseapp/viewmodels/utils.dart';
