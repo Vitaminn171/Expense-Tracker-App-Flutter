@@ -1,19 +1,17 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expenseapp/viewmodels/utils.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
 
 import 'package:expenseapp/views/revenue.dart' show RevenueListWidget;
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../models/transaction.dart';
-import '../models/user.dart';
-import '../providers/expense_provider.dart';
-import '../providers/revenues_provider.dart';
-import '../providers/user_provider.dart';
+import 'package:expenseapp/models/transaction.dart';
+import 'package:expenseapp/models/user.dart';
+
+import 'package:expenseapp/providers/revenues_provider.dart';
+import 'package:expenseapp/providers/user_provider.dart';
 import 'apis.dart';
 
 class RevenueListModel extends FlutterFlowModel<RevenueListWidget> {
@@ -41,10 +39,13 @@ class RevenueListViewModel extends ChangeNotifier {
       if (querySnapshot.size > 0) {
         for (final doc in querySnapshot.docs) {
           final data = doc.data();
-          Transactions revenues = Transactions(date: Utils.formatTimeStamptoDate(data['date']),total: data['total'], details: Utils.getDetails(data['details']));
+          Transactions revenues =
+              Transactions(date: Utils.formatTimeStamptoDate(data['date']), total: data['total'], details: Utils.getDetails(data['details']));
           list.add(revenues);
           totalRevenue += data['total'];
-          print('Document data: ${revenues.date}');
+          if (kDebugMode) {
+            print('Document data: ${revenues.date}');
+          }
         }
         revenueProvider.setRevenuesList(Future.value(list));
         revenueProvider.setTotalRevenueRange(Future.value(totalRevenue.toInt()));
@@ -61,16 +62,19 @@ class RevenueListViewModel extends ChangeNotifier {
     revenueProvider.setRevenuesList(null);
     String? email = userProvider.user?.email;
 
-    if(email != null){
+    if (email != null) {
       final querySnapshot = await Api.getRevenueRange(email, range);
       List<Transactions> list = [];
       if (querySnapshot.size > 0) {
         for (final doc in querySnapshot.docs) {
           final data = doc.data();
-          Transactions expenses = Transactions(date: Utils.formatTimeStamptoDate(data['date']),total: data['total'], details: Utils.getDetails(data['details']));
+          Transactions expenses =
+              Transactions(date: Utils.formatTimeStamptoDate(data['date']), total: data['total'], details: Utils.getDetails(data['details']));
           list.add(expenses);
           totalExpense += data['total'];
-          print('Document data: ${expenses.date}');
+          if (kDebugMode) {
+            print('Document data: ${expenses.date}');
+          }
         }
         revenueProvider.setTotalRevenueRange(Future.value(totalExpense.toInt()));
         revenueProvider.setRevenuesList(Future.value(list));
@@ -84,35 +88,36 @@ class RevenueListViewModel extends ChangeNotifier {
     return Future.value([]);
   }
 
-  void setRevenueDetail(Transactions items){
+  void setRevenueDetail(Transactions items) {
     revenueProvider.setRevenueDetail(items);
     notifyListeners();
   }
 
-  Transactions? getRevenueDetail(){
+  Transactions? getRevenueDetail() {
     final data = revenueProvider.revenueDetail;
     return data;
   }
 
-
-  DateTimeRange? getDateRange(){
+  DateTimeRange? getDateRange() {
     return revenueProvider.dateTimeRangeRevenue;
   }
 
   Future<void> getRevenueData(DateTimeRange dateRange) async {
-    if(revenueProvider.isUpdated || revenueProvider.revenuesList == null){
+    if (revenueProvider.isUpdated || revenueProvider.revenuesList == null) {
       getRevDateRange(dateRange);
-    }else{
-      print('No reload data from Api');
+    } else {
+      if (kDebugMode) {
+        print('No reload data from Api');
+      }
     }
   }
 
   Future<void> deleteData(int index) async {
     _errorMessage = '';
-    try{
+    try {
       final dataList = await revenueProvider.revenuesList;
       final data = dataList?.elementAt(index);
-      if(data != null) {
+      if (data != null) {
         int cash = data.total;
         final queryWalletsnapshot = await Api.getWalletData(userProvider.user!.email);
         final dataWallet = queryWalletsnapshot.docs.single.data();
@@ -125,18 +130,16 @@ class RevenueListViewModel extends ChangeNotifier {
         revenueProvider.setRevenueEdit(null);
         revenueProvider.setListTransactionsDetail([]);
         revenueProvider.setState(true);
-        userProvider.setUser(
-            User(email: userProvider.user!.email, name: userProvider.user!.name, totalCash: dataWallet['cash'] - cash)
-        );
+        userProvider.setUser(User(email: userProvider.user!.email, name: userProvider.user!.name, totalCash: dataWallet['cash'] - cash));
         final prefs = await SharedPreferences.getInstance();
         await prefs.setInt('this_totalCash', dataWallet['cash'] - cash);
         notifyListeners();
       }
-    }catch(e){
+    } catch (e) {
       _errorMessage = 'Hệ thống bị lỗi! Vui lòng thử lại sau vài giây.';
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
-
   }
-
 }

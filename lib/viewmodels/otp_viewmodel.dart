@@ -1,19 +1,15 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:crypto/crypto.dart';
 import 'package:expenseapp/providers/user_provider.dart';
 import 'package:expenseapp/viewmodels/apis.dart';
 import 'package:expenseapp/viewmodels/utils.dart';
-import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'package:expenseapp/views/otp.dart' show RegisterOTPWidget;
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'package:email_otp/email_otp.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:toastification/toastification.dart';
 
-import '../models/user.dart';
+import 'package:expenseapp/models/user.dart';
 
 class RegisterOTPViewModel extends FlutterFlowModel<RegisterOTPWidget> {
   ///  State fields for stateful widgets in this page.
@@ -35,7 +31,7 @@ class RegisterOTPViewModel extends FlutterFlowModel<RegisterOTPWidget> {
     if (await EmailOTP.sendOTP(email: email!)) {
       toastification.show(
         context: context,
-        title: Text('OTP đã được gửi đến email!'),
+        title: const Text('OTP đã được gửi đến email!'),
         type: ToastificationType.success,
         style: ToastificationStyle.flat,
         autoCloseDuration: const Duration(seconds: 3),
@@ -43,7 +39,7 @@ class RegisterOTPViewModel extends FlutterFlowModel<RegisterOTPWidget> {
     } else {
       toastification.show(
         context: context,
-        title: Text('OTP gửi thất bại! Vui lòng thử lại.'),
+        title: const Text('OTP gửi thất bại! Vui lòng thử lại.'),
         type: ToastificationType.error,
         style: ToastificationStyle.flat,
         autoCloseDuration: const Duration(seconds: 3),
@@ -67,10 +63,7 @@ class RegisterOTPViewModel extends FlutterFlowModel<RegisterOTPWidget> {
   }
 
   Future<void> register() async {
-
-    String? email = userProvider.user!.email;
-    try{
-
+    try {
       final userDoc = Api.usersCollection.doc(); // Generate a unique document ID
       final userData = {
         'email': userProvider.user!.email,
@@ -89,12 +82,12 @@ class RegisterOTPViewModel extends FlutterFlowModel<RegisterOTPWidget> {
 
       await walletDoc.set(walletData);
 
-
       await storeUser(User(name: userProvider.user!.name, email: userProvider.user!.email, totalCash: userProvider.user!.totalCash, imgPath: 'user'));
-    }catch(e){
-      print(e);
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
     }
-
   }
 
   Future<void> storeUser(User user) async {
@@ -104,5 +97,4 @@ class RegisterOTPViewModel extends FlutterFlowModel<RegisterOTPWidget> {
     await prefs.setString('this_username', user.name);
     await prefs.setInt('this_totalCash', user.totalCash);
   }
-
 }

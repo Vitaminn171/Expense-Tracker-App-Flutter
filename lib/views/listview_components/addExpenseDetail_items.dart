@@ -1,18 +1,14 @@
-import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
-import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
 import 'package:expenseapp/models/tag.dart';
-import 'package:expenseapp/providers/expense_provider.dart';
-import 'package:expenseapp/providers/user_provider.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:toastification/toastification.dart';
 
-import '../../models/colors.dart';
-import '../../viewmodels/add_expense_viewmodel.dart';
-import '../../viewmodels/add_revenue_viewmodel.dart';
-import '../../viewmodels/utils.dart';
-import '../components/custom_alert_dialog.dart';
+import 'package:expenseapp/models/colors.dart';
+import 'package:expenseapp/viewmodels/add_expense_viewmodel.dart';
+import 'package:expenseapp/viewmodels/add_revenue_viewmodel.dart';
+import 'package:expenseapp/viewmodels/utils.dart';
+import 'package:expenseapp/views/components/custom_alert_dialog.dart';
 
 class AddTransactionDetailItems extends StatelessWidget {
   final int index;
@@ -43,11 +39,11 @@ class AddTransactionDetailItems extends StatelessWidget {
       case 1:
         list = Utils.tagRevenue;
         break;
-    // ... more cases
+      // ... more cases
     }
     TagItem tagItem = Utils.getTag(tag, list);
     return // Generated code for this Row Widget...
-        Row(
+      Row(
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -55,12 +51,12 @@ class AddTransactionDetailItems extends StatelessWidget {
         Expanded(
           flex: 1,
           child: Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(0, 8, 12, 8),
+            padding: const EdgeInsetsDirectional.fromSTEB(0, 8, 12, 8),
             child: Row(
               mainAxisSize: MainAxisSize.max,
               children: [
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
                   child: Card(
                       elevation: 0,
                       color: tagItem.color,
@@ -68,7 +64,7 @@ class AddTransactionDetailItems extends StatelessWidget {
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Padding(
-                        padding: EdgeInsetsDirectional.all(7),
+                        padding: const EdgeInsetsDirectional.all(7),
                         child: Icon(
                           tagItem.icon,
                           color: backgroundColor,
@@ -93,7 +89,7 @@ class AddTransactionDetailItems extends StatelessWidget {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
+                        padding: const EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
                         child: Text(
                           tagItem.name,
                           style: TextStyle(
@@ -135,7 +131,7 @@ class AddTransactionDetailItems extends StatelessWidget {
                 viewModel = context.read<AddRevenueViewModel>();
                 listData = await viewModel.revenueProvider.listDetails;
                 break;
-            // ... more cases
+              // ... more cases
             }
 
             if (listData?.length == 1 && index == 0) {
@@ -182,7 +178,7 @@ class AddTransactionDetailItems extends StatelessWidget {
             }
           },
           child: Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+            padding: const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
             child: Icon(
               Icons.delete_outline_rounded,
               color: tag0,

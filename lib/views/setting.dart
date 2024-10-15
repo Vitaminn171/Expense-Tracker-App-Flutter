@@ -2,7 +2,6 @@ import 'package:expenseapp/views/components/background_widget.dart';
 import 'package:expenseapp/views/listview_components/setting_items.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'package:expenseapp/models/colors.dart';
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

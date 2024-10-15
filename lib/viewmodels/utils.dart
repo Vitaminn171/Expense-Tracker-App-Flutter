@@ -9,13 +9,13 @@ import 'package:expenseapp/models/transaction.dart';
 import 'package:expenseapp/providers/expense_provider.dart';
 import 'package:expenseapp/providers/revenues_provider.dart';
 import 'package:expenseapp/providers/user_provider.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../models/user.dart';
 
 class Utils {
   static DateTime now = DateTime.now();
@@ -47,17 +47,7 @@ class Utils {
   static String generateMd5(String input) {
     return md5.convert(utf8.encode(input)).toString();
   }
-
-  // static Future<void> storeUser(User user) async {
-  //   final prefs = await SharedPreferences.getInstance();
-  //   prefs.clear().then((_) async {
-  //     await prefs.setString('this_username', user.name);
-  //     await prefs.setString('this_email', user.email);
-  //   });
-  // }
-
   static String formatCurrency(int totalExpense){
-    //NumberFormat format = NumberFormat.compactLong(locale: 'vi');
     if(totalExpense > 99999999){
       NumberFormat format = NumberFormat.compactLong(locale: 'vi');
       String formattedNumber = format.format(totalExpense);
@@ -105,7 +95,9 @@ class Utils {
       revenueProvider.logout();
       return true;
     }catch (e){
-      print(e.toString());
+      if (kDebugMode) {
+        print(e.toString());
+      }
       return false;
     }
 

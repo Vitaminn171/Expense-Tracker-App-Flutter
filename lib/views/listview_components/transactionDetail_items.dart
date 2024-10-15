@@ -1,13 +1,8 @@
-import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
-import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
 import 'package:expenseapp/models/tag.dart';
-import 'package:expenseapp/providers/user_provider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-import '../../models/colors.dart';
-import '../../viewmodels/utils.dart';
+import 'package:expenseapp/models/colors.dart';
+import 'package:expenseapp/viewmodels/utils.dart';
 
 class TransactionDetailItems extends StatelessWidget {
   final String name;
@@ -39,12 +34,12 @@ class TransactionDetailItems extends StatelessWidget {
         Expanded(
           flex: 1,
           child: Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(0, 7, 12, 7),
+            padding: const EdgeInsetsDirectional.fromSTEB(0, 7, 12, 7),
             child: Row(
               mainAxisSize: MainAxisSize.max,
               children: [
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
                   child: Card(
                       elevation: 0,
                       color: tagItem.color,
@@ -52,7 +47,7 @@ class TransactionDetailItems extends StatelessWidget {
                         borderRadius: BorderRadius.circular(17),
                       ),
                       child: Padding(
-                        padding: EdgeInsetsDirectional.all(8),
+                        padding: const EdgeInsetsDirectional.all(8),
                         child: Icon(
                           tagItem.icon,
                           color: backgroundColor,
@@ -60,10 +55,6 @@ class TransactionDetailItems extends StatelessWidget {
                         ),
                       )),
                 ),
-                // Padding(
-                //   padding: EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
-                //   child: Icon(tagItem.icon, color: tagItem.color, size: 30,)
-                // ),
                 Expanded(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
@@ -81,7 +72,7 @@ class TransactionDetailItems extends StatelessWidget {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
+                        padding: const EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
                         child: Text(
                           tagItem.name,
                           style: TextStyle(

@@ -1,18 +1,13 @@
-import 'dart:math';
-import 'dart:ui';
-import 'package:expenseapp/providers/expense_provider.dart';
+
 import 'package:expenseapp/views/components/background_widget.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:expenseapp/models/colors.dart';
 import 'package:expenseapp/viewmodels/utils.dart';
 import 'package:expenseapp/views/components/custom_drawer.dart';
 import 'package:expenseapp/views/components/user_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-import 'package:expenseapp/viewmodels/expense_viewmodel.dart';
 import 'package:toastification/toastification.dart';
 
 import '../models/transaction.dart';
@@ -48,7 +43,7 @@ class _RevenueListWidgetState extends State<RevenueListWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => RevenueListModel());
-    //_navbar = createModel(context, (_) => CustomNavbar(indexCurrent: 1));
+
     _viewModel = Provider.of<RevenueListViewModel>(context, listen: false);
     _selectedDateRange = _viewModel.getDateRange() ??
         DateTimeRange(
@@ -71,7 +66,6 @@ class _RevenueListWidgetState extends State<RevenueListWidget> {
   Future<void> fetchData(DateTimeRange picked) async {
     // Perform asynchronous data fetching here
     await _viewModel.getRevDateRange(picked);
-
     // Update the state synchronously after fetching data
     setState(() {
       datePicked = '${Utils.formatDatePicker(picked.start)} - ${Utils.formatDatePicker(picked.end)}';
@@ -265,23 +259,6 @@ class _RevenueListWidgetState extends State<RevenueListWidget> {
                                                     ],
                                                   ),
                                                 )),
-                                            // Row(
-                                            //   mainAxisSize: MainAxisSize.min,
-                                            //   crossAxisAlignment:
-                                            //       CrossAxisAlignment.start,
-                                            //   children: [
-                                            //     Text(
-                                            //       'Tiền thấp - cao',
-                                            //       style: TextStyle(
-                                            //         fontFamily: 'Montserrat',
-                                            //         fontSize: 17,
-                                            //         letterSpacing: 0.0,
-                                            //         color: backgroundColor,
-                                            //         fontWeight: FontWeight.w400,
-                                            //       ),
-                                            //     ),
-                                            //   ],
-                                            // ),
                                           ],
                                         ),
                                       ],

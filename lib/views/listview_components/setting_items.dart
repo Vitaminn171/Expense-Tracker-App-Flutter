@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../models/colors.dart';
+import 'package:expenseapp/models/colors.dart';
 
 class SettingItems extends StatelessWidget {
   final String text;
@@ -24,7 +24,7 @@ class SettingItems extends StatelessWidget {
               borderRadius: BorderRadius.circular(18),
             ),
             child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(18, 12, 18, 12),
+              padding: const EdgeInsetsDirectional.fromSTEB(18, 12, 18, 12),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -43,9 +43,9 @@ class SettingItems extends StatelessWidget {
                           size: 30,
                         ),
                         Flexible(
-                          child: Container(
+                          child: SizedBox(
                             child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(7, 0, 5, 0),
+                              padding: const EdgeInsetsDirectional.fromSTEB(7, 0, 5, 0),
                               child: Text(
                                 text,
                                 style: TextStyle(

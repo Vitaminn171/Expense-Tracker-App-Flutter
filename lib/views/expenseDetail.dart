@@ -1,18 +1,15 @@
-import 'dart:math';
-import 'dart:ui';
+
 import 'package:expenseapp/models/tag.dart';
 import 'package:expenseapp/providers/expense_provider.dart';
 import 'package:expenseapp/views/components/background_widget.dart';
 import 'package:expenseapp/views/components/tag_items.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:expenseapp/models/colors.dart';
 import 'package:expenseapp/viewmodels/utils.dart';
 import 'package:expenseapp/views/components/custom_drawer.dart';
 import 'package:expenseapp/views/components/user_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import 'package:expenseapp/viewmodels/expenseDetail_viewmodel.dart';
@@ -22,7 +19,6 @@ import '../models/transaction.dart';
 import 'components/custom_popscope.dart';
 import 'components/navbar.dart';
 import 'listview_components/transactionDetail_items.dart';
-import 'listview_components/transaction_items.dart';
 export 'package:expenseapp/viewmodels/expenseDetail_viewmodel.dart';
 
 class ExpenseDetailWidget extends StatefulWidget {
@@ -35,10 +31,7 @@ class ExpenseDetailWidget extends StatefulWidget {
 class _ExpenseDetailWidgetState extends State<ExpenseDetailWidget> {
   late ExpenseDetailModel _model;
   late ExpenseDetailViewModel _viewModel;
-  String datePicked = '01/9 - 31/9';
-  late ExpenseProvider _expenseProvider;
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  late BottomNavigationBar _navbar;
   int touchedIndex = -1;
   List<int> listPercent = [];
 
@@ -46,7 +39,6 @@ class _ExpenseDetailWidgetState extends State<ExpenseDetailWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => ExpenseDetailModel());
-    //_navbar = createModel(context, (_) => CustomNavbar(indexCurrent: 1));
     _viewModel = Provider.of<ExpenseDetailViewModel>(context, listen: false);
 
     listPercent = _viewModel.calByTagItemPercent();
@@ -83,7 +75,7 @@ class _ExpenseDetailWidgetState extends State<ExpenseDetailWidget> {
                     backgroundColor: backgroundColor,
                     automaticallyImplyLeading: false,
                     actions: <Widget>[
-                      new Container(),
+                      Container(),
                     ],
                     flexibleSpace: FlexibleSpaceBar(
                         background: Stack(children: [
@@ -153,7 +145,7 @@ class _ExpenseDetailWidgetState extends State<ExpenseDetailWidget> {
                                     physics: NeverScrollableScrollPhysics(),
                                     shrinkWrap: true,
                                     primary: true,
-                                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                                       crossAxisCount: 2, // Adjust the number of columns as needed
                                       mainAxisSpacing: 10.0,
                                       crossAxisSpacing: 10.0,
@@ -291,66 +283,5 @@ class _ExpenseDetailWidgetState extends State<ExpenseDetailWidget> {
                       )])))),
           ),
         ));
-  }
-
-  List<PieChartSectionData> showingSections() {
-    return List.generate(4, (i) {
-      final isTouched = i == touchedIndex;
-      final fontSize = isTouched ? 25.0 : 16.0;
-      final radius = isTouched ? 60.0 : 50.0;
-      //const shadows = [Shadow(color: Colors.black, blurRadius: 2)];
-      switch (i) {
-        case 0:
-          return PieChartSectionData(
-            color: Colors.blue,
-            value: 40,
-            title: '40%',
-            radius: radius,
-            titleStyle: TextStyle(
-              fontSize: fontSize,
-              fontWeight: FontWeight.normal,
-              color: backgroundColor,
-            ),
-          );
-        case 1:
-          return PieChartSectionData(
-            color: Colors.yellow,
-            value: 30,
-            title: '30%',
-            radius: radius,
-            titleStyle: TextStyle(
-              fontSize: fontSize,
-              fontWeight: FontWeight.normal,
-              color: backgroundColor,
-            ),
-          );
-        case 2:
-          return PieChartSectionData(
-            color: Colors.purple,
-            value: 15,
-            title: '15%',
-            radius: radius,
-            titleStyle: TextStyle(
-              fontSize: fontSize,
-              fontWeight: FontWeight.normal,
-              color: backgroundColor,
-            ),
-          );
-        case 3:
-          return PieChartSectionData(
-            color: Colors.green,
-            value: 15,
-            title: '15%',
-            radius: radius,
-            titleStyle: TextStyle(
-              fontSize: fontSize,
-              fontWeight: FontWeight.normal,
-              color: backgroundColor,
-            ),
-          );
-        default:
-          throw Error();
-      }
-    });
   }
 }

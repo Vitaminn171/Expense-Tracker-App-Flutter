@@ -1,18 +1,12 @@
-import 'dart:convert';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:crypto/crypto.dart';
 import 'package:expenseapp/providers/user_provider.dart';
 import 'package:expenseapp/viewmodels/apis.dart';
 import 'package:expenseapp/viewmodels/utils.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'package:expenseapp/views/register.dart' show RegisterWidget;
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
-import '../models/user.dart';
+import 'package:expenseapp/models/user.dart';
 
 class RegisterViewModel extends FlutterFlowModel<RegisterWidget> {
   ///  State fields for stateful widgets in this page.
@@ -87,12 +81,6 @@ class RegisterViewModel extends FlutterFlowModel<RegisterWidget> {
 
     );
     userProvider.setUser(user);
-
-    // Map<String, dynamic> data = Map<String, dynamic>.from(snapshot.value as Map);
-    // if(data['password'] != Utils.generateMd5(password)){
-    //   _errorMessage = 'Sai mật khẩu!';
-    //   return false;
-    // }
     return true;
   }
 

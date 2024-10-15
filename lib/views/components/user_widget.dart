@@ -1,11 +1,8 @@
-import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
-import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
 import 'package:expenseapp/providers/user_provider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../models/colors.dart';
+import 'package:expenseapp/models/colors.dart';
 import 'custom_alert_dialog.dart';
 
 class UserWidget extends StatelessWidget {
@@ -102,7 +99,6 @@ class UserWidget extends StatelessWidget {
       );
     } else {
       final userProvider = context.read<UserProvider>();
-      //print(userProvider.user?.imgPath);
       return Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -168,7 +164,7 @@ class UserWidget extends StatelessWidget {
               child: InkWell(
                 onTap: () {
                   scaffoldKey.currentState?.openEndDrawer();
-                 // SimpleHiddenDrawerController.of(context).toggle();
+                  // SimpleHiddenDrawerController.of(context).toggle();
                 },
                 child: Icon(
                   Icons.menu_rounded,

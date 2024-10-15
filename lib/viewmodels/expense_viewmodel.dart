@@ -1,18 +1,17 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expenseapp/viewmodels/utils.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
 
 import 'package:expenseapp/views/expense.dart' show ExpenseListWidget;
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../models/transaction.dart';
-import '../models/user.dart';
-import '../providers/expense_provider.dart';
-import '../providers/user_provider.dart';
+import 'package:expenseapp/models/transaction.dart';
+import 'package:expenseapp/models/user.dart';
+import 'package:expenseapp/providers/expense_provider.dart';
+import 'package:expenseapp/providers/user_provider.dart';
 import 'apis.dart';
 
 class ExpenseListModel extends FlutterFlowModel<ExpenseListWidget> {
@@ -106,7 +105,9 @@ class ExpenseListViewModel extends ChangeNotifier {
     if(expenseProvider.isUpdated || expenseProvider.expensesList == null){
       getExpDateRange(dateRange);
     }else{
-      print('No reload data from Api');
+      if (kDebugMode) {
+        print('No reload data from Api');
+      }
     }
   }
 
@@ -139,7 +140,9 @@ class ExpenseListViewModel extends ChangeNotifier {
       }
     }catch(e){
       _errorMessage = 'Hệ thống bị lỗi! Vui lòng thử lại sau vài giây.';
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
 
   }

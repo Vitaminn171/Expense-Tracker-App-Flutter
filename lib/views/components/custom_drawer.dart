@@ -1,15 +1,12 @@
 import 'dart:ui';
 
-import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
-import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
 import 'package:expenseapp/providers/user_provider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:toastification/toastification.dart';
 
-import '../../models/colors.dart';
-import '../../viewmodels/utils.dart';
+import 'package:expenseapp/models/colors.dart';
+import 'package:expenseapp/viewmodels/utils.dart';
 
 class CustomDrawer extends StatelessWidget {
   final int? index;
@@ -71,8 +68,6 @@ class CustomDrawer extends StatelessWidget {
     var selectedColor = secondaryColor;
 
     return Drawer(
-
-        //backgroundColor: const Color(0xCCE4E4E4),
         backgroundColor: backgroundColor,
         child: ClipRRect(
           child: BackdropFilter(
@@ -84,10 +79,6 @@ class CustomDrawer extends StatelessWidget {
                   SizedBox(
                     width: double.infinity,
                     height: 210,
-                    // decoration:  BoxDecoration(
-                    //   color: Color(0xb369caa7),
-                    // ),
-
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -280,8 +271,6 @@ class CustomDrawer extends StatelessWidget {
                       ),
                     ),
                   ),
-
-
                 ],
               ),
             ),

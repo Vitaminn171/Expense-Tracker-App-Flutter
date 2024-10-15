@@ -1,15 +1,12 @@
-import 'dart:math';
-import 'dart:ui';
+
 import 'package:expenseapp/providers/expense_provider.dart';
 import 'package:expenseapp/views/components/background_widget.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:expenseapp/models/colors.dart';
 import 'package:expenseapp/viewmodels/utils.dart';
 import 'package:expenseapp/views/components/custom_drawer.dart';
 import 'package:expenseapp/views/components/user_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import 'package:expenseapp/viewmodels/expense_viewmodel.dart';
@@ -35,7 +32,6 @@ class _ExpenseListWidgetState extends State<ExpenseListWidget> {
   String datePicked = '';
   final scaffoldKey = GlobalKey<ScaffoldState>();
   DateTime now = DateTime.now();
-
   DateTimeRange? _selectedDateRange;
 
   Future<List<Transactions>> _fetchData(DateTimeRange dateRange) async {
@@ -46,7 +42,6 @@ class _ExpenseListWidgetState extends State<ExpenseListWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => ExpenseListModel());
-    //_navbar = createModel(context, (_) => CustomNavbar(indexCurrent: 1));
     _viewModel = Provider.of<ExpenseListViewModel>(context, listen: false);
     _selectedDateRange = _viewModel.getDateRange() ??
         DateTimeRange(
@@ -120,7 +115,7 @@ class _ExpenseListWidgetState extends State<ExpenseListWidget> {
                     backgroundColor: backgroundColor,
                     automaticallyImplyLeading: false,
                     actions: <Widget>[
-                      new Container(),
+                       Container(),
                     ],
                     flexibleSpace: FlexibleSpaceBar(
                         background: Stack(children: [
@@ -164,7 +159,7 @@ class _ExpenseListWidgetState extends State<ExpenseListWidget> {
                                                       ),
                                                     ),
                                                     Padding(
-                                                      padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                                                      padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                                                       child: Text(
                                                         '\$${Utils.formatCurrency(snapshot.data?.toInt() ?? 0)}',
                                                         style: TextStyle(
@@ -266,23 +261,6 @@ class _ExpenseListWidgetState extends State<ExpenseListWidget> {
                                                     ],
                                                   ),
                                                 )),
-                                            // Row(
-                                            //   mainAxisSize: MainAxisSize.min,
-                                            //   crossAxisAlignment:
-                                            //       CrossAxisAlignment.start,
-                                            //   children: [
-                                            //     Text(
-                                            //       'Tiền thấp - cao',
-                                            //       style: TextStyle(
-                                            //         fontFamily: 'Montserrat',
-                                            //         fontSize: 17,
-                                            //         letterSpacing: 0.0,
-                                            //         color: backgroundColor,
-                                            //         fontWeight: FontWeight.w400,
-                                            //       ),
-                                            //     ),
-                                            //   ],
-                                            // ),
                                           ],
                                         ),
                                       ],

@@ -3,17 +3,15 @@ import 'package:expenseapp/models/tag.dart';
 import 'package:expenseapp/models/transaction.dart';
 import 'package:expenseapp/models/user.dart';
 import 'package:expenseapp/viewmodels/utils.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
 
 import 'package:expenseapp/views/add_revenue.dart' show AddRevenueWidget;
 import 'package:flutter/material.dart';
-import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../providers/expense_provider.dart';
-import '../providers/revenues_provider.dart';
-import '../providers/user_provider.dart';
-import '../views/components/custom_alert_dialog.dart';
+import 'package:expenseapp/providers/revenues_provider.dart';
+import 'package:expenseapp/providers/user_provider.dart';
 import 'apis.dart';
 
 class AddRevenueModel extends FlutterFlowModel<AddRevenueWidget> {
@@ -144,8 +142,6 @@ class AddRevenueViewModel extends ChangeNotifier {
           final dataTotal = querySnapshot.docs.first.data();
           cash = (dataWallet['cash'] - dataTotal['total']) + total;
           final revenueData = {
-            //'email': userProvider.user!.email,
-            //'date': date,
             'total': total,
             'details': revenueDetail
           };
@@ -167,21 +163,14 @@ class AddRevenueViewModel extends ChangeNotifier {
     }catch(e){
       revenueProvider.setState(false);
       _errorMessage = 'Hệ thống bị lỗi! Vui lòng thử lại sau vài giây.';
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
       return false;
     }
 
 
   }
-
-  void cancelDetails() {
-
-    print('saved');
-
-
-  }
-
-
 
   Future<bool> deleteDetail(int index) async {
     _errorMessage= '';
@@ -196,6 +185,9 @@ class AddRevenueViewModel extends ChangeNotifier {
       return true;
     }catch(e){
       _errorMessage = 'Hệ thống bị lỗi! Vui lòng thử lại sau vài giây.';
+      if (kDebugMode) {
+        print(e);
+      }
       return false;
     }
   }
@@ -224,7 +216,9 @@ class AddRevenueViewModel extends ChangeNotifier {
       notifyListeners();
     }catch(e){
       _errorMessage = 'Hệ thống bị lỗi! Vui lòng thử lại sau vài giây.';
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
 
   }
@@ -233,7 +227,6 @@ class AddRevenueViewModel extends ChangeNotifier {
     String email = userProvider.user!.email;
     final querySnapshot = await Api.getRevenueDetails(email, date);
     if(querySnapshot.docs.isNotEmpty){
-      print('ok');
       final data = querySnapshot.docs.single.data();
       Transactions revenues = Transactions(
           date: Utils.formatTimeStamptoDate(data['date']),

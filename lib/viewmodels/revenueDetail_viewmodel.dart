@@ -5,10 +5,9 @@ import 'package:flutterflow_ui/flutterflow_ui.dart';
 
 import 'package:flutter/material.dart';
 import 'package:expenseapp/views/revenueDetail.dart';
-import '../models/transaction.dart';
-import '../providers/expense_provider.dart';
-import '../providers/revenues_provider.dart';
-import '../providers/user_provider.dart';
+import 'package:expenseapp/models/transaction.dart';
+import 'package:expenseapp/providers/revenues_provider.dart';
+import 'package:expenseapp/providers/user_provider.dart';
 
 class RevenueDetailModel extends FlutterFlowModel<RevenueDetailWidget> {
   @override

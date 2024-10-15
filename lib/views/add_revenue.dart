@@ -4,25 +4,20 @@ import 'package:expenseapp/providers/revenues_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:provider/provider.dart';
 
 import 'package:expenseapp/viewmodels/add_revenue_viewmodel.dart';
 import 'package:toastification/toastification.dart';
 
-import '../models/colors.dart';
-import '../models/transaction.dart';
-import '../providers/expense_provider.dart';
-import '../viewmodels/utils.dart';
+import 'package:expenseapp/models/colors.dart';
+import 'package:expenseapp/models/transaction.dart';
+import 'package:expenseapp/viewmodels/utils.dart';
 import 'components/background_widget.dart';
 import 'components/custom_alert_dialog.dart';
 import 'components/custom_drawer.dart';
 import 'components/custom_popscope.dart';
-import 'components/navbar.dart';
 import 'components/user_widget.dart';
 import 'listview_components/addExpenseDetail_items.dart';
-import 'listview_components/transaction_items.dart';
 export 'package:expenseapp/viewmodels/add_revenue_viewmodel.dart';
 
 class AddRevenueWidget extends StatefulWidget {
@@ -85,12 +80,12 @@ class _AddRevenueWidgetState extends State<AddRevenueWidget> {
     super.dispose();
   }
 
-  void moveWidgetWhenUseKeyBoard(bool flag) {
+  void moveWidgetWhenUseKeyBoard(bool flag, var size) {
     setState(() {
       if (flag) {
         _heightContainer = 600;
       } else {
-        _heightContainer = 370;
+        _heightContainer = size * 0.26953125;
       }
     });
   }
@@ -119,13 +114,6 @@ class _AddRevenueWidgetState extends State<AddRevenueWidget> {
             widget: Scaffold(
                 key: scaffoldKey,
                 backgroundColor: backgroundColor,
-                // bottomNavigationBar: CustomNavbar(
-                //   indexCurrent: 2,
-                //   flag: isAdded,
-                //   action: () {
-                //     _viewModel.saveDetails();
-                //   },
-                // ),
                 endDrawer: CustomDrawer(
                   index: 0,
                 ),
@@ -354,7 +342,7 @@ class _AddRevenueWidgetState extends State<AddRevenueWidget> {
                                                               readOnly: true,
                                                               obscureText: false,
                                                               onTapOutside: (_) {
-                                                                moveWidgetWhenUseKeyBoard(false);
+                                                                moveWidgetWhenUseKeyBoard(false, size);
                                                               },
                                                               onTap: () async {
                                                                 if (!isAdded) {
@@ -396,7 +384,7 @@ class _AddRevenueWidgetState extends State<AddRevenueWidget> {
                                                                     // _fetchData(picked);
                                                                   }
                                                                 }
-                                                                moveWidgetWhenUseKeyBoard(false);
+                                                                moveWidgetWhenUseKeyBoard(false, size);
                                                               },
                                                               decoration: InputDecoration(
                                                                 isDense: true,
@@ -463,10 +451,10 @@ class _AddRevenueWidgetState extends State<AddRevenueWidget> {
                                                               controller: _model.textController_title,
                                                               focusNode: _model.textFieldFocusNode_title,
                                                               onTap: () {
-                                                                moveWidgetWhenUseKeyBoard(true);
+                                                                moveWidgetWhenUseKeyBoard(true, size);
                                                               },
                                                               onTapOutside: (_) {
-                                                                moveWidgetWhenUseKeyBoard(false);
+                                                                moveWidgetWhenUseKeyBoard(false, size);
                                                               },
                                                               autofocus: false,
                                                               obscureText: false,
@@ -536,10 +524,10 @@ class _AddRevenueWidgetState extends State<AddRevenueWidget> {
                                                               focusNode: _model.textFieldFocusNode_total,
                                                               onTap: () {
 
-                                                                moveWidgetWhenUseKeyBoard(true);
+                                                                moveWidgetWhenUseKeyBoard(true, size);
                                                               },
                                                               onTapOutside: (_) {
-                                                                moveWidgetWhenUseKeyBoard(false);
+                                                                moveWidgetWhenUseKeyBoard(false, size);
                                                               },
                                                               autofocus: false,
                                                               obscureText: false,
@@ -724,8 +712,8 @@ class _AddRevenueWidgetState extends State<AddRevenueWidget> {
                                                             text: 'Thêm',
                                                             options: FFButtonOptions(
                                                               height: 40,
-                                                              padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
-                                                              iconPadding: EdgeInsets.all(0),
+                                                              padding: const EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
+                                                              iconPadding: const EdgeInsets.all(0),
                                                               color: secondaryColor,
                                                               textStyle: const TextStyle(
                                                                 fontFamily: 'Nunito',

@@ -3,14 +3,15 @@ import 'package:expenseapp/providers/expense_provider.dart';
 import 'package:expenseapp/providers/revenues_provider.dart';
 import 'package:expenseapp/providers/user_provider.dart';
 import 'package:expenseapp/viewmodels/utils.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
 
 import 'package:expenseapp/views/home.dart' show HomeWidget;
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../models/transaction.dart';
-import '../models/user.dart';
+import 'package:expenseapp/models/transaction.dart';
+import 'package:expenseapp/models/user.dart';
 import 'apis.dart';
 
 class HomeModel extends FlutterFlowModel<HomeWidget> {
@@ -41,7 +42,9 @@ class HomeViewModel extends ChangeNotifier {
     User user;
     final prefs = await SharedPreferences.getInstance();
     if (expenseProvider.isUpdated) {
-      print('Cash update');
+      if (kDebugMode) {
+        print('Cash update');
+      }
       User userTemp = userProvider.user!;
       String? photo = prefs.getString('this_photoUrl');
       if (photo == null) {
@@ -172,8 +175,10 @@ class HomeViewModel extends ChangeNotifier {
           expenseProvider.setTotalExpenseRange(Future.value(dataExp['total'].toInt()));
           expenseProvider.setState(false);
           notifyListeners();
-        }else{
-          print('SYSOUT: no reload expense data');
+        } else {
+          if (kDebugMode) {
+            print('No reload expense data');
+          }
           totalExpense = expenseProvider.totalExpenseCurrentMonth ?? 0;
         }
 
@@ -186,19 +191,22 @@ class HomeViewModel extends ChangeNotifier {
           revenueProvider.setTotalRevenueRange(Future.value(dataRev['total'].toInt()));
           revenueProvider.setState(false);
           notifyListeners();
-        }else{
-          print('SYSOUT: no reload revenue data');
+        } else {
+          if (kDebugMode) {
+            print('No reload revenue data');
+          }
           totalRevenue = revenueProvider.totalRevenueCurrentMonth ?? 0;
         }
       }
-
 
       return {
         'totalExpense': Utils.formatCurrency(totalExpense.toInt()),
         'totalRevenue': Utils.formatCurrency(totalRevenue.toInt()),
       };
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
       expenseProvider.setState(false);
       revenueProvider.setState(false);
       notifyListeners();
@@ -213,10 +221,8 @@ class HomeViewModel extends ChangeNotifier {
     num total = 0;
     List<Transactions> list = [];
     if (querySnapshot.size > 0) {
-      //final data = querySnapshot.docs.single.data();
       for (final doc in querySnapshot.docs) {
         final data = doc.data();
-        //List<TransactionDetails> details = Utils.getDetails(data['details']);
         Transactions transactions =
             Transactions(date: Utils.formatTimeStamptoDate(data['date']), total: data['total'], details: Utils.getDetails(data['details']));
         list.add(transactions);

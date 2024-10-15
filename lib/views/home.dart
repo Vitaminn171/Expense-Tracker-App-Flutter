@@ -3,12 +3,10 @@ import 'package:expenseapp/views/components/add_button.dart';
 import 'package:expenseapp/views/components/background_widget.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'package:expenseapp/models/colors.dart';
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:expenseapp/viewmodels/home_viewmodel.dart';
-import 'package:toastification/toastification.dart';
 
 import '../models/user.dart';
 import 'components/custom_alert_dialog.dart';
@@ -39,19 +37,6 @@ class _HomeWidgetState extends State<HomeWidget> {
     super.initState();
     _model = createModel(context, () => HomeModel());
     _viewModel = Provider.of<HomeViewModel>(context, listen: false);
-  }
-
-
-  Future<void> showLoadingDialog(BuildContext context) async {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: false, // Prevent dismissing by tapping outside
-      builder: (BuildContext context) => Center(
-        child: CircularProgressIndicator(
-          color: primaryColor,
-        ),
-      ),
-    );
   }
 
   @override

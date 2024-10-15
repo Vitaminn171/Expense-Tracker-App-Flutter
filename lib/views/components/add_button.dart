@@ -1,12 +1,10 @@
-import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
-import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
-import 'package:expenseapp/providers/user_provider.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
-import 'package:provider/provider.dart';
 
-import '../../models/colors.dart';
+
+import 'package:expenseapp/models/colors.dart';
 
 class AddButton extends StatelessWidget {
   final String title;

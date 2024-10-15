@@ -115,7 +115,7 @@ class _LoginWidgetState extends State<LoginWidget> {
         }else{
           toastification.show(
             context: context,
-            title: Text('Đăng nhập thành công!'),
+            title: const Text('Đăng nhập thành công!'),
             type: ToastificationType.success,
             style: ToastificationStyle.flatColored,
             autoCloseDuration: const Duration(seconds: 3),
@@ -130,7 +130,7 @@ class _LoginWidgetState extends State<LoginWidget> {
 
       toastification.show(
         context: context,
-        title: Text('Hệ thống bị lỗi! Vui lòng thử lại sau vài giây.'),
+        title: const Text('Hệ thống bị lỗi! Vui lòng thử lại sau vài giây.'),
         type: ToastificationType.error,
         style: ToastificationStyle.flatColored,
         autoCloseDuration: const Duration(seconds: 3),
@@ -440,14 +440,3 @@ class _LoginWidgetState extends State<LoginWidget> {
     );
   }
 }
-
-
-// print("Sign-in error: $error");
-//       toastification.show(
-//         context: context,
-//         title: Text("Sign-in error: $error"),
-//         type: ToastificationType.error,
-//         style: ToastificationStyle.flatColored,
-//         autoCloseDuration: const Duration(seconds: 3),
-//       );
-//       Navigator.pop(context);

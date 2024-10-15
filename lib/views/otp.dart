@@ -55,7 +55,7 @@ class _RegisterOTPWidgetState extends State<RegisterOTPWidget> {
     if((await _model.checkPin()) == false){
       toastification.show(
         context: context,
-        title:  Text(_model.errorMessage,style: TextStyle(
+        title: Text(_model.errorMessage,style: const TextStyle(
             fontFamily: 'Nunito'
         ),),
         type: ToastificationType.error,
@@ -249,9 +249,9 @@ class _RegisterOTPWidgetState extends State<RegisterOTPWidget> {
                           options: FFButtonOptions(
                             height: 40,
                             padding:
-                            EdgeInsetsDirectional.fromSTEB(46, 0, 46, 0),
+                            const EdgeInsetsDirectional.fromSTEB(46, 0, 46, 0),
                             iconPadding:
-                            EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                            const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                             color: primaryColor,
                             textStyle: const TextStyle(
                                 fontFamily: 'Nunito',
