@@ -95,6 +95,9 @@ class _HomeWidgetState extends State<HomeWidget> {
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           crossAxisAlignment: CrossAxisAlignment.stretch,
                                           children: [
+                                            // Expanded(child: Padding(
+                                            //     padding: const EdgeInsetsDirectional.fromSTEB(25, 0, 25, 0),
+                                            //     child: UserWidget(scaffoldKey: scaffoldKey)),),
                                             Padding(
                                                 padding: const EdgeInsetsDirectional.fromSTEB(25, 0, 25, 0),
                                                 child: UserWidget(scaffoldKey: scaffoldKey)),
