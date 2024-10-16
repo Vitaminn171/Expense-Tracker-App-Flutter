@@ -103,75 +103,79 @@ class UserWidget extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              ClipRRect(
-                  borderRadius: BorderRadius.circular(18),
-                  child: userProvider.user?.photoUrl == null
-                      ? (userProvider.user?.imgPath == 'user'
-                          ? Image.asset(
-                              'assets/images/user.png',
-                              width: 50,
-                              height: 50,
-                              fit: BoxFit.cover,
-                            )
-                          : Image.asset(
-                              'assets/images/user.png',
-                              width: 50,
-                              height: 50,
-                              fit: BoxFit.cover,
-                            ))
-                      : Image.network(
-                          userProvider.user!.photoUrl.toString(),
-                          width: 50,
-                          height: 50,
-                          fit: BoxFit.cover,
-                        )),
-              Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      userProvider.user?.name.toString() ?? 'Loading...',
-                      style: const TextStyle(
-                        fontFamily: 'Nunito',
-                        fontSize: 17,
-                        letterSpacing: 0.0,
-                        color: backgroundColor,
-                        fontWeight: FontWeight.w300,
-                      ),
-                    ),
-                    Text(
-                      userProvider.user?.email.toString() ?? 'Loading...',
-                      style: const TextStyle(
-                        fontFamily: 'Nunito',
-                        fontSize: 14,
-                        letterSpacing: 0.0,
-                        color: backgroundColor,
-                        fontWeight: FontWeight.w300,
-                      ),
-                    ),
-                  ],
+          Expanded(
+            flex: 1,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                ClipRRect(
+                    borderRadius: BorderRadius.circular(18),
+                    child: userProvider.user?.photoUrl == null
+                        ? (userProvider.user?.imgPath == 'user'
+                            ? Image.asset(
+                                'assets/images/user.png',
+                                width: 50,
+                                height: 50,
+                                fit: BoxFit.cover,
+                              )
+                            : Image.asset(
+                                'assets/images/user.png',
+                                width: 50,
+                                height: 50,
+                                fit: BoxFit.cover,
+                              ))
+                        : Image.network(
+                            userProvider.user!.photoUrl.toString(),
+                            width: 50,
+                            height: 50,
+                            fit: BoxFit.cover,
+                          )),
+                Expanded(
+                  flex: 1,
+                  child: Padding(
+                      padding: const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                      child:
+                          Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
+                            Text(
+                              userProvider.user?.name.toString() ?? 'Loading...',
+                              //'Loading...asddddddddddddddddddddddddddddddddddddddd',
+                              style: const TextStyle(
+                                  fontFamily: 'Nunito',
+                                  fontSize: 17,
+                                  letterSpacing: 0.0,
+                                  color: backgroundColor,
+                                  fontWeight: FontWeight.w300,
+                                  overflow: TextOverflow.ellipsis),
+                            ),
+                            Text(
+                                userProvider.user?.email.toString() ?? 'Loading...',
+                                //'Loading...asddddddddddddddddddddddddddddddddddddddd',
+                                style: TextStyle(
+                                    fontFamily: 'Nunito',
+                                    fontSize: 14,
+                                    letterSpacing: 0.0,
+                                    color: backgroundColor,
+                                    fontWeight: FontWeight.w300,
+                                    overflow: TextOverflow.ellipsis),
+                              ),
+
+                          ]),
+                       ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-          Align(
-              alignment: const AlignmentDirectional(0, 0),
-              child: InkWell(
-                onTap: () {
-                  scaffoldKey.currentState?.openEndDrawer();
-                  // SimpleHiddenDrawerController.of(context).toggle();
-                },
-                child: const Icon(
-                  Icons.menu_rounded,
-                  color: backgroundColor,
-                  size: 30,
-                ),
-              )),
+          InkWell(
+            onTap: () {
+              scaffoldKey.currentState?.openEndDrawer();
+              // SimpleHiddenDrawerController.of(context).toggle();
+            },
+            child: const Icon(
+              Icons.menu_rounded,
+              color: backgroundColor,
+              size: 30,
+            ),
+          ),
         ],
       );
     }
