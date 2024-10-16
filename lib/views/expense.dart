@@ -92,7 +92,7 @@ class _ExpenseListWidgetState extends State<ExpenseListWidget> {
                   Navigator.popAndPushNamed(context, '/AddExpense');
                 },
                 enableFeedback: true,
-                child: Icon(
+                child: const Icon(
                   Icons.add_rounded,
                   color: backgroundColor,
                   size: 28,
@@ -102,7 +102,7 @@ class _ExpenseListWidgetState extends State<ExpenseListWidget> {
               //icon: Icon(Icons.add_rounded, color: backgroundColor,),
             ),
             backgroundColor: backgroundColor,
-            bottomNavigationBar: CustomNavbar(
+            bottomNavigationBar: const CustomNavbar(
               indexCurrent: 1,
             ),
             endDrawer: CustomDrawer(
@@ -148,7 +148,7 @@ class _ExpenseListWidgetState extends State<ExpenseListWidget> {
                                                   mainAxisSize: MainAxisSize.min,
                                                   crossAxisAlignment: CrossAxisAlignment.start,
                                                   children: [
-                                                    Text(
+                                                    const Text(
                                                       'Tổng chi tiêu',
                                                       style: TextStyle(
                                                         fontFamily: 'Nunito',
@@ -162,7 +162,7 @@ class _ExpenseListWidgetState extends State<ExpenseListWidget> {
                                                       padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                                                       child: Text(
                                                         '\$${Utils.formatCurrency(snapshot.data?.toInt() ?? 0)}',
-                                                        style: TextStyle(
+                                                        style: const TextStyle(
                                                           fontFamily: 'Nunito',
                                                           fontSize: 27,
                                                           letterSpacing: 0.0,
@@ -174,7 +174,7 @@ class _ExpenseListWidgetState extends State<ExpenseListWidget> {
                                                   ],
                                                 );
                                               } else {
-                                                return Center(
+                                                return const Center(
                                                     child: CircularProgressIndicator(
                                                   color: primaryColor,
                                                 ));
@@ -205,7 +205,7 @@ class _ExpenseListWidgetState extends State<ExpenseListWidget> {
                                                       builder: (context, child) {
                                                         return Theme(
                                                           data: Theme.of(context).copyWith(
-                                                            colorScheme: ColorScheme.light(
+                                                            colorScheme: const ColorScheme.light(
                                                               primary: primaryColor, // header background color
                                                               secondary: alternateColor,
                                                               onPrimary: Colors.black, // header text color
@@ -245,7 +245,7 @@ class _ExpenseListWidgetState extends State<ExpenseListWidget> {
                                                       ),
                                                       Text(
                                                         '${Utils.formatDatePicker(_selectedDateRange!.start)} - ${Utils.formatDatePicker(_selectedDateRange!.end)}',
-                                                        style: TextStyle(
+                                                        style: const TextStyle(
                                                           fontFamily: 'Nunito',
                                                           fontSize: 17,
                                                           letterSpacing: 0.0,
@@ -271,7 +271,7 @@ class _ExpenseListWidgetState extends State<ExpenseListWidget> {
                                     child: Container(
                                       width: double.infinity,
                                       height: heightContainer,
-                                      decoration: BoxDecoration(
+                                      decoration: const BoxDecoration(
                                         color: backgroundColor,
                                         boxShadow: const [
                                           BoxShadow(
@@ -346,7 +346,7 @@ class _ExpenseListWidgetState extends State<ExpenseListWidget> {
                                   ),
                                 ]);
                               } else {
-                                return Center(
+                                return const Center(
                                     child: CircularProgressIndicator(
                                   color: primaryColor,
                                 ));

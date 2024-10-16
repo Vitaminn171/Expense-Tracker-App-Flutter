@@ -51,7 +51,7 @@ class UserWidget extends StatelessWidget {
 
                   //scaffoldKey.currentState?.openEndDrawer();
                 },
-                child: Icon(
+                child: const Icon(
                   Icons.arrow_back_ios_new_rounded,
                   color: backgroundColor,
                   size: 30,
@@ -68,7 +68,7 @@ class UserWidget extends StatelessWidget {
                   children: [
                     Text(
                       title!,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontFamily: 'Nunito',
                         fontSize: 21,
                         letterSpacing: 0.0,
@@ -89,7 +89,7 @@ class UserWidget extends StatelessWidget {
                     scaffoldKey.currentState?.openEndDrawer();
                   }
                 },
-                child: Icon(
+                child: const Icon(
                   Icons.menu_rounded,
                   color: backgroundColor,
                   size: 30,
@@ -136,7 +136,7 @@ class UserWidget extends StatelessWidget {
                   children: [
                     Text(
                       userProvider.user?.name.toString() ?? 'Loading...',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontFamily: 'Nunito',
                         fontSize: 17,
                         letterSpacing: 0.0,
@@ -146,7 +146,7 @@ class UserWidget extends StatelessWidget {
                     ),
                     Text(
                       userProvider.user?.email.toString() ?? 'Loading...',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontFamily: 'Nunito',
                         fontSize: 14,
                         letterSpacing: 0.0,
@@ -166,7 +166,7 @@ class UserWidget extends StatelessWidget {
                   scaffoldKey.currentState?.openEndDrawer();
                   // SimpleHiddenDrawerController.of(context).toggle();
                 },
-                child: Icon(
+                child: const Icon(
                   Icons.menu_rounded,
                   color: backgroundColor,
                   size: 30,

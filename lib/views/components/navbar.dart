@@ -28,7 +28,7 @@ class _CustomNavbarState extends State<CustomNavbar>{
     this.action,
   });
 
-  TextStyle textStyle = TextStyle(
+  TextStyle textStyle = const TextStyle(
     fontFamily: 'Nunito',
     fontSize: 14,
     letterSpacing: 0.0,
@@ -49,7 +49,7 @@ class _CustomNavbarState extends State<CustomNavbar>{
         index: indexCurrent,
         items: [
           CurvedNavigationBarItem(
-            child: Icon(Icons.home_rounded, color: textPrimary),
+            child: const Icon(Icons.home_rounded, color: textPrimary),
             label: 'Home',
             labelStyle: textStyle,
           ),
@@ -59,12 +59,12 @@ class _CustomNavbarState extends State<CustomNavbar>{
           //   labelStyle: textStyle,
           // ),
           CurvedNavigationBarItem(
-            child: Icon(Icons.outbox_rounded, color: textPrimary),
+            child: const Icon(Icons.outbox_rounded, color: textPrimary),
             label: 'Chi tiêu',
             labelStyle: textStyle,
           ),
           CurvedNavigationBarItem(
-            child: Icon(Icons.attach_money_rounded, color: textPrimary),
+            child: const Icon(Icons.attach_money_rounded, color: textPrimary),
             label: 'Thu nhập',
             labelStyle: textStyle,
           ),

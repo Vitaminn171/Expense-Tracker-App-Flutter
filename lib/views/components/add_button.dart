@@ -29,7 +29,7 @@ class AddButton extends StatelessWidget {
         padding: const EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
         iconPadding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
         color: backgroundColor,
-        textStyle: TextStyle(
+        textStyle: const TextStyle(
           fontFamily: 'Nunito',
           color: textPrimary,
           fontSize: 17,
@@ -37,7 +37,7 @@ class AddButton extends StatelessWidget {
           fontWeight: FontWeight.w500,
         ),
         elevation: 0,
-        borderSide: BorderSide(
+        borderSide: const BorderSide(
           color: alternateColor,
           width: 1.5
         ),

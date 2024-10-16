@@ -17,7 +17,7 @@ class CustomDrawer extends StatelessWidget {
     this.index,
   });
 
-  TextStyle style = TextStyle(
+  TextStyle style = const TextStyle(
   fontFamily: 'Nunito',
   fontSize: 17,
   letterSpacing: 0.0,
@@ -29,7 +29,7 @@ class CustomDrawer extends StatelessWidget {
     return showDialog<void>(
       context: context,
       barrierDismissible: false, // Prevent dismissing by tapping outside
-      builder: (BuildContext context) => Center(
+      builder: (BuildContext context) => const Center(
         child: CircularProgressIndicator(
           color: primaryColor,
         ),
@@ -115,7 +115,7 @@ class CustomDrawer extends StatelessWidget {
                               Text(
                                 userProvider.user?.name.toString() ??
                                     'Loading...',
-                                style: TextStyle(
+                                style:const  TextStyle(
                                   fontFamily: 'Nunito',
                                   fontSize: 21,
                                   letterSpacing: 0.0,
@@ -126,7 +126,7 @@ class CustomDrawer extends StatelessWidget {
                               Text(
                                 userProvider.user?.email.toString() ??
                                     'Loading...',
-                                style: TextStyle(
+                                style:const TextStyle(
                                   fontFamily: 'Nunito',
                                   fontSize: 16,
                                   letterSpacing: 0.0,
@@ -232,7 +232,7 @@ class CustomDrawer extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Divider(
+                  const Divider(
                     color: alternateColor,
                   ),
                   InkWell(
@@ -255,8 +255,8 @@ class CustomDrawer extends StatelessWidget {
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           children: [
-                            Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 15, 0),
+                            const Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(0, 0, 15, 0),
                               child:
                               Icon(
                                 Icons.logout_rounded,

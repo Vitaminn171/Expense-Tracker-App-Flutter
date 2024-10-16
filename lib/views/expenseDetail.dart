@@ -63,7 +63,7 @@ class _ExpenseDetailWidgetState extends State<ExpenseDetailWidget> {
           widget: Scaffold(
             key: scaffoldKey,
             backgroundColor: backgroundColor,
-            bottomNavigationBar: CustomNavbar(
+            bottomNavigationBar: const CustomNavbar(
               indexCurrent: 1,
             ),
             endDrawer: CustomDrawer(),
@@ -109,7 +109,7 @@ class _ExpenseDetailWidgetState extends State<ExpenseDetailWidget> {
                                   crossAxisAlignment: CrossAxisAlignment.stretch,
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
-                                    Text(
+                                    const Text(
                                       'Tổng chi tiêu',
                                       style: TextStyle(
                                         fontFamily: 'Nunito',
@@ -121,7 +121,7 @@ class _ExpenseDetailWidgetState extends State<ExpenseDetailWidget> {
                                     ),
                                     Text(
                                       '\$${_viewModel.getTotal()}',
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontFamily: 'Nunito',
                                         fontSize: 37,
                                         letterSpacing: 0.0,
@@ -142,7 +142,7 @@ class _ExpenseDetailWidgetState extends State<ExpenseDetailWidget> {
                                 Flexible(
                                   child: GridView.builder(
                                     padding: EdgeInsets.zero,
-                                    physics: NeverScrollableScrollPhysics(),
+                                    physics: const NeverScrollableScrollPhysics(),
                                     shrinkWrap: true,
                                     primary: true,
                                     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -193,7 +193,7 @@ class _ExpenseDetailWidgetState extends State<ExpenseDetailWidget> {
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         crossAxisAlignment: CrossAxisAlignment.center,
                                         children: [
-                                          Text(
+                                          const Text(
                                             'Danh sách chi tiêu',
                                             style: TextStyle(
                                               fontFamily: 'Nunito',
@@ -220,7 +220,7 @@ class _ExpenseDetailWidgetState extends State<ExpenseDetailWidget> {
                                               }
                                             },
                                             text: 'Sửa',
-                                            icon: Icon(
+                                            icon: const Icon(
                                               Icons.edit,
                                               size: 15,
                                               color: secondaryColor,
@@ -230,7 +230,7 @@ class _ExpenseDetailWidgetState extends State<ExpenseDetailWidget> {
                                               padding: const EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
                                               iconPadding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                                               color: backgroundColor,
-                                              textStyle: TextStyle(
+                                              textStyle: const TextStyle(
                                                 fontFamily: 'Nunito',
                                                 fontSize: 15,
                                                 letterSpacing: 0.0,
@@ -238,13 +238,13 @@ class _ExpenseDetailWidgetState extends State<ExpenseDetailWidget> {
                                                 fontWeight: FontWeight.w400,
                                               ),
                                               elevation: 0,
-                                              borderSide: BorderSide(
+                                              borderSide: const BorderSide(
                                                 color: secondaryColor,
                                                 width: 2,
                                               ),
                                               borderRadius: BorderRadius.circular(8),
                                               hoverColor: alternateColor,
-                                              hoverBorderSide: BorderSide(
+                                              hoverBorderSide: const BorderSide(
                                                 color: alternateColor,
                                                 width: 2,
                                               ),
@@ -254,7 +254,7 @@ class _ExpenseDetailWidgetState extends State<ExpenseDetailWidget> {
                                           ),
                                         ],
                                       ),
-                                      Divider(
+                                      const Divider(
                                         color: alternateColor,
                                       ),
                                       SizedBox(

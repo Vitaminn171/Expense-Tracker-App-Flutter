@@ -44,7 +44,7 @@ class _RegisterOTPWidgetState extends State<RegisterOTPWidget> {
       context: context,
       barrierDismissible: false, // Prevent dismissing by tapping outside
       builder: (BuildContext context)
-      => Center(child: CircularProgressIndicator(color: primaryColor,),),
+      => const Center(child: CircularProgressIndicator(color: primaryColor,),),
     );
   }
 
@@ -89,7 +89,7 @@ class _RegisterOTPWidgetState extends State<RegisterOTPWidget> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Text(
+                  const Text(
                     'Xác thực OTP',
                     style: TextStyle(
                         fontFamily: 'Nunito',
@@ -106,7 +106,7 @@ class _RegisterOTPWidgetState extends State<RegisterOTPWidget> {
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
+                        const Text(
                           'Nhập mã xác thực',
                           style: TextStyle(
                               fontFamily: 'Nunito',
@@ -120,7 +120,7 @@ class _RegisterOTPWidgetState extends State<RegisterOTPWidget> {
                         Row(
                           mainAxisSize: MainAxisSize.max,
                           children: [
-                            Text(
+                            const Text(
                               'Còn lại ',
                               style: TextStyle(
                                   fontFamily: 'Nunito',
@@ -135,7 +135,7 @@ class _RegisterOTPWidgetState extends State<RegisterOTPWidget> {
                               seconds: 300,
                               build: (BuildContext context, double time) =>
                                   Text("${time.toInt() ~/ 60}:${time.toInt() % 60}s",
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontFamily: 'Nunito',
                                       fontSize: 15,
                                       letterSpacing: 0.0,
@@ -168,7 +168,7 @@ class _RegisterOTPWidgetState extends State<RegisterOTPWidget> {
                       autoDisposeControllers: false,
                       appContext: context,
                       length: 6,
-                      textStyle:TextStyle(
+                      textStyle: const TextStyle(
                           fontFamily: 'Nunito',
                           fontSize: 17,
                           letterSpacing: 0.0,

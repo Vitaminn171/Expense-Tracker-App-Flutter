@@ -48,7 +48,7 @@ class SettingItems extends StatelessWidget {
                               padding: const EdgeInsetsDirectional.fromSTEB(7, 0, 5, 0),
                               child: Text(
                                 text,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontFamily: 'Nunito',
                                   fontSize: 17,
                                   letterSpacing: 0.0,
@@ -63,7 +63,7 @@ class SettingItems extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Icon(
+                  const Icon(
                     Icons.arrow_forward_ios_rounded,
                     color: backgroundColor,
                   ),

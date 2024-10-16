@@ -181,7 +181,7 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                           crossAxisAlignment: CrossAxisAlignment.center,
                                                           children: [
-                                                            Text(
+                                                            const Text(
                                                               'Danh sách đã thêm',
                                                               style: TextStyle(
                                                                 fontFamily: 'Nunito',
@@ -196,7 +196,7 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                                                                 _showDialogSave();
                                                               },
                                                               text: 'Lưu',
-                                                              icon: Icon(
+                                                              icon: const Icon(
                                                                 Icons.save_alt_rounded,
                                                                 color: textSecondary,
                                                                 size: 15,
@@ -206,20 +206,20 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                                                                 padding: const EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
                                                                 iconPadding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                                                                 color: backgroundColor,
-                                                                textStyle: TextStyle(
+                                                                textStyle: const TextStyle(
                                                                   fontFamily: 'Nunito',
                                                                   color: textSecondary,
                                                                   fontSize: 15,
                                                                   letterSpacing: 0.0,
                                                                 ),
                                                                 elevation: 0,
-                                                                borderSide: BorderSide(
+                                                                borderSide: const BorderSide(
                                                                   color: alternateColor,
                                                                   width: 2,
                                                                 ),
                                                                 borderRadius: BorderRadius.circular(10),
                                                                 hoverColor: alternateColor,
-                                                                hoverBorderSide: BorderSide(
+                                                                hoverBorderSide: const BorderSide(
                                                                   color: alternateColor,
                                                                   width: 2,
                                                                 ),
@@ -275,7 +275,7 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                                                               ),
                                                             );
                                                           } else {
-                                                            return Center(
+                                                            return const Center(
                                                                 child: CircularProgressIndicator(
                                                               color: primaryColor,
                                                             ));
@@ -294,7 +294,7 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                                             child: Container(
                                               width: double.infinity,
                                               height: _heightContainer,
-                                              decoration: BoxDecoration(
+                                              decoration: const BoxDecoration(
                                                 color: backgroundColor,
                                                 boxShadow: const [
                                                   BoxShadow(
@@ -321,7 +321,7 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                                                   mainAxisSize: MainAxisSize.max,
                                                   crossAxisAlignment: CrossAxisAlignment.stretch,
                                                   children: [
-                                                    Text(
+                                                    const Text(
                                                       'Thêm chi tiêu',
                                                       textAlign: TextAlign.center,
                                                       style: TextStyle(
@@ -357,7 +357,7 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                                                                 builder: (context, child) {
                                                                   return Theme(
                                                                     data: Theme.of(context).copyWith(
-                                                                      colorScheme: ColorScheme.light(
+                                                                      colorScheme: const ColorScheme.light(
                                                                         primary: primaryColor,
                                                                         // header background color
                                                                         secondary: alternateColor,
@@ -393,9 +393,9 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                                                             filled: true,
                                                             fillColor: isAdded == true ? alternateColor : const Color(0xFFFEFEFE),
                                                             labelText: 'Ngày',
-                                                            labelStyle: TextStyle(
+                                                            labelStyle:const  TextStyle(
                                                                 fontFamily: 'Nunito', fontSize: 15, letterSpacing: 0.0, color: textSecondary),
-                                                            hintStyle: TextStyle(
+                                                            hintStyle: const TextStyle(
                                                               fontFamily: 'Nunito',
                                                               color: textSecondary,
                                                               fontSize: 15,
@@ -409,27 +409,27 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                                                               borderRadius: BorderRadius.circular(12),
                                                             ),
                                                             focusedBorder: OutlineInputBorder(
-                                                              borderSide: BorderSide(
+                                                              borderSide: const BorderSide(
                                                                 color: secondaryColor,
                                                                 width: 1,
                                                               ),
                                                               borderRadius: BorderRadius.circular(12),
                                                             ),
                                                             errorBorder: OutlineInputBorder(
-                                                              borderSide: BorderSide(
+                                                              borderSide: const BorderSide(
                                                                 color: error,
                                                                 width: 1,
                                                               ),
                                                               borderRadius: BorderRadius.circular(12),
                                                             ),
                                                             focusedErrorBorder: OutlineInputBorder(
-                                                              borderSide: BorderSide(
+                                                              borderSide: const BorderSide(
                                                                 color: error,
                                                                 width: 1,
                                                               ),
                                                               borderRadius: BorderRadius.circular(12),
                                                             ),
-                                                            prefixIcon: Icon(
+                                                            prefixIcon: const Icon(
                                                               Icons.calendar_today_rounded,
                                                               color: secondaryColor,
                                                             ),
@@ -463,9 +463,9 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                                                           decoration: InputDecoration(
                                                             isDense: true,
                                                             labelText: 'Tiêu đề',
-                                                            labelStyle: TextStyle(
+                                                            labelStyle: const TextStyle(
                                                                 fontFamily: 'Nunito', fontSize: 15, letterSpacing: 0.0, color: textSecondary),
-                                                            hintStyle: TextStyle(
+                                                            hintStyle: const TextStyle(
                                                               fontFamily: 'Nunito',
                                                               color: textSecondary,
                                                               fontSize: 15,
@@ -479,21 +479,21 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                                                               borderRadius: BorderRadius.circular(12),
                                                             ),
                                                             focusedBorder: OutlineInputBorder(
-                                                              borderSide: BorderSide(
+                                                              borderSide: const BorderSide(
                                                                 color: secondaryColor,
                                                                 width: 1,
                                                               ),
                                                               borderRadius: BorderRadius.circular(12),
                                                             ),
                                                             errorBorder: OutlineInputBorder(
-                                                              borderSide: BorderSide(
+                                                              borderSide: const BorderSide(
                                                                 color: error,
                                                                 width: 1,
                                                               ),
                                                               borderRadius: BorderRadius.circular(12),
                                                             ),
                                                             focusedErrorBorder: OutlineInputBorder(
-                                                              borderSide: BorderSide(
+                                                              borderSide: const BorderSide(
                                                                 color: error,
                                                                 width: 1,
                                                               ),
@@ -501,7 +501,7 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                                                             ),
                                                             filled: true,
                                                             fillColor: const Color(0xFFFEFEFE),
-                                                            prefixIcon: Icon(
+                                                            prefixIcon: const Icon(
                                                               Icons.text_snippet_rounded,
                                                               color: secondaryColor,
                                                             ),
@@ -539,9 +539,9 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                                                           decoration: InputDecoration(
                                                             isDense: true,
                                                             labelText: 'Số tiền',
-                                                            labelStyle: TextStyle(
+                                                            labelStyle: const TextStyle(
                                                                 fontFamily: 'Nunito', fontSize: 15, letterSpacing: 0.0, color: textSecondary),
-                                                            hintStyle: TextStyle(
+                                                            hintStyle: const TextStyle(
                                                               fontFamily: 'Nunito',
                                                               color: textSecondary,
                                                               fontSize: 15,
@@ -555,21 +555,21 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                                                               borderRadius: BorderRadius.circular(12),
                                                             ),
                                                             focusedBorder: OutlineInputBorder(
-                                                              borderSide: BorderSide(
+                                                              borderSide: const BorderSide(
                                                                 color: secondaryColor,
                                                                 width: 1,
                                                               ),
                                                               borderRadius: BorderRadius.circular(12),
                                                             ),
                                                             errorBorder: OutlineInputBorder(
-                                                              borderSide: BorderSide(
+                                                              borderSide: const BorderSide(
                                                                 color: error,
                                                                 width: 1,
                                                               ),
                                                               borderRadius: BorderRadius.circular(12),
                                                             ),
                                                             focusedErrorBorder: OutlineInputBorder(
-                                                              borderSide: BorderSide(
+                                                              borderSide: const BorderSide(
                                                                 color: error,
                                                                 width: 1,
                                                               ),
@@ -577,7 +577,7 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                                                             ),
                                                             filled: true,
                                                             fillColor: const Color(0xFFFEFEFE),
-                                                            prefixIcon: Icon(
+                                                            prefixIcon: const Icon(
                                                               Icons.attach_money_rounded,
                                                               color: secondaryColor,
                                                             ),
@@ -602,9 +602,9 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                                                               decoration: InputDecoration(
                                                                 isDense: true,
                                                                 labelText: 'Loại',
-                                                                labelStyle: TextStyle(
+                                                                labelStyle: const TextStyle(
                                                                     fontFamily: 'Nunito', fontSize: 15, letterSpacing: 0.0, color: textSecondary),
-                                                                hintStyle: TextStyle(
+                                                                hintStyle: const TextStyle(
                                                                   fontFamily: 'Nunito',
                                                                   color: textSecondary,
                                                                   fontSize: 15,
@@ -618,21 +618,21 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                                                                   borderRadius: BorderRadius.circular(12),
                                                                 ),
                                                                 focusedBorder: OutlineInputBorder(
-                                                                  borderSide: BorderSide(
+                                                                  borderSide: const BorderSide(
                                                                     color: secondaryColor,
                                                                     width: 1,
                                                                   ),
                                                                   borderRadius: BorderRadius.circular(12),
                                                                 ),
                                                                 errorBorder: OutlineInputBorder(
-                                                                  borderSide: BorderSide(
+                                                                  borderSide: const BorderSide(
                                                                     color: error,
                                                                     width: 1,
                                                                   ),
                                                                   borderRadius: BorderRadius.circular(12),
                                                                 ),
                                                                 focusedErrorBorder: OutlineInputBorder(
-                                                                  borderSide: BorderSide(
+                                                                  borderSide: const BorderSide(
                                                                     color: error,
                                                                     width: 1,
                                                                   ),
@@ -640,7 +640,7 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                                                                 ),
                                                                 filled: true,
                                                                 fillColor: const Color(0xFFFEFEFE),
-                                                                prefixIcon: Icon(
+                                                                prefixIcon: const Icon(
                                                                   Icons.category_rounded,
                                                                   color: secondaryColor,
                                                                 ),
@@ -648,12 +648,12 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                                                               child: DropdownButtonHideUnderline(
                                                                 child: DropdownButton<TagItem>(
                                                                   dropdownColor: const Color(0xFFFEFEFE),
-                                                                  style: TextStyle(
+                                                                  style: const TextStyle(
                                                                     fontSize: 15,
                                                                     color: textPrimary,
                                                                     fontFamily: "Nunito",
                                                                   ),
-                                                                  hint: Text(
+                                                                  hint: const Text(
                                                                     "Loại",
                                                                     style: TextStyle(
                                                                       color: textSecondary,

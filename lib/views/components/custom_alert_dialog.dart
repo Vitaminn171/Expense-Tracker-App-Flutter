@@ -42,7 +42,7 @@ class CustomAlertDialog extends StatelessWidget {
               Text(
                 title,
                 textAlign: TextAlign.start,
-                style: TextStyle(
+                style: const TextStyle(
                   fontFamily: 'Nunito',
                   color: textPrimary,
                   fontSize: 25,
@@ -53,7 +53,7 @@ class CustomAlertDialog extends StatelessWidget {
               Text(
                 info,
                 textAlign: TextAlign.start,
-                style: TextStyle(
+                style: const TextStyle(
                   fontFamily: 'Nunito',
                   color: textPrimary,
                   fontSize: 17,
@@ -85,14 +85,14 @@ class CustomAlertDialog extends StatelessWidget {
                             padding: const EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
                             iconPadding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                             color: backgroundColor,
-                            textStyle: TextStyle(
+                            textStyle: const TextStyle(
                               fontFamily: 'Nunito',
                               color: alternate2Color,
                               fontSize: 17,
                               letterSpacing: 0.0,
                             ),
                             elevation: 0,
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: alternateColor,
                             ),
                             borderRadius: BorderRadius.circular(12),

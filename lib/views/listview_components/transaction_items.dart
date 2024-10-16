@@ -29,7 +29,7 @@ class TransactionItems extends StatelessWidget {
                   children: [
                     Text(
                       'Ngày ${Utils.formatDate(date)}',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontFamily: 'Nunito',
                         fontSize: 18,
                         letterSpacing: 0.0,
@@ -45,7 +45,7 @@ class TransactionItems extends StatelessWidget {
         ),
         Text(
           '\$${Utils.formatCurrency(total)}',
-          style: TextStyle(
+          style: const TextStyle(
             fontFamily: 'Nunito',
             fontSize: 18,
             letterSpacing: 0.0,
@@ -53,8 +53,8 @@ class TransactionItems extends StatelessWidget {
             fontWeight: FontWeight.w500,
           ),
         ),
-        Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+        const Padding(
+          padding:  EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
           child: Icon(
             Icons.arrow_forward_ios_rounded,
             color: textPrimary,

@@ -83,7 +83,7 @@ class TagItemsWidget extends StatelessWidget {
               children: [
                 Text(Utils.getTagName(tagId, list),
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontFamily: 'Nunito',
                     fontSize: 14,
                     letterSpacing: 0.0,
@@ -91,7 +91,7 @@ class TagItemsWidget extends StatelessWidget {
                     fontWeight: FontWeight.w400,
                   ),),
                 Text('$percent%',
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontFamily: 'Nunito',
                     fontSize: 20,
                     letterSpacing: 0.0,

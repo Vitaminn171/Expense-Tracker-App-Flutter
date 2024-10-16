@@ -90,7 +90,7 @@ class _RevenueListWidgetState extends State<RevenueListWidget> {
                   Navigator.popAndPushNamed(context, '/AddRevenue');
                 },
                 enableFeedback: true,
-                child: Icon(
+                child: const Icon(
                   Icons.add_rounded,
                   color: backgroundColor,
                   size: 28,
@@ -100,7 +100,7 @@ class _RevenueListWidgetState extends State<RevenueListWidget> {
               //icon: Icon(Icons.add_rounded, color: backgroundColor,),
             ),
             backgroundColor: backgroundColor,
-            bottomNavigationBar: CustomNavbar(
+            bottomNavigationBar: const CustomNavbar(
               indexCurrent: 2,
             ),
             endDrawer: CustomDrawer(
@@ -146,7 +146,7 @@ class _RevenueListWidgetState extends State<RevenueListWidget> {
                                                   mainAxisSize: MainAxisSize.min,
                                                   crossAxisAlignment: CrossAxisAlignment.start,
                                                   children: [
-                                                    Text(
+                                                    const Text(
                                                       'Tổng thu nhập',
                                                       style: TextStyle(
                                                         fontFamily: 'Nunito',
@@ -160,7 +160,7 @@ class _RevenueListWidgetState extends State<RevenueListWidget> {
                                                       padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                                                       child: Text(
                                                         '\$${Utils.formatCurrency(snapshot.data?.toInt() ?? 0)}',
-                                                        style: TextStyle(
+                                                        style: const TextStyle(
                                                           fontFamily: 'Nunito',
                                                           fontSize: 27,
                                                           letterSpacing: 0.0,
@@ -172,7 +172,7 @@ class _RevenueListWidgetState extends State<RevenueListWidget> {
                                                   ],
                                                 );
                                               } else {
-                                                return Center(
+                                                return const Center(
                                                     child: CircularProgressIndicator(
                                                   color: primaryColor,
                                                 ));
@@ -203,7 +203,7 @@ class _RevenueListWidgetState extends State<RevenueListWidget> {
                                                       builder: (context, child) {
                                                         return Theme(
                                                           data: Theme.of(context).copyWith(
-                                                            colorScheme: ColorScheme.light(
+                                                            colorScheme: const ColorScheme.light(
                                                               primary: primaryColor, // header background color
                                                               secondary: alternateColor,
                                                               onPrimary: Colors.black, // header text color
@@ -243,7 +243,7 @@ class _RevenueListWidgetState extends State<RevenueListWidget> {
                                                       ),
                                                       Text(
                                                         '${Utils.formatDatePicker(_selectedDateRange!.start)} - ${Utils.formatDatePicker(_selectedDateRange!.end)}',
-                                                        style: TextStyle(
+                                                        style: const TextStyle(
                                                           fontFamily: 'Nunito',
                                                           fontSize: 17,
                                                           letterSpacing: 0.0,
@@ -269,9 +269,9 @@ class _RevenueListWidgetState extends State<RevenueListWidget> {
                                     child: Container(
                                       width: double.infinity,
                                       height: 480,
-                                      decoration: BoxDecoration(
+                                      decoration: const BoxDecoration(
                                         color: backgroundColor,
-                                        boxShadow: const [
+                                        boxShadow: [
                                           BoxShadow(
                                             blurRadius: 15,
                                             color: Color(0x33000000),
@@ -282,7 +282,7 @@ class _RevenueListWidgetState extends State<RevenueListWidget> {
                                             spreadRadius: 5,
                                           )
                                         ],
-                                        borderRadius: const BorderRadius.only(
+                                        borderRadius: BorderRadius.only(
                                           bottomLeft: Radius.circular(28),
                                           bottomRight: Radius.circular(28),
                                           topLeft: Radius.circular(28),
@@ -344,7 +344,7 @@ class _RevenueListWidgetState extends State<RevenueListWidget> {
                                   ),
                                 ]);
                               } else {
-                                return Center(
+                                return const Center(
                                     child: CircularProgressIndicator(
                                   color: primaryColor,
                                 ));

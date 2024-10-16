@@ -80,7 +80,7 @@ class AddTransactionDetailItems extends StatelessWidget {
                     children: [
                       Text(
                         name,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontFamily: 'Nunito',
                           fontSize: 17,
                           letterSpacing: 0.0,
@@ -92,7 +92,7 @@ class AddTransactionDetailItems extends StatelessWidget {
                         padding: const EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
                         child: Text(
                           tagItem.name,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontFamily: 'Nunito',
                             fontSize: 13,
                             letterSpacing: 0.0,
@@ -110,7 +110,7 @@ class AddTransactionDetailItems extends StatelessWidget {
         ),
         Text(
           '\$${Utils.formatCurrency(total)}',
-          style: TextStyle(
+          style: const TextStyle(
             fontFamily: 'Nunito',
             fontSize: 17,
             letterSpacing: 0.0,
@@ -177,8 +177,8 @@ class AddTransactionDetailItems extends StatelessWidget {
                       }));
             }
           },
-          child: Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+          child: const Padding(
+            padding:  EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
             child: Icon(
               Icons.delete_outline_rounded,
               color: tag0,

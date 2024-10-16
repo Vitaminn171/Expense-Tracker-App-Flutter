@@ -57,7 +57,7 @@ class _HomeWidgetState extends State<HomeWidget> {
             index: 1,
           ),
           backgroundColor: backgroundColor,
-          bottomNavigationBar: CustomNavbar(
+          bottomNavigationBar: const CustomNavbar(
             indexCurrent: 0,
           ),
           appBar: PreferredSize(
@@ -85,7 +85,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                     future: _viewModel.getStoredUser(),
                                     builder: (context, snapshot) {
                                       if (snapshot.data == null) {
-                                        return Center(
+                                        return const Center(
                                             child: CircularProgressIndicator(
                                           color: primaryColor,
                                         ));
@@ -109,7 +109,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                       mainAxisSize: MainAxisSize.min,
                                                       crossAxisAlignment: CrossAxisAlignment.start,
                                                       children: [
-                                                        Text(
+                                                        const Text(
                                                           'Tiền mặt',
                                                           style: TextStyle(
                                                             fontFamily: 'Nunito',
@@ -128,7 +128,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                         ),
                                                         Text(
                                                           '\$${Utils.formatCurrency(snapshot.data!.totalCash)}',
-                                                          style: TextStyle(
+                                                          style: const TextStyle(
                                                             fontFamily: 'Nunito',
                                                             fontSize: 40,
                                                             letterSpacing: 0.0,
@@ -171,8 +171,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                           shape: RoundedRectangleBorder(
                                                             borderRadius: BorderRadius.circular(23),
                                                           ),
-                                                          child: Padding(
-                                                            padding: const EdgeInsets.all(12),
+                                                          child: const Padding(
+                                                            padding: EdgeInsets.all(12),
                                                             child: Icon(
                                                               Icons.outbox_rounded,
                                                               color: backgroundColor,
@@ -181,7 +181,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                           ),
                                                         ),
                                                       ),
-                                                      Text(
+                                                      const Text(
                                                         'Chi tiêu',
                                                         style: TextStyle(
                                                           fontFamily: 'Nunito',
@@ -191,7 +191,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                           fontWeight: FontWeight.w400,
                                                           shadows: <Shadow>[
                                                             Shadow(
-                                                              offset: const Offset(1.0, 1.0),
+                                                              offset: Offset(1.0, 1.0),
                                                               blurRadius: 5.0,
                                                               color: textSecondary,
                                                             ),
@@ -216,7 +216,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                           shape: RoundedRectangleBorder(
                                                             borderRadius: BorderRadius.circular(23),
                                                           ),
-                                                          child: Padding(
+                                                          child: const Padding(
                                                             padding: EdgeInsets.all(12),
                                                             child: Icon(
                                                               Icons.attach_money_rounded,
@@ -226,7 +226,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                           ),
                                                         ),
                                                       ),
-                                                      Text(
+                                                      const Text(
                                                         'Thu nhập',
                                                         style: TextStyle(
                                                           fontFamily: 'Nunito',
@@ -236,7 +236,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                           fontWeight: FontWeight.w400,
                                                           shadows: <Shadow>[
                                                             Shadow(
-                                                              offset: const Offset(1.0, 1.0),
+                                                              offset: Offset(1.0, 1.0),
                                                               blurRadius: 5.0,
                                                               color: textSecondary,
                                                             ),
@@ -266,8 +266,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                           shape: RoundedRectangleBorder(
                                                             borderRadius: BorderRadius.circular(23),
                                                           ),
-                                                          child: Padding(
-                                                            padding: const EdgeInsets.all(12),
+                                                          child: const Padding(
+                                                            padding: EdgeInsets.all(12),
                                                             child: Icon(
                                                               Icons.savings_rounded,
                                                               color: backgroundColor,
@@ -276,7 +276,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                           ),
                                                         ),
                                                       ),
-                                                      Text(
+                                                      const Text(
                                                         'Tiết kiệm',
                                                         style: TextStyle(
                                                           fontFamily: 'Nunito',
@@ -286,7 +286,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                           fontWeight: FontWeight.w400,
                                                           shadows: <Shadow>[
                                                             Shadow(
-                                                              offset: const Offset(1.0, 1.0),
+                                                              offset: Offset(1.0, 1.0),
                                                               blurRadius: 5.0,
                                                               color: textSecondary,
                                                             ),
@@ -311,8 +311,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                           shape: RoundedRectangleBorder(
                                                             borderRadius: BorderRadius.circular(23),
                                                           ),
-                                                          child: Padding(
-                                                            padding: const EdgeInsets.all(12),
+                                                          child: const Padding(
+                                                            padding: EdgeInsets.all(12),
                                                             child: Icon(
                                                               Icons.add_rounded,
                                                               color: backgroundColor,
@@ -321,7 +321,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                           ),
                                                         ),
                                                       ),
-                                                      Text(
+                                                      const Text(
                                                         'Thêm mới',
                                                         style: TextStyle(
                                                           fontFamily: 'Nunito',
@@ -331,7 +331,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                           fontWeight: FontWeight.w400,
                                                           shadows: <Shadow>[
                                                             Shadow(
-                                                              offset: const Offset(1.0, 1.0),
+                                                              offset: Offset(1.0, 1.0),
                                                               blurRadius: 5.0,
                                                               color: textSecondary,
                                                             ),
@@ -352,9 +352,9 @@ class _HomeWidgetState extends State<HomeWidget> {
                         Container(
                           width: double.infinity,
                           height: 280,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             color: backgroundColor,
-                            boxShadow: const [
+                            boxShadow: [
                               BoxShadow(
                                 blurRadius: 15,
                                 color: Color(0x33000000),
@@ -365,7 +365,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                 spreadRadius: 5,
                               )
                             ],
-                            borderRadius: const BorderRadius.only(
+                            borderRadius: BorderRadius.only(
                               bottomLeft: Radius.circular(0),
                               bottomRight: Radius.circular(0),
                               topLeft: Radius.circular(28),
@@ -378,8 +378,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(25, 0, 0, 0),
+                                const Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(25, 0, 0, 0),
                                   child: Text(
                                     'Tổng quan',
                                     style: TextStyle(
@@ -416,8 +416,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                         mainAxisSize: MainAxisSize.max,
                                                         crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
-                                                          Padding(
-                                                            padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 16, 0),
+                                                          const Padding(
+                                                            padding: EdgeInsetsDirectional.fromSTEB(0, 0, 16, 0),
                                                             child: Icon(
                                                               Icons.trending_down,
                                                               color: textPrimary,
@@ -426,7 +426,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                           ),
                                                           Text(
                                                             'Chi tiêu tháng ${Utils.getMonth()}',
-                                                            style: TextStyle(
+                                                            style: const TextStyle(
                                                               fontFamily: 'Nunito',
                                                               fontSize: 17,
                                                               letterSpacing: 0.0,
@@ -439,7 +439,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                             padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                                                             child: Text(
                                                               '\$${data['totalExpense']}',
-                                                              style: TextStyle(
+                                                              style: const TextStyle(
                                                                 fontFamily: 'Nunito',
                                                                 fontSize: 25,
                                                                 letterSpacing: 0.0,
@@ -468,8 +468,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                         mainAxisSize: MainAxisSize.max,
                                                         crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
-                                                          Padding(
-                                                            padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 16, 0),
+                                                          const Padding(
+                                                            padding: EdgeInsetsDirectional.fromSTEB(0, 0, 16, 0),
                                                             child: Icon(
                                                               Icons.attach_money_rounded,
                                                               color: textPrimary,
@@ -478,7 +478,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                           ),
                                                           Text(
                                                             'Thu nhập tháng ${Utils.getMonth()}',
-                                                            style: TextStyle(
+                                                            style: const TextStyle(
                                                               fontFamily: 'Nunito',
                                                               fontSize: 17,
                                                               letterSpacing: 0.0,
@@ -490,7 +490,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                             padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                                                             child: Text(
                                                               '\$${data['totalRevenue']}',
-                                                              style: TextStyle(
+                                                              style: const TextStyle(
                                                                 fontFamily: 'Nunito',
                                                                 fontSize: 25,
                                                                 letterSpacing: 0.0,
@@ -504,61 +504,10 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                     ),
                                                   ),
                                                 ),
-                                                // Padding(
-                                                //   padding: EdgeInsetsDirectional.fromSTEB(0, 15, 25, 35),
-                                                //   child: Card(
-                                                //     clipBehavior: Clip.antiAliasWithSaveLayer,
-                                                //     color: Colors.white,
-                                                //     elevation: 10,
-                                                //     shape: RoundedRectangleBorder(
-                                                //       borderRadius: BorderRadius.circular(18),
-                                                //     ),
-                                                //     child: Padding(
-                                                //       padding: EdgeInsets.all(20),
-                                                //       child: Column(
-                                                //         mainAxisSize: MainAxisSize.max,
-                                                //         crossAxisAlignment: CrossAxisAlignment.start,
-                                                //         children: [
-                                                //           Padding(
-                                                //             padding: EdgeInsetsDirectional.fromSTEB(0, 0, 16, 0),
-                                                //             child: Icon(
-                                                //               Icons.attach_money_rounded,
-                                                //               color: textPrimary,
-                                                //               size: 32,
-                                                //             ),
-                                                //           ),
-                                                //           Text(
-                                                //             'Thu nhập tháng 9',
-                                                //             style: TextStyle(
-                                                //               fontFamily: 'Nunito',
-                                                //               fontSize: 17,
-                                                //               letterSpacing: 0.0,
-                                                //               color: textSecondary,
-                                                //               fontWeight: FontWeight.w400,
-                                                //             ),
-                                                //           ),
-                                                //           Padding(
-                                                //             padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
-                                                //             child: Text(
-                                                //               '\$567,402',
-                                                //               style: TextStyle(
-                                                //                 fontFamily: 'Nunito',
-                                                //                 fontSize: 25,
-                                                //                 letterSpacing: 0.0,
-                                                //                 color: textPrimary,
-                                                //                 fontWeight: FontWeight.w600,
-                                                //               ),
-                                                //             ),
-                                                //           ),
-                                                //         ],
-                                                //       ),
-                                                //     ),
-                                                //   ),
-                                                // ),
                                               ].divide(const SizedBox(width: 10)),
                                             );
                                           } else {
-                                            return Center(
+                                            return const Center(
                                                 child: CircularProgressIndicator(
                                               color: primaryColor,
                                             ));

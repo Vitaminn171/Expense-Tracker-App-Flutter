@@ -48,7 +48,7 @@ class _LoginWidgetState extends State<LoginWidget> {
     return showDialog<void>(
       context: context,
       barrierDismissible: false, // Prevent dismissing by tapping outside
-      builder: (BuildContext context) => Center(
+      builder: (BuildContext context) => const Center(
         child: CircularProgressIndicator(
           color: primaryColor,
         ),
@@ -164,7 +164,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Text(
+                  const Text(
                     'Đăng nhập',
                     style: TextStyle(
                         fontFamily: 'Nunito',
@@ -194,7 +194,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                         decoration: InputDecoration(
                           isDense: true,
                           labelText: 'Email',
-                          labelStyle: TextStyle(
+                          labelStyle: const TextStyle(
                               fontFamily: 'Nunito',
                               fontSize: 15,
                               letterSpacing: 0.0,
@@ -207,21 +207,21 @@ class _LoginWidgetState extends State<LoginWidget> {
                             borderRadius: BorderRadius.circular(12),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: primaryColor,
                               width: 1,
                             ),
                             borderRadius: BorderRadius.circular(12),
                           ),
                           errorBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: error,
                               width: 1,
                             ),
                             borderRadius: BorderRadius.circular(12),
                           ),
                           focusedErrorBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: error,
                               width: 1,
                             ),
@@ -230,7 +230,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                           filled: true,
                           fillColor: const Color(0xFFFEFEFE),
                         ),
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontFamily: 'Nunito',
                             fontSize: 17,
                             letterSpacing: 0.0,
@@ -253,7 +253,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                         decoration: InputDecoration(
                           isDense: true,
                           labelText: 'Mật khẩu',
-                          labelStyle: TextStyle(
+                          labelStyle: const TextStyle(
                               fontFamily: 'Nunito',
                               fontSize: 15,
                               letterSpacing: 0.0,
@@ -266,21 +266,21 @@ class _LoginWidgetState extends State<LoginWidget> {
                             borderRadius: BorderRadius.circular(12),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: primaryColor,
                               width: 1,
                             ),
                             borderRadius: BorderRadius.circular(12),
                           ),
                           errorBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: error,
                               width: 1,
                             ),
                             borderRadius: BorderRadius.circular(12),
                           ),
                           focusedErrorBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: error,
                               width: 1,
                             ),
@@ -303,7 +303,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                             ),
                           ),
                         ),
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontFamily: 'Nunito',
                             fontSize: 17,
                             letterSpacing: 0.0,
@@ -314,14 +314,14 @@ class _LoginWidgetState extends State<LoginWidget> {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                  const Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Align(
-                          alignment: const AlignmentDirectional(0, 0),
+                          alignment: AlignmentDirectional(0, 0),
                           child: Text(
                             'Quên mật khẩu?',
                             style: TextStyle(
@@ -378,14 +378,14 @@ class _LoginWidgetState extends State<LoginWidget> {
                         iconPadding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                         color: backgroundColor,
 
-                        textStyle: TextStyle(
+                        textStyle: const TextStyle(
                             fontFamily: 'Nunito',
                             fontSize: 17,
                             letterSpacing: 0.0,
                             color: textPrimary),
                         elevation: 0,
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                             color: alternateColor,
                             width: 1.5
                         ),
@@ -398,8 +398,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Align(
-                          alignment: const AlignmentDirectional(0, 0),
+                        const Align(
+                          alignment: AlignmentDirectional(0, 0),
                           child: Text(
                             'Chưa có tài khoản?',
                             style: TextStyle(
@@ -417,7 +417,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                               onTap: () {
                                 Navigator.pushNamed(context, "/Register");
                               },
-                              child: Text(
+                              child: const Text(
                                 ' Đăng ký tại đây!',
                                 style: TextStyle(
                                   fontFamily: 'Nunito',

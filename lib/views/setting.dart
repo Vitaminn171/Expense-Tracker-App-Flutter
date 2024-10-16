@@ -40,7 +40,7 @@ class _SettingWidgetState extends State<SettingWidget> {
     return showDialog<void>(
       context: context,
       barrierDismissible: false, // Prevent dismissing by tapping outside
-      builder: (BuildContext context) => Center(
+      builder: (BuildContext context) => const Center(
         child: CircularProgressIndicator(
           color: primaryColor,
         ),
@@ -94,7 +94,7 @@ class _SettingWidgetState extends State<SettingWidget> {
                                     future: _viewModel.getStoredUser(),
                                     builder: (context, snapshot) {
                                       if (snapshot.data == null) {
-                                        return Center(
+                                        return const Center(
                                             child: CircularProgressIndicator(
                                           color: primaryColor,
                                         ));
@@ -143,7 +143,7 @@ class _SettingWidgetState extends State<SettingWidget> {
                                                 children: [
                                                   Text(
                                                     snapshot.data!.name,
-                                                    style: TextStyle(
+                                                    style: const TextStyle(
                                                         fontFamily: 'Nunito',
                                                         fontSize: 20,
                                                         letterSpacing: 0.0,
@@ -152,7 +152,7 @@ class _SettingWidgetState extends State<SettingWidget> {
                                                   ),
                                                   Text(
                                                     snapshot.data!.email,
-                                                    style: TextStyle(
+                                                    style: const TextStyle(
                                                         fontFamily: 'Nunito',
                                                         fontSize: 17,
                                                         letterSpacing: 0.0,

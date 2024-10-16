@@ -48,7 +48,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
       context: context,
       barrierDismissible: false, // Prevent dismissing by tapping outside
       builder: (BuildContext context)
-      => Center(child: CircularProgressIndicator(color: primaryColor,),),
+      => const Center(child: CircularProgressIndicator(color: primaryColor,),),
     );
   }
 
@@ -90,7 +90,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Text(
+                  const Text(
                     'Đăng ký',
                     style: TextStyle(
                         fontFamily: 'Nunito',
@@ -113,7 +113,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                         decoration: InputDecoration(
                           isDense: true,
                           labelText: 'Họ Tên',
-                          labelStyle: TextStyle(
+                          labelStyle: const TextStyle(
                               fontFamily: 'Nunito',
                               fontSize: 15,
                               letterSpacing: 0.0,
@@ -129,21 +129,21 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                             borderRadius: BorderRadius.circular(12),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: primaryColor,
                               width: 1,
                             ),
                             borderRadius: BorderRadius.circular(12),
                           ),
                           errorBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: error,
                               width: 1,
                             ),
                             borderRadius: BorderRadius.circular(12),
                           ),
                           focusedErrorBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: error,
                               width: 1,
                             ),
@@ -152,7 +152,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                           filled: true,
                           fillColor: const Color(0xFFFEFEFE),
                         ),
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontFamily: 'Nunito',
                             fontSize: 17,
                             letterSpacing: 0.0,
@@ -178,7 +178,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                           isDense: true,
                           labelText: 'Email',
                           labelStyle:
-                          TextStyle(
+                          const TextStyle(
                               fontFamily: 'Nunito',
                               fontSize: 15,
                               letterSpacing: 0.0,
@@ -192,21 +192,21 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                             borderRadius: BorderRadius.circular(12),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: primaryColor,
                               width: 1,
                             ),
                             borderRadius: BorderRadius.circular(12),
                           ),
                           errorBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color:error,
                               width: 1,
                             ),
                             borderRadius: BorderRadius.circular(12),
                           ),
                           focusedErrorBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: error,
                               width: 1,
                             ),
@@ -215,7 +215,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                           filled: true,
                           fillColor: const Color(0xFFFEFEFE),
                         ),
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontFamily: 'Nunito',
                             fontSize: 17,
                             letterSpacing: 0.0,
@@ -240,7 +240,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                           isDense: true,
                           labelText: 'Mật khẩu',
                           labelStyle:
-                          TextStyle(
+                          const TextStyle(
                               fontFamily: 'Nunito',
                               fontSize: 15,
                               letterSpacing: 0.0,
@@ -254,21 +254,21 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                             borderRadius: BorderRadius.circular(12),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: primaryColor,
                               width: 1,
                             ),
                             borderRadius: BorderRadius.circular(12),
                           ),
                           errorBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: error,
                               width: 1,
                             ),
                             borderRadius: BorderRadius.circular(12),
                           ),
                           focusedErrorBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: error,
                               width: 1,
                             ),
@@ -291,7 +291,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                             ),
                           ),
                         ),
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontFamily: 'Nunito',
                             fontSize: 17,
                             letterSpacing: 0.0,
@@ -304,7 +304,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                     child: FFButtonWidget(
                       onPressed: () async {
                         FocusManager.instance.primaryFocus?.unfocus();
@@ -337,8 +337,8 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Align(
-                          alignment: const  AlignmentDirectional(0, 0),
+                        const Align(
+                          alignment: AlignmentDirectional(0, 0),
                           child: Text(
                             'Đã có tài khoản?',
                             style: TextStyle(
@@ -357,7 +357,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                             onTap:() {
                               Navigator.pushNamed(context, "/Login");
                             },
-                            child:  Text(
+                            child:  const Text(
                             ' Đăng nhập tại đây!',
                             style: TextStyle(
                               fontFamily: 'Nunito',
