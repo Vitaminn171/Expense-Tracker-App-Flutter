@@ -119,6 +119,7 @@ class LoginViewModel extends FlutterFlowModel<LoginWidget> {
         'email': email,
         'name': username,
         'photoUrl': photoUrl,
+        'changed': false,
       };
       await userDoc.set(userData);
 
@@ -133,18 +134,29 @@ class LoginViewModel extends FlutterFlowModel<LoginWidget> {
       await storeUser(User(name: username, email: email, totalCash: 0, photoUrl: photoUrl));
     } else {
       DocumentSnapshot document = querySnapshot.docs.first;
-      DocumentReference userRef = document.reference;
-      Map<String, dynamic> updatedData = {
-        'name': username,
-        'photoUrl': photoUrl,
-      };
-      await userRef.update(updatedData);
-
       final queryWalletsnapshot = await Api.getWalletData(email);
-
       final dataWallet = queryWalletsnapshot.docs.single.data();
 
-      User user = User(name: username, email: email, totalCash: dataWallet['cash'], photoUrl: photoUrl);
+      final data = querySnapshot.docs.first.data();
+      User user;
+      if (data['changed'] != null && data['changed']!) {
+        if(data['photoUrl'] == null){
+          user = User(name: data['name'], email: email, totalCash: dataWallet['cash'], imgPath: data['imgPath']);
+        }else{
+          user = User(name: data['name'], email: email, totalCash: dataWallet['cash'], photoUrl: data['photoUrl']);
+        }
+      } else {
+        DocumentReference userRef = document.reference;
+        Map<String, dynamic> updatedData = {
+          'name': username,
+          'photoUrl': photoUrl,
+          'changed': true,
+        };
+        await userRef.update(updatedData);
+        user = User(name: username, email: email, totalCash: dataWallet['cash'], photoUrl: photoUrl);
+      }
+
+      userProvider.setChanged(false);
       await storeUser(user);
     }
   }

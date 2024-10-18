@@ -79,7 +79,7 @@ class _LoginWidgetState extends State<LoginWidget> {
         style: ToastificationStyle.flatColored,
         autoCloseDuration: const Duration(seconds: 3),
       );
-      Navigator.popAndPushNamed(context, '/Home');
+      Navigator.pushNamedAndRemoveUntil(context, '/Home', (Route<dynamic> route) => false,);
     }
   }
 
@@ -120,7 +120,7 @@ class _LoginWidgetState extends State<LoginWidget> {
             style: ToastificationStyle.flatColored,
             autoCloseDuration: const Duration(seconds: 3),
           );
-          Navigator.popAndPushNamed(context, '/Home');
+          Navigator.of(context, rootNavigator: true).pushNamedAndRemoveUntil('/Home', (Route<dynamic> route) => false,);
         }
       }else{
         Navigator.pop(context);

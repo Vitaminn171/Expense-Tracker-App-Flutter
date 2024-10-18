@@ -41,7 +41,7 @@ class HomeViewModel extends ChangeNotifier {
   Future<User> getStoredUser() async {
     User user;
     final prefs = await SharedPreferences.getInstance();
-    if (expenseProvider.isUpdated) {
+    if (expenseProvider.isUpdated || revenueProvider.isUpdated) {
       if (kDebugMode) {
         print('Cash update');
       }
@@ -62,24 +62,36 @@ class HomeViewModel extends ChangeNotifier {
         user = userProvider.user!;
         return user;
       } else {
-        String email = prefs.getString('this_email').toString();
-        String name = prefs.getString('this_username').toString();
-        int total = prefs.getInt('this_totalCash')!;
-        String? photo = prefs.getString('this_photoUrl');
+        String? email = prefs.getString('this_email').toString();
+        String? name = prefs.getString('this_username').toString();
+        int? total = prefs.getInt('this_totalCash') ?? 0;
+        String? photo = prefs.getString('this_photoUrl').toString();
 
-        if (photo == null) {
-          user = User(name: name, email: email, totalCash: total, imgPath: prefs.getString('this_imgPath'));
+        if (userProvider.isChanged && email.isNotEmpty) {
+          final querySnapshot = await Api.getUserData(email);
+          final data = querySnapshot.docs.first.data();
+          if (data['photoUrl'] == null) {
+            user = User(name: data['name'], email: email, totalCash: total, imgPath: data['imgPath']);
+          } else {
+            user = User(name: data['name'], email: email, totalCash: total, photoUrl: data['photoUrl']);
+          }
         } else {
-          user = User(
-            name: name,
-            email: email,
-            totalCash: total,
-            photoUrl: photo,
-          );
+          if (photo.isEmpty) {
+            user = User(name: name, email: email, totalCash: total, imgPath: prefs.getString('this_imgPath'));
+          } else {
+            user = User(
+              name: name,
+              email: email,
+              totalCash: total,
+              photoUrl: photo,
+            );
+          }
         }
       }
     }
+
     expenseProvider.setState(false);
+    revenueProvider.setState(false);
     userProvider.setUser(user);
     notifyListeners();
     return user;

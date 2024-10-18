@@ -1,6 +1,7 @@
 import 'package:expenseapp/viewmodels/utils.dart';
 import 'package:expenseapp/views/components/add_button.dart';
 import 'package:expenseapp/views/components/background_widget.dart';
+import 'package:expenseapp/views/revenue.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'package:expenseapp/models/colors.dart';
 import 'package:flutter/material.dart';
@@ -37,6 +38,16 @@ class _HomeWidgetState extends State<HomeWidget> {
     super.initState();
     _model = createModel(context, () => HomeModel());
     _viewModel = Provider.of<HomeViewModel>(context, listen: false);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+
+    });
+  }
+
+  @override void didChangeDependencies() {
+
+
+
+    super.didChangeDependencies();
   }
 
   @override
@@ -51,13 +62,18 @@ class _HomeWidgetState extends State<HomeWidget> {
     return ChangeNotifierProvider(
         create: (context) => _viewModel,
         child: CustomPopscope(
+          action: (){
+
+          },
+          home: true,
             widget: Scaffold(
           key: scaffoldKey,
           endDrawer: CustomDrawer(
+            scaffoldKey: scaffoldKey,
             index: 1,
           ),
           backgroundColor: backgroundColor,
-          bottomNavigationBar: const CustomNavbar(
+          bottomNavigationBar: CustomNavbar(
             indexCurrent: 0,
           ),
           appBar: PreferredSize(
@@ -165,7 +181,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                     children: [
                                                       InkWell(
                                                         onTap: (() {
-                                                          Navigator.popAndPushNamed(context, '/ExpenseList');
+                                                          //Navigator.of(context, rootNavigator: true).popAndPushNamed('/ExpenseList');
+                                                          Navigator.pushNamed(context, '/ExpenseList');
                                                         }),
                                                         child: Card(
                                                           clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -210,7 +227,23 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                     children: [
                                                       InkWell(
                                                         onTap: (() {
-                                                          Navigator.popAndPushNamed(context, '/RevenueList');
+                                                          Navigator.pushNamed(context, '/RevenueList');
+                                                          // Navigator.push(
+                                                          //   context,
+                                                          //     PageRouteBuilder(
+                                                          //       pageBuilder: (context, animation, secondaryAnimation) => const RevenueListWidget(),
+                                                          //       transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                                                          //         const begin = Offset(0.0, 1.0);
+                                                          //         const end = Offset.zero;
+                                                          //         final tween = Tween(begin: begin, end: end);
+                                                          //         final offsetAnimation = animation.drive(tween);
+                                                          //         return SlideTransition(
+                                                          //           position: offsetAnimation,
+                                                          //           child: child,
+                                                          //         );
+                                                          //       },
+                                                          //     )
+                                                          // );
                                                         }),
                                                         child: Card(
                                                           clipBehavior: Clip.antiAliasWithSaveLayer,
