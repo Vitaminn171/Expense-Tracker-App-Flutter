@@ -85,7 +85,7 @@ class _AddRevenueWidgetState extends State<AddRevenueWidget> {
       if (flag) {
         _heightContainer = 600;
       } else {
-        _heightContainer = size * 0.26953125;
+        _heightContainer = size * 0.43359375;
       }
     });
   }
@@ -105,7 +105,7 @@ class _AddRevenueWidgetState extends State<AddRevenueWidget> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.sizeOf(context).height;
-    var heightContainer = size * 0.26953125;
+    var heightContainerListView = size * 0.26953125;
    // print(size);
 
     return GestureDetector(
@@ -115,6 +115,7 @@ class _AddRevenueWidgetState extends State<AddRevenueWidget> {
                 key: scaffoldKey,
                 backgroundColor: backgroundColor,
                 endDrawer: CustomDrawer(
+                  scaffoldKey: scaffoldKey,
                   index: 0,
                 ),
                 appBar: PreferredSize(
@@ -239,7 +240,7 @@ class _AddRevenueWidgetState extends State<AddRevenueWidget> {
                                                               if (snapshot.data != null) {
                                                                 final data = snapshot.data!;
                                                                 return SizedBox(
-                                                                  height: heightContainer,
+                                                                  height: heightContainerListView,
                                                                   child: ListView.builder(
                                                                     // itemCount: data.length,
                                                                     itemCount: data.length,
@@ -756,7 +757,7 @@ class _AddRevenueWidgetState extends State<AddRevenueWidget> {
                     style: ToastificationStyle.flatColored,
                     autoCloseDuration: const Duration(seconds: 3),
                   );
-                  Navigator.popAndPushNamed(context, '/Home');
+                  Navigator.of(context, rootNavigator: true).pushNamedAndRemoveUntil('/Home', (Route<dynamic> route) => false,);
                   // await Future.delayed(Duration(seconds: 1)).then((_){
                   //
                   // });

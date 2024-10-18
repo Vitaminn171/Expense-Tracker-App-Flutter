@@ -18,7 +18,7 @@ class CustomNavbar extends StatefulWidget  {
 }
 
 class _CustomNavbarState extends State<CustomNavbar>{
-  final int indexCurrent;
+  late final int indexCurrent;
   final bool? flag;
   final Function? action;
 
@@ -71,35 +71,38 @@ class _CustomNavbarState extends State<CustomNavbar>{
         ],
         onTap: (index) async {
           if(flag == null){
-            switchCase(index);
+            switchCase(index, context);
           }else{
-            index = indexCurrent;
+            setState(() {
+              indexCurrent = index;
+            });
+            //index = indexCurrent;
           }
 
         },
       );
   }
 
-  Future<void> switchCase(int index) async {
+  Future<void> switchCase(int index, BuildContext context) async {
     switch (index) {
       case 0:
         if(indexCurrent != index){
           await Future.delayed(const Duration(milliseconds: 250));
-          Navigator.popAndPushNamed(context, '/Home');
+          Navigator.of(context, rootNavigator: true).pushNamed( '/Home');
+          setState(() {
+          });
         }
         break;
       case 1:
-
         if(indexCurrent != index){
           await Future.delayed(const Duration(milliseconds: 250));
-          Navigator.popAndPushNamed(context, '/ExpenseList');
+          Navigator.of(context, rootNavigator: true).pushNamed( '/ExpenseList');
         }
         break;
       case 2:
-
         if(indexCurrent != index){
           await Future.delayed(const Duration(milliseconds: 250));
-          Navigator.popAndPushNamed(context, '/RevenueList');
+          Navigator.of(context, rootNavigator: true).pushNamed( '/RevenueList');
         }
         break;
     // ... more cases

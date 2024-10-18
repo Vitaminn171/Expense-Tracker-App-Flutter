@@ -63,10 +63,12 @@ class _RevenueDetailWidgetState extends State<RevenueDetailWidget> {
           widget: Scaffold(
             key: scaffoldKey,
             backgroundColor: backgroundColor,
-            bottomNavigationBar: const CustomNavbar(
+            bottomNavigationBar: CustomNavbar(
               indexCurrent: 1,
             ),
-            endDrawer: CustomDrawer(),
+            endDrawer: CustomDrawer(
+              scaffoldKey: scaffoldKey,
+            ),
             appBar: PreferredSize(
                 preferredSize: Size.fromHeight(MediaQuery.sizeOf(context).height * 0.9),
                 child: AppBar(
@@ -207,7 +209,7 @@ class _RevenueDetailWidgetState extends State<RevenueDetailWidget> {
                                                         onPressed: () {
                                                           if(_viewModel.setEditData()){
                                                             Future.delayed(const Duration(milliseconds: 250)).then((_) {
-                                                              Navigator.popAndPushNamed(context, '/AddRevenue');
+                                                              Navigator.pushNamed(context, '/AddRevenue');
                                                             });
                                                           }else{
                                                             toastification.show(

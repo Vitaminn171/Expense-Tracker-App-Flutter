@@ -21,7 +21,7 @@ class AddButton extends StatelessWidget {
     return FFButtonWidget(
       onPressed: () async {
         Navigator.pop(context);
-        Navigator.popAndPushNamed(context, route);
+        Navigator.pushNamed(context, route);
       },
       text: title,
       options: FFButtonOptions(

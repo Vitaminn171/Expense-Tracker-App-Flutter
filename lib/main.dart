@@ -42,12 +42,17 @@ Future<void> main() async {
   final prefs = await SharedPreferences.getInstance();
 
   String initRoute = '/Home';
+  Widget home = HomeWidget();
 
   if(prefs.getString('this_email') == null || prefs.getString('this_username') == null){
     initRoute = '/Login';
+    home = LoginWidget();
   }
   //TODO: check internet connection for entire app
   //https://pub.dev/packages/internet_connection_checker_plus
+
+  final tween = Tween(begin: const Offset(0.0, 1.0), end: Offset.zero);
+
 
   runApp(
       MultiProvider(
@@ -72,28 +77,166 @@ Future<void> main() async {
               .ltr, // Or TextDirection.rtl for right-to-left languages
           child: MaterialApp(
             theme: ThemeData(
-              bottomSheetTheme: BottomSheetThemeData(
+              bottomSheetTheme: const BottomSheetThemeData(
                 dragHandleColor: alternate2Color, // --> This will change the color of the drag handle
               ),
             ),
-            initialRoute: initRoute,
+            //initialRoute: initRoute,
+            home: home,
+            // onGenerateRoute: (RouteSettings settings) {
+            //   print('========================> Current route: ${settings.name}');
+            //   switch (settings.name) {
+            //     case '/Login':
+            //       return PageRouteBuilder(
+            //         pageBuilder: (context, animation, secondaryAnimation) => const LoginWidget(),
+            //         transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            //           final offsetAnimation = animation.drive(tween);
+            //           return SlideTransition(
+            //             position: offsetAnimation,
+            //             child: child,
+            //           );
+            //         },
+            //       );
+            //     case '/Register':
+            //       return PageRouteBuilder(
+            //         pageBuilder: (context, animation, secondaryAnimation) => const RegisterWidget(),
+            //         transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            //           final offsetAnimation = animation.drive(tween);
+            //           return SlideTransition(
+            //             position: offsetAnimation,
+            //             child: child,
+            //           );
+            //         },
+            //       );
+            //     case '/Otp':
+            //       return PageRouteBuilder(
+            //         pageBuilder: (context, animation, secondaryAnimation) => const RegisterOTPWidget(),
+            //         transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            //           final offsetAnimation = animation.drive(tween);
+            //           return SlideTransition(
+            //             position: offsetAnimation,
+            //             child: child,
+            //           );
+            //         },
+            //       );
+            //     case '/Home':
+            //       return PageRouteBuilder(
+            //         pageBuilder: (context, animation, secondaryAnimation) => const HomeWidget(),
+            //         transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            //           final offsetAnimation = animation.drive(tween);
+            //           return SlideTransition(
+            //             position: offsetAnimation,
+            //             child: child,
+            //           );
+            //         },
+            //       );
+            //     case '/AddRevenue':
+            //       return PageRouteBuilder(
+            //         pageBuilder: (context, animation, secondaryAnimation) => const AddRevenueWidget(),
+            //         transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            //           final offsetAnimation = animation.drive(tween);
+            //           return SlideTransition(
+            //             position: offsetAnimation,
+            //             child: child,
+            //           );
+            //         },
+            //       );
+            //     case '/AddExpense':
+            //       return PageRouteBuilder(
+            //         pageBuilder: (context, animation, secondaryAnimation) => const AddExpenseWidget(),
+            //         transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            //           final offsetAnimation = animation.drive(tween);
+            //           return SlideTransition(
+            //             position: offsetAnimation,
+            //             child: child,
+            //           );
+            //         },
+            //       );
+            //     case '/RevenueList':
+            //       return PageRouteBuilder(
+            //         pageBuilder: (context, animation, secondaryAnimation) => const RevenueListWidget(),
+            //         transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            //           final offsetAnimation = animation.drive(tween);
+            //           return SlideTransition(
+            //             position: offsetAnimation,
+            //             child: child,
+            //           );
+            //         },
+            //       );
+            //     case '/ExpenseList':
+            //       return PageRouteBuilder(
+            //         pageBuilder: (context, animation, secondaryAnimation) => const ExpenseListWidget(),
+            //         transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            //           final offsetAnimation = animation.drive(tween);
+            //           return SlideTransition(
+            //             position: offsetAnimation,
+            //             child: child,
+            //           );
+            //         },
+            //       );
+            //     case '/RevenueDetail':
+            //       return PageRouteBuilder(
+            //         pageBuilder: (context, animation, secondaryAnimation) => const RevenueDetailWidget(),
+            //         transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            //           final offsetAnimation = animation.drive(tween);
+            //           return SlideTransition(
+            //             position: offsetAnimation,
+            //             child: child,
+            //           );
+            //         },
+            //       );
+            //     case '/ExpenseDetail':
+            //       return PageRouteBuilder(
+            //         pageBuilder: (context, animation, secondaryAnimation) => const ExpenseDetailWidget(),
+            //         transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            //           final offsetAnimation = animation.drive(tween);
+            //           return SlideTransition(
+            //             position: offsetAnimation,
+            //             child: child,
+            //           );
+            //         },
+            //       );
+            //     case '/Setting':
+            //       return PageRouteBuilder(
+            //         pageBuilder: (context, animation, secondaryAnimation) => const SettingWidget(),
+            //         transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            //           final offsetAnimation = animation.drive(tween);
+            //           return SlideTransition(
+            //             position: offsetAnimation,
+            //             child: child,
+            //           );
+            //         },
+            //       );
+            //     default:
+            //       throw Exception('Invalid route: ${settings.name}');
+            //   }
+            // },
+
             routes: {
-              '/Login': (context) => const LoginWidget(),
-              '/Register': (context) => const RegisterWidget(),
-              '/Otp': (context) => const RegisterOTPWidget(),
+              '/Login': (_) => const LoginWidget(),
+              '/Register': (_) => const RegisterWidget(),
+              '/Otp': (_) => const RegisterOTPWidget(),
               '/Home': (_) => const HomeWidget(),
               //'/HomePage': (_) => HomePageWidget(),
               // '/HomeExtend': (context) => const LoginWidget(),
-              '/AddRevenue': (context) => const AddRevenueWidget(),
-              '/AddExpense': (context) => const AddExpenseWidget(),
+              '/AddRevenue': (_) => const AddRevenueWidget(),
+              '/AddExpense': (_) => const AddExpenseWidget(),
               // '/AddSaving': (context) => const LoginWidget(),
-              '/RevenueList': (context) => const RevenueListWidget(),
-              '/ExpenseList': (context) => const ExpenseListWidget(),
+              '/RevenueList': (_) => const RevenueListWidget(),
+              '/ExpenseList': (_) => const ExpenseListWidget(),
+              // '/ExpenseList': (_) =>
+              // MaterialPageRoute(
+              //   builder: (context) => ExpenseListWidget(),
+              //   pageBuilder: (context, animation, secondaryAnimation) => FadeTransition(
+              //     opacity: animation,
+              //     child: ExpenseListWidget(),
+              //   ),
+              // ),
               // '/SavingList': (context) => const LoginWidget(),
-              '/RevenueDetail': (context) => const RevenueDetailWidget(),
-              '/ExpenseDetail': (context) => const ExpenseDetailWidget(),
+              '/RevenueDetail': (_) => const RevenueDetailWidget(),
+              '/ExpenseDetail': (_) => const ExpenseDetailWidget(),
               // '/SavingDetail': (context) => const LoginWidget(),
-              '/Setting': (context) => const SettingWidget(),
+              '/Setting': (_) => const SettingWidget(),
               // '/ChangeColor': (context) => const LoginWidget(),
             },
             supportedLocales: const [

@@ -87,7 +87,7 @@ class _RevenueListWidgetState extends State<RevenueListWidget> {
                 ),
                 backgroundColor: secondaryColor,
                 onPressed: () {
-                  Navigator.popAndPushNamed(context, '/AddRevenue');
+                  Navigator.pushNamed(context, '/AddRevenue');
                 },
                 enableFeedback: true,
                 child: const Icon(
@@ -104,6 +104,7 @@ class _RevenueListWidgetState extends State<RevenueListWidget> {
               indexCurrent: 2,
             ),
             endDrawer: CustomDrawer(
+              scaffoldKey: scaffoldKey,
               index: 0,
             ),
             appBar: PreferredSize(
@@ -299,7 +300,7 @@ class _RevenueListWidgetState extends State<RevenueListWidget> {
                                               return InkWell(
                                                 onTap: () {
                                                   _viewModel.setRevenueDetail(items);
-                                                  Navigator.popAndPushNamed(context, '/RevenueDetail');
+                                                  Navigator.pushNamed(context, '/RevenueDetail');
                                                 },
                                                 onLongPress: () {
                                                   showDialog(
@@ -330,7 +331,7 @@ class _RevenueListWidgetState extends State<RevenueListWidget> {
                                                                 autoCloseDuration: const Duration(seconds: 3),
                                                               );
                                                             }
-                                                            Navigator.popAndPushNamed(context, '/Home');
+                                                            Navigator.pop(context);
                                                           }));
                                                 },
                                                 child: TransactionItems(

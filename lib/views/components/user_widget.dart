@@ -33,7 +33,8 @@ class UserWidget extends StatelessWidget {
               child: InkWell(
                 onTap: () {
                   if (flag == null || flag == false) {
-                    Navigator.popAndPushNamed(context, route ?? '/Home');
+                    // Navigator.pop(context, route ?? '/Home');
+                    Navigator.pop(context);
                   } else {
                     showDialog(
                         context: context,
@@ -44,7 +45,7 @@ class UserWidget extends StatelessWidget {
                                 save!();
                               },
                               actionCancel: () {
-                                Navigator.popAndPushNamed(context, '/Home');
+                                Navigator.pop(context);
                               },
                             ));
                   }
@@ -150,7 +151,7 @@ class UserWidget extends StatelessWidget {
                             Text(
                                 userProvider.user?.email.toString() ?? 'Loading...',
                                 //'Loading...asddddddddddddddddddddddddddddddddddddddd',
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontFamily: 'Nunito',
                                     fontSize: 14,
                                     letterSpacing: 0.0,

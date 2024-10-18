@@ -10,11 +10,13 @@ import 'package:expenseapp/viewmodels/utils.dart';
 
 class CustomDrawer extends StatelessWidget {
   final int? index;
+  final scaffoldKey;
 
 
   CustomDrawer({
     super.key,
     this.index,
+    required this.scaffoldKey
   });
 
   TextStyle style = const TextStyle(
@@ -57,7 +59,9 @@ class CustomDrawer extends StatelessWidget {
         style: ToastificationStyle.flatColored,
         autoCloseDuration: const Duration(seconds: 3),
       );
-      Navigator.popAndPushNamed(context, '/Login');
+      Navigator.of(context, rootNavigator: true).pushNamedAndRemoveUntil('/Login', (Route<dynamic> route) => false,);
+      // Navigator.pushReplacementNamed(context, '/Login');
+      //Navigator.popAndPushNamed(context, '/Login');
     }
   }
 
@@ -147,7 +151,8 @@ class CustomDrawer extends StatelessWidget {
                     splashColor: Colors.transparent,
                     onTap: () {
                       if(index != 1){
-                        Navigator.popAndPushNamed(context, '/Home');
+                        scaffoldKey.currentState?.closeEndDrawer();
+                        Navigator.pushNamed(context, '/Home');
                       }
                     },
                     child: Card(
@@ -191,7 +196,9 @@ class CustomDrawer extends StatelessWidget {
                     splashColor: Colors.transparent,
                     onTap: () {
                       if(index != 2){
-                        Navigator.popAndPushNamed(context, '/Setting');
+                        scaffoldKey.currentState?.closeEndDrawer();
+                        Navigator.pushNamed(context, '/Setting');
+
                       }
 
                     },

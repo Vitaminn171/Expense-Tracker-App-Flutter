@@ -73,7 +73,7 @@ class _RegisterOTPWidgetState extends State<RegisterOTPWidget> {
         style: ToastificationStyle.flatColored,
         autoCloseDuration: const Duration(seconds: 3),
       );
-      Navigator.popAndPushNamed(context, '/Home');
+      Navigator.pop(context);
     }
   }
 
@@ -215,7 +215,7 @@ class _RegisterOTPWidgetState extends State<RegisterOTPWidget> {
                       children: [
                         FFButtonWidget(
                           onPressed: () {
-                            Navigator.popAndPushNamed(context, '/Otp');
+                            Navigator.pushNamed(context, '/Otp');
                           },
                           text: 'Gửi lại',
                           options: FFButtonOptions(

@@ -51,6 +51,9 @@ class _ExpenseListWidgetState extends State<ExpenseListWidget> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       _viewModel.getExpenxeData(_selectedDateRange!);
+      // if (Navigator.canPop(context)) {
+      //   Navigator.popUntil(context, ModalRoute.withName('/Home'));
+      // }
     });
   }
 
@@ -75,6 +78,7 @@ class _ExpenseListWidgetState extends State<ExpenseListWidget> {
   Widget build(BuildContext context) {
     var size = MediaQuery.sizeOf(context).height;
     var heightContainer = size * 0.5625;
+    final currentRouteName = ModalRoute.of(context)?.settings.name;
 
     return GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
@@ -89,7 +93,7 @@ class _ExpenseListWidgetState extends State<ExpenseListWidget> {
                 ),
                 backgroundColor: secondaryColor,
                 onPressed: () {
-                  Navigator.popAndPushNamed(context, '/AddExpense');
+                  Navigator.pushNamed(context, '/AddExpense');
                 },
                 enableFeedback: true,
                 child: const Icon(
@@ -106,6 +110,7 @@ class _ExpenseListWidgetState extends State<ExpenseListWidget> {
               indexCurrent: 1,
             ),
             endDrawer: CustomDrawer(
+              scaffoldKey: scaffoldKey,
               index: 0,
             ),
             appBar: PreferredSize(
@@ -301,7 +306,7 @@ class _ExpenseListWidgetState extends State<ExpenseListWidget> {
                                               return InkWell(
                                                 onTap: () {
                                                   _viewModel.setExpenseDetail(items);
-                                                  Navigator.popAndPushNamed(context, '/ExpenseDetail');
+                                                  Navigator.pushNamed(context, '/ExpenseDetail');
                                                 },
                                                 onLongPress: () {
                                                   showDialog(
@@ -332,7 +337,7 @@ class _ExpenseListWidgetState extends State<ExpenseListWidget> {
                                                                 autoCloseDuration: const Duration(seconds: 3),
                                                               );
                                                             }
-                                                            Navigator.popAndPushNamed(context, '/Home');
+                                                            Navigator.pushNamed(context, '/Home');
                                                           }));
                                                 },
                                                 child: TransactionItems(

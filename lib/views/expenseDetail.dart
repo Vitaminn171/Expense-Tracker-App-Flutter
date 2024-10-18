@@ -63,10 +63,12 @@ class _ExpenseDetailWidgetState extends State<ExpenseDetailWidget> {
           widget: Scaffold(
             key: scaffoldKey,
             backgroundColor: backgroundColor,
-            bottomNavigationBar: const CustomNavbar(
+            bottomNavigationBar: CustomNavbar(
               indexCurrent: 1,
             ),
-            endDrawer: CustomDrawer(),
+            endDrawer: CustomDrawer(
+              scaffoldKey: scaffoldKey,
+            ),
             appBar: PreferredSize(
                 preferredSize: Size.fromHeight(MediaQuery.sizeOf(context).height * 0.9),
                 child: AppBar(
@@ -207,7 +209,7 @@ class _ExpenseDetailWidgetState extends State<ExpenseDetailWidget> {
                                             onPressed: () {
                                               if(_viewModel.setEditData()){
                                                 Future.delayed(const Duration(milliseconds: 250)).then((_) {
-                                                  Navigator.popAndPushNamed(context, '/AddExpense');
+                                                  Navigator.pushNamed(context,'/AddExpense');
                                                 });
                                               }else{
                                                 toastification.show(

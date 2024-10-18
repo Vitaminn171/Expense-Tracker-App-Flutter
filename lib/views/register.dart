@@ -355,7 +355,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                           alignment: const AlignmentDirectional(0, 0),
                           child: InkWell(
                             onTap:() {
-                              Navigator.pushNamed(context, "/Login");
+                              Navigator.pop(context);
                             },
                             child:  const Text(
                             ' Đăng nhập tại đây!',

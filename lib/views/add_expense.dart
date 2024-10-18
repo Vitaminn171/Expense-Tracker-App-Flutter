@@ -47,9 +47,9 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       _viewModel.getListTransactionsDetail();
 
-        setState(() {
-          _selectedDate = _viewModel.selectedDate ?? DateTime(Utils.now.year, Utils.now.month, Utils.now.day);
-        });
+      setState(() {
+        _selectedDate = _viewModel.selectedDate ?? DateTime(Utils.now.year, Utils.now.month, Utils.now.day);
+      });
 
       _model.textController_date ??= TextEditingController();
       _model.textFieldFocusNode_date ??= FocusNode();
@@ -64,10 +64,7 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
 
       _model.textController_tag ??= TextEditingController();
       _model.textFieldFocusNode_tag ??= FocusNode();
-
     });
-
-
   }
 
   @override
@@ -87,7 +84,8 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
       if (flag) {
         _heightContainer = 600;
       } else {
-        _heightContainer = size * 0.26953125;
+        _heightContainer = size * 0.43359375;
+        print(_heightContainer);
       }
     });
   }
@@ -107,7 +105,7 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.sizeOf(context).height;
-    var heightContainer = size * 0.26953125;
+    var heightContainerListView = size * 0.26953125;
     print(size);
 
     return GestureDetector(
@@ -117,6 +115,7 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                 key: scaffoldKey,
                 backgroundColor: backgroundColor,
                 endDrawer: CustomDrawer(
+                  scaffoldKey: scaffoldKey,
                   index: 0,
                 ),
                 appBar: PreferredSize(
@@ -241,7 +240,7 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                                                           if (snapshot.data != null) {
                                                             final data = snapshot.data!;
                                                             return SizedBox(
-                                                              height: heightContainer,
+                                                              height: heightContainerListView,
                                                               child: ListView.builder(
                                                                 // itemCount: data.length,
                                                                 itemCount: data.length,
@@ -393,7 +392,7 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                                                             filled: true,
                                                             fillColor: isAdded == true ? alternateColor : const Color(0xFFFEFEFE),
                                                             labelText: 'Ngày',
-                                                            labelStyle:const  TextStyle(
+                                                            labelStyle: const TextStyle(
                                                                 fontFamily: 'Nunito', fontSize: 15, letterSpacing: 0.0, color: textSecondary),
                                                             hintStyle: const TextStyle(
                                                               fontFamily: 'Nunito',
@@ -713,7 +712,7 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                                                         text: 'Thêm',
                                                         options: FFButtonOptions(
                                                           height: 40,
-                                                          padding: const  EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
+                                                          padding: const EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
                                                           iconPadding: const EdgeInsets.all(0),
                                                           color: secondaryColor,
                                                           textStyle: const TextStyle(
@@ -757,7 +756,7 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                     style: ToastificationStyle.flatColored,
                     autoCloseDuration: const Duration(seconds: 3),
                   );
-                  Navigator.popAndPushNamed(context, '/Home');
+                  Navigator.of(context, rootNavigator: true).pushNamedAndRemoveUntil('/Home', (Route<dynamic> route) => false,);
                 } else {
                   if (_viewModel.errorMessage.isNotEmpty) {
                     toastification.show(

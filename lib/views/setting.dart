@@ -63,6 +63,7 @@ class _SettingWidgetState extends State<SettingWidget> {
             widget: Scaffold(
           key: scaffoldKey,
           endDrawer: CustomDrawer(
+            scaffoldKey: scaffoldKey,
             index: 2,
           ),
           backgroundColor: backgroundColor,

@@ -11,6 +11,14 @@ class UserProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  bool _isChanged = false;
+  bool get isChanged => _isChanged;
+
+  void setChanged(bool newValue) {
+    _isChanged = newValue;
+    notifyListeners();
+  }
+
   final GoogleSignIn _googleSignIn = GoogleSignIn(
     scopes: [
       'email',
