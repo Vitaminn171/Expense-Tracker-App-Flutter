@@ -35,7 +35,7 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   EmailOTP.config(
-    appName: 'MyApp',
+    appName: 'Ứng dụng chi tiêu',
     otpType: OTPType.numeric,
     expiry: 300000,
     emailTheme: EmailTheme.v6,
