@@ -152,7 +152,7 @@ class CustomDrawer extends StatelessWidget {
                     onTap: () {
                       if(index != 1){
                         scaffoldKey.currentState?.closeEndDrawer();
-                        Navigator.pushNamed(context, '/Home');
+                        Navigator.of(context, rootNavigator: true).pushNamedAndRemoveUntil('/Home', (Route<dynamic> route) => false,);
                       }
                     },
                     child: Card(

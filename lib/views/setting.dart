@@ -163,9 +163,9 @@ class _SettingWidgetState extends State<SettingWidget> {
                                                 ],
                                               ),
                                             ),
-                                           SettingItems(text: 'Chỉnh sửa thông tin cá nhân', action: () {}, icon: Icons.manage_accounts_rounded,),
-                                            SettingItems(text: 'Đổi mật khẩu', action: () {}, icon: Icons.password_rounded,),
-                                            SettingItems(text: 'Chuyển đổi tài khoản Google', action: () {}, icon: Icons.manage_accounts_rounded,),
+                                           const SettingItems(text: 'Chỉnh sửa thông tin cá nhân', route: '/EditProfile', icon: Icons.manage_accounts_rounded,),
+                                            SettingItems(text: 'Đổi mật khẩu', route: '/EditProfile', icon: Icons.password_rounded,),
+                                            SettingItems(text: 'Chuyển đổi tài khoản Google', route: '/EditProfile', icon: Icons.manage_accounts_rounded,),
                                           ],
                                         );
                                       }

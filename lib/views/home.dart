@@ -59,6 +59,10 @@ class _HomeWidgetState extends State<HomeWidget> {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.sizeOf(context).height;
+    var heightContainer = size * 0.421875;
+
+
     return ChangeNotifierProvider(
         create: (context) => _viewModel,
         child: CustomPopscope(
@@ -77,7 +81,7 @@ class _HomeWidgetState extends State<HomeWidget> {
             indexCurrent: 0,
           ),
           appBar: PreferredSize(
-            preferredSize: Size.fromHeight(MediaQuery.sizeOf(context).height * 0.91),
+            preferredSize: Size.fromHeight(MediaQuery.sizeOf(context).height * 1),
             child: AppBar(
               backgroundColor: backgroundColor,
               automaticallyImplyLeading: false,
@@ -385,9 +389,11 @@ class _HomeWidgetState extends State<HomeWidget> {
                                     })),
                           ),
                         ),
-                        Container(
+                        Padding(
+                          padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                          child:Container(
                           width: double.infinity,
-                          height: 280,
+                          height: heightContainer,
                           decoration: const BoxDecoration(
                             color: backgroundColor,
                             boxShadow: [
@@ -552,6 +558,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                               ],
                             ),
                           ),
+                        ),
                         ),
                       ],
                     ),

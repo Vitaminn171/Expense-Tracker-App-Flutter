@@ -6,6 +6,7 @@ import 'package:expenseapp/viewmodels/revenue_viewmodel.dart';
 import 'package:expenseapp/viewmodels/setting_viewmodel.dart';
 import 'package:expenseapp/views/add_expense.dart';
 import 'package:expenseapp/views/add_revenue.dart';
+import 'package:expenseapp/views/edit_profile.dart';
 import 'package:expenseapp/views/expense.dart';
 import 'package:expenseapp/views/expenseDetail.dart';
 import 'package:expenseapp/views/home.dart';
@@ -63,6 +64,7 @@ Future<void> main() async {
 
         ChangeNotifierProvider(create: (context) => HomeViewModel(context.read<UserProvider>(),context.read<ExpenseProvider>(),context.read<RevenueProvider>())),
         ChangeNotifierProvider(create: (context) => SettingViewModel(context.read<UserProvider>())),
+        ChangeNotifierProvider(create: (context) => EditProfileViewModel(context.read<UserProvider>())),
 
         ChangeNotifierProvider(create: (context) => ExpenseListViewModel(context.read<UserProvider>(),context.read<ExpenseProvider>())),
         ChangeNotifierProvider(create: (context) => ExpenseDetailViewModel(context.read<UserProvider>(),context.read<ExpenseProvider>())),
@@ -237,6 +239,7 @@ Future<void> main() async {
               '/ExpenseDetail': (_) => const ExpenseDetailWidget(),
               // '/SavingDetail': (context) => const LoginWidget(),
               '/Setting': (_) => const SettingWidget(),
+              '/EditProfile': (_) => const EditProfileWidget(),
               // '/ChangeColor': (context) => const LoginWidget(),
             },
             supportedLocales: const [

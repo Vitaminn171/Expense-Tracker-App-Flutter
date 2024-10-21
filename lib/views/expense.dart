@@ -123,7 +123,8 @@ class _ExpenseListWidgetState extends State<ExpenseListWidget> {
                        Container(),
                     ],
                     flexibleSpace: FlexibleSpaceBar(
-                        background: Stack(children: [
+                        background: Stack(
+                            children: [
                       BackgroundWidget(
                         alignmentDirectional: const AlignmentDirectional(0, -1),
                         imgHeight: 500,
@@ -358,7 +359,10 @@ class _ExpenseListWidgetState extends State<ExpenseListWidget> {
                               }
                             });
                       }),
-                    ])))),
+                    ])
+                    )
+                )
+            ),
           ),
         ));
   }

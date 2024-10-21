@@ -4,10 +4,10 @@ import 'package:expenseapp/models/colors.dart';
 
 class SettingItems extends StatelessWidget {
   final String text;
-  final Function action;
+  final String route;
   final IconData icon;
 
-  const SettingItems({super.key, required this.text, required this.action, required this.icon});
+  const SettingItems({super.key, required this.text, required this.route, required this.icon});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class SettingItems extends StatelessWidget {
       padding: const EdgeInsetsDirectional.fromSTEB(25, 5, 25, 0),
       child: InkWell(
           onTap: () {
-            action;
+            Navigator.of(context, rootNavigator: true).pushNamed(route);
           },
           child: Card(
             elevation: 10,
