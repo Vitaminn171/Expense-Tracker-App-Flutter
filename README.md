@@ -1,5 +1,8 @@
 # Ứng dụng chi tiêu
 Ứng dụng di động này, được xây dựng bằng Flutter, cung cấp một ứng dụng thân thiện với người dùng để theo dõi tài chính, phân loại chi tiêu và thu được những hiểu biết có giá trị về ngân sách của bạn.
+
+![HomeScreen](/assets/images/home_screen.jpg)
+
 ## Tính năng
 - Theo dõi chi phí dễ dàng: Ghi lại chi tiết thu nhập và chi tiêu của bạn một cách dễ dàng.
 - Đăng nhập an toàn: Đăng nhập thuận tiện bằng tài khoản Google của bạn, đảm bảo quyền truy cập an toàn vào dữ liệu tài chính của bạn.
