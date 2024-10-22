@@ -19,13 +19,15 @@ class UserProvider extends ChangeNotifier {
     _isChanged = newValue;
     notifyListeners();
   }
-
   final GoogleSignIn _googleSignIn = GoogleSignIn(
     scopes: [
       'email',
       'profile',
       'https://www.googleapis.com/auth/userinfo.profile',
-    ],);
+      'openid',
+    ],
+  );
+
 
   GoogleSignIn get googleSignIn => _googleSignIn;
 

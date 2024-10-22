@@ -52,8 +52,6 @@ Future<void> main() async {
   //TODO: check internet connection for entire app
   //https://pub.dev/packages/internet_connection_checker_plus
 
-  final tween = Tween(begin: const Offset(0.0, 1.0), end: Offset.zero);
-
 
   runApp(
       MultiProvider(
