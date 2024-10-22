@@ -1,7 +1,16 @@
 # Ứng dụng chi tiêu
+
+![Static Badge](https://img.shields.io/badge/Framework-Flutter-blue?logo=flutter&logoColor=white) 
+![Static Badge](https://img.shields.io/badge/Language-Dart-darkblue?logo=dart&logoColor=white)
+![Static Badge](https://img.shields.io/badge/Database-Cloud_Firestore-orange?logo=firebase&logoColor=white)
+![Static Badge](https://img.shields.io/badge/Sign_In-Google-red?logo=google&logoColor=%234285F4&labelColor=%23ffffff&color=%234285F4)
+![Static Badge](https://img.shields.io/badge/UI%2FUX_Design_Tool-FlutterFlow-purple?color=%234b39ef)
+
 Ứng dụng di động này, được xây dựng bằng Flutter, cung cấp một ứng dụng thân thiện với người dùng để theo dõi tài chính, phân loại chi tiêu và thu được những hiểu biết có giá trị về ngân sách của bạn.
 
-![HomeScreen](/assets/images/home_screen.jpg)
+<img src="/assets/images/home_screen.jpg" alt="drawing" style="width:400px;"/>
+
+![Banner](/assets/images/banner.png)
 
 ## Tính năng
 - Theo dõi chi phí dễ dàng: Ghi lại chi tiết thu nhập và chi tiêu của bạn một cách dễ dàng.
@@ -14,3 +23,5 @@
 ## Hướng dẫn cài đặt
 ### Cài đặt bằng file APK
 Tải và cài đặt file APK với link: [Tải tại đây](https://drive.google.com/drive/u/0/folders/1AYpYRPymtNwP3n9lWXgVzmfSZbflvRh7).
+
+
